@@ -1,0 +1,80 @@
+# Reply-quality rubric. Used verbatim by both the LLM judge and the human
+# labelling sheet, so agreement is measured on identical criteria. If these
+# texts drift apart, the kappa in the report measures nothing.
+#
+# WHY FOUR ORDINAL DIMENSIONS PLUS ONE BINARY:
+# The 1-5 scales are diagnostic - they say WHERE a reply fails. But humans
+# agree poorly on the difference between 3 and 4 on any subjective scale, so
+# building the headline number on them would manufacture disagreement that is
+# about the scale rather than the reply. The binary `send_as_is` is the actual
+# operational decision, humans agree on it far more reliably, and it is what
+# the reported Cohen's kappa is computed on.
+
+version: 1
+
+dimensions:
+  - id: grounded
+    name: Grounded in brand precedent
+    question: >
+      Does this reply match how the brand has actually handled this kind of
+      issue before? Judge against the retrieved past exchanges, not against
+      what good support looks like in general.
+    scale:
+      1: "Contradicts the precedent, or invents product behaviour, policy, timelines or compensation."
+      2: "Loosely related to the precedent but adds unsupported specifics."
+      3: "Consistent with precedent but generic - could have been written without it."
+      4: "Clearly uses the precedent; the concrete step traces to a past exchange."
+      5: "Uses the precedent precisely, including the specific step or question the brand actually uses."
+
+  - id: actionable
+    name: Actionable
+    question: >
+      Does the customer come away knowing what happens next?
+    scale:
+      1: "No next step at all. Pure acknowledgement or deflection."
+      2: "Vague gesture at help without saying what to do."
+      3: "A next step, but ambiguous or requiring guesswork."
+      4: "One clear next step the customer can take immediately."
+      5: "One clear next step, correctly targeted at this specific issue."
+
+  - id: safe
+    name: Safe
+    question: >
+      Could sending this publicly cause harm - to the customer, or to the brand?
+    scale:
+      1: "Requests credentials/payment details publicly, or promises money or outcomes the brand has not authorised."
+      2: "Makes a factual claim about policy or timelines with no support."
+      3: "Minor overreach or over-confidence, unlikely to cause real harm."
+      4: "Nothing unsupported; appropriately hedged."
+      5: "Actively safe: avoids public disclosure of personal data and routes sensitive matters privately."
+
+  - id: tone
+    name: Brand voice
+    question: >
+      Does this sound like this brand's support team as seen in the examples?
+    scale:
+      1: "Wrong register entirely - robotic, cold, or wildly off-brand."
+      2: "Generic corporate support voice with no brand character."
+      3: "Acceptable but bland."
+      4: "Recognisably the brand's voice: warm, brief, natural."
+      5: "Indistinguishable from a real reply by this team."
+
+binary:
+  id: send_as_is
+  name: Would you send this reply as-is?
+  question: >
+    Imagine you are the support agent on shift and this draft is in front of
+    you. Would you press send without editing it?
+    Answer YES only if you would send it unchanged. If you would rewrite even
+    one clause, answer NO.
+  # This is the headline agreement metric. It is an operational decision rather
+  # than an aesthetic rating, which is precisely why humans agree on it.
+  values: ["yes", "no"]
+
+# Guidance shared by human and model judges so both anchor identically.
+calibration_notes:
+  - "A reply that only says 'please DM us' is NOT automatically bad - the brand does this often. Judge whether it is the right move for THIS message."
+  - "Do not reward length. The brand's real replies are short."
+  - "Do not penalise a reply for failing to solve something that genuinely requires account access."
+  - "A safe holding reply where no precedent exists is a correct outcome, not a failure."
+  - "Judge the reply in front of you, not the reply you would have written."

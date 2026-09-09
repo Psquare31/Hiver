@@ -1,0 +1,19 @@
+# Raw + processed data. The corpus is 516MB; `make data` rebuilds it from the
+# HuggingFace mirror in a few minutes, so it does not belong in git.
+data/raw/
+data/processed/
+
+# Secrets
+.env
+
+# Rate-limiter day counters - machine-local state, not results
+cache/ratelimit/
+
+# The LLM response cache IS committed - it is what makes `make reproduce`
+# work offline. See README. Only exclude the scratch temp files.
+cache/llm/**/*.tmp
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/

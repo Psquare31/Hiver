@@ -1,0 +1,16 @@
+brand,agent_tweets,substantive_pct,handoff_pct,median_words,groundable_replies
+AppleSupport,106860,37.1,47.2,19,39603
+AmazonHelp,169840,5.9,40.4,17,9941
+SpotifyCares,43265,18.4,50.3,19,7962
+XboxSupport,24557,17.2,38.8,17,4224
+sprintcare,22381,9.4,45.9,19,2096
+TMobileHelp,34317,5.0,65.8,19,1710
+AmericanAir,36764,4.6,8.5,18,1697
+Tesco,38573,4.0,20.7,24,1559
+British_Airways,29361,5.2,17.0,20,1520
+VirginTrains,27817,5.4,12.0,12,1498
+Delta,42253,3.5,18.6,16,1490
+SouthwestAir,28977,4.5,24.6,18,1316
+Uber_Support,56270,2.2,75.7,17,1251
+comcastcares,33031,3.3,38.0,22,1078
+Ask_Spectrum,25860,3.0,64.0,21,772

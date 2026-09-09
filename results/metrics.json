@@ -1,0 +1,272 @@
+[
+  {
+    "system": "always_dm",
+    "n": 210,
+    "intent_accuracy_raw": {
+      "point": 0.14761904761904762,
+      "ci_lo": 0.1,
+      "ci_hi": 0.2
+    },
+    "intent_accuracy_weighted": {
+      "point": 0.10157182024689115,
+      "ci_lo": 0.057360225515125214,
+      "ci_hi": 0.1495842280733657
+    },
+    "intent_macro_f1": {
+      "point": 0.025726141078838173,
+      "ci_lo": 0.01818181818181818,
+      "ci_hi": 0.03333333333333333
+    },
+    "routing_raw": {
+      "harmful_auto_rate": {
+        "point": 0.30952380952380953,
+        "ci_lo": 0.24761904761904763,
+        "ci_hi": 0.3715476190476184
+      },
+      "unnecessary_escalation_rate": {
+        "point": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0
+      },
+      "escalation_recall": {
+        "point": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0
+      },
+      "escalation_precision": {
+        "point": NaN,
+        "ci_lo": NaN,
+        "ci_hi": NaN
+      },
+      "auto_handled_rate": {
+        "point": 1.0,
+        "ci_lo": 1.0,
+        "ci_hi": 1.0
+      },
+      "n": 210
+    },
+    "routing_weighted": {
+      "harmful_auto_rate": {
+        "point": 0.3191299008379059,
+        "ci_lo": 0.25250397636936533,
+        "ci_hi": 0.3901586730629037
+      },
+      "unnecessary_escalation_rate": {
+        "point": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0
+      },
+      "escalation_recall": {
+        "point": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0
+      },
+      "escalation_precision": {
+        "point": NaN,
+        "ci_lo": NaN,
+        "ci_hi": NaN
+      },
+      "auto_handled_rate": {
+        "point": 1.0,
+        "ci_lo": 1.0,
+        "ci_hi": 1.0
+      },
+      "n": 210
+    },
+    "headline_safe_auto": {
+      "auto_handled_rate": {
+        "point": 1.0,
+        "ci_lo": 1.0,
+        "ci_hi": 1.0
+      },
+      "harmful_auto_rate": {
+        "point": 0.3191299008379059,
+        "ci_lo": 0.25250397636936533,
+        "ci_hi": 0.3901586730629037
+      },
+      "harm_budget": 0.05,
+      "within_budget": false,
+      "safe_auto_rate": 0.0
+    }
+  },
+  {
+    "system": "simple",
+    "n": 210,
+    "intent_accuracy_raw": {
+      "point": 0.580952380952381,
+      "ci_lo": 0.5190476190476191,
+      "ci_hi": 0.6523809523809524
+    },
+    "intent_accuracy_weighted": {
+      "point": 0.5610823931741235,
+      "ci_lo": 0.48054023544574703,
+      "ci_hi": 0.6374926990251991
+    },
+    "intent_macro_f1": {
+      "point": 0.5583058719599021,
+      "ci_lo": 0.4856593541088974,
+      "ci_hi": 0.6190752849149
+    },
+    "routing_raw": {
+      "harmful_auto_rate": {
+        "point": 0.12857142857142856,
+        "ci_lo": 0.08571428571428572,
+        "ci_hi": 0.1761904761904762
+      },
+      "unnecessary_escalation_rate": {
+        "point": 0.1,
+        "ci_lo": 0.06190476190476191,
+        "ci_hi": 0.14285714285714285
+      },
+      "escalation_recall": {
+        "point": 0.5846153846153846,
+        "ci_lo": 0.46153846153846156,
+        "ci_hi": 0.7076923076923077
+      },
+      "escalation_precision": {
+        "point": 0.6440677966101694,
+        "ci_lo": 0.5084745762711864,
+        "ci_hi": 0.7627118644067796
+      },
+      "auto_handled_rate": {
+        "point": 0.719047619047619,
+        "ci_lo": 0.6571428571428571,
+        "ci_hi": 0.780952380952381
+      },
+      "n": 210
+    },
+    "routing_weighted": {
+      "harmful_auto_rate": {
+        "point": 0.14999556070925787,
+        "ci_lo": 0.09796149966014055,
+        "ci_hi": 0.2075519473061945
+      },
+      "unnecessary_escalation_rate": {
+        "point": 0.12572444969423385,
+        "ci_lo": 0.0718320883515077,
+        "ci_hi": 0.18281883299285492
+      },
+      "escalation_recall": {
+        "point": 0.5846153846153846,
+        "ci_lo": 0.46153846153846156,
+        "ci_hi": 0.7076923076923077
+      },
+      "escalation_precision": {
+        "point": 0.6440677966101694,
+        "ci_lo": 0.5084745762711864,
+        "ci_hi": 0.7627118644067796
+      },
+      "auto_handled_rate": {
+        "point": 0.705141210177118,
+        "ci_lo": 0.6325757906685391,
+        "ci_hi": 0.7752187486500438
+      },
+      "n": 210
+    },
+    "headline_safe_auto": {
+      "auto_handled_rate": {
+        "point": 0.705141210177118,
+        "ci_lo": 0.6325757906685391,
+        "ci_hi": 0.7752187486500438
+      },
+      "harmful_auto_rate": {
+        "point": 0.14999556070925787,
+        "ci_lo": 0.09796149966014055,
+        "ci_hi": 0.2075519473061945
+      },
+      "harm_budget": 0.05,
+      "within_budget": false,
+      "safe_auto_rate": 0.0
+    }
+  },
+  {
+    "system": "trivial",
+    "n": 210,
+    "intent_accuracy_raw": {
+      "point": 0.14761904761904762,
+      "ci_lo": 0.1,
+      "ci_hi": 0.2
+    },
+    "intent_accuracy_weighted": {
+      "point": 0.10157182024689115,
+      "ci_lo": 0.057360225515125214,
+      "ci_hi": 0.1495842280733657
+    },
+    "intent_macro_f1": {
+      "point": 0.025726141078838173,
+      "ci_lo": 0.01818181818181818,
+      "ci_hi": 0.03333333333333333
+    },
+    "routing_raw": {
+      "harmful_auto_rate": {
+        "point": 0.30952380952380953,
+        "ci_lo": 0.24761904761904763,
+        "ci_hi": 0.3715476190476184
+      },
+      "unnecessary_escalation_rate": {
+        "point": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0
+      },
+      "escalation_recall": {
+        "point": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0
+      },
+      "escalation_precision": {
+        "point": NaN,
+        "ci_lo": NaN,
+        "ci_hi": NaN
+      },
+      "auto_handled_rate": {
+        "point": 1.0,
+        "ci_lo": 1.0,
+        "ci_hi": 1.0
+      },
+      "n": 210
+    },
+    "routing_weighted": {
+      "harmful_auto_rate": {
+        "point": 0.3191299008379059,
+        "ci_lo": 0.25250397636936533,
+        "ci_hi": 0.3901586730629037
+      },
+      "unnecessary_escalation_rate": {
+        "point": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0
+      },
+      "escalation_recall": {
+        "point": 0.0,
+        "ci_lo": 0.0,
+        "ci_hi": 0.0
+      },
+      "escalation_precision": {
+        "point": NaN,
+        "ci_lo": NaN,
+        "ci_hi": NaN
+      },
+      "auto_handled_rate": {
+        "point": 1.0,
+        "ci_lo": 1.0,
+        "ci_hi": 1.0
+      },
+      "n": 210
+    },
+    "headline_safe_auto": {
+      "auto_handled_rate": {
+        "point": 1.0,
+        "ci_lo": 1.0,
+        "ci_hi": 1.0
+      },
+      "harmful_auto_rate": {
+        "point": 0.3191299008379059,
+        "ci_lo": 0.25250397636936533,
+        "ci_hi": 0.3901586730629037
+      },
+      "harm_budget": 0.05,
+      "within_budget": false,
+      "safe_auto_rate": 0.0
+    }
+  }
+]

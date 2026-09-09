@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Golden Set Labelling</title>
+<style>
+:root {
+  --bg:#faf9f7; --card:#fff; --ink:#1a1a1a; --muted:#6b6b6b; --line:#e2e0dc;
+  --accent:#2d6a4f; --accent-soft:#e8f2ed; --warn:#a4531f; --shadow:0 1px 3px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16171a; --card:#1e2024; --ink:#e8e6e3; --muted:#9a9894;
+          --line:#2e3136; --accent:#6fbf94; --accent-soft:#22322a; --warn:#d99b63;
+          --shadow:0 1px 3px rgba(0,0,0,.3); }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+header { position:sticky; top:0; background:var(--card); border-bottom:1px solid var(--line);
+         padding:12px 20px; display:flex; gap:16px; align-items:center; z-index:10; box-shadow:var(--shadow); }
+h1 { font-size:16px; margin:0; font-weight:650; }
+.wrap { max-width:820px; margin:0 auto; padding:24px 20px 120px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:10px;
+        padding:20px; margin-bottom:16px; box-shadow:var(--shadow); }
+.msg { background:var(--accent-soft); border-left:3px solid var(--accent);
+       padding:12px 14px; border-radius:0 6px 6px 0; margin:10px 0; white-space:pre-wrap; }
+.reply { background:var(--bg); border:1px solid var(--line); padding:12px 14px;
+         border-radius:6px; margin:10px 0; white-space:pre-wrap; }
+.lbl { font-size:11px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted);
+       font-weight:650; margin-bottom:4px; }
+.opts { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 4px; }
+button.opt { font:inherit; font-size:13px; padding:7px 12px; border:1px solid var(--line);
+             background:var(--card); color:var(--ink); border-radius:6px; cursor:pointer; }
+button.opt:hover { border-color:var(--accent); }
+button.opt.sel { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+.scale { display:flex; gap:6px; }
+.scale button { flex:1; }
+.dim { border-top:1px solid var(--line); padding-top:12px; margin-top:12px; }
+.dim:first-of-type { border-top:none; }
+.q { color:var(--muted); font-size:13px; margin-bottom:6px; }
+.hint { font-size:12px; color:var(--muted); margin-top:6px; min-height:1.4em; }
+.nav { position:fixed; bottom:0; left:0; right:0; background:var(--card);
+       border-top:1px solid var(--line); padding:12px 20px; display:flex;
+       gap:12px; justify-content:center; align-items:center; }
+.nav button { font:inherit; padding:9px 18px; border-radius:7px; border:1px solid var(--line);
+              background:var(--card); color:var(--ink); cursor:pointer; }
+.nav button.primary { background:var(--accent); color:#fff; border-color:var(--accent); font-weight:600; }
+.prog { height:4px; background:var(--line); border-radius:2px; overflow:hidden; flex:1; max-width:220px; }
+.prog i { display:block; height:100%; background:var(--accent); width:0; transition:width .2s; }
+details { margin:10px 0; } summary { cursor:pointer; font-size:13px; color:var(--muted); }
+details .body { font-size:13px; color:var(--muted); padding:8px 0 0 12px; }
+.kbd { font-family:ui-monospace,Menlo,monospace; font-size:11px; background:var(--bg);
+       border:1px solid var(--line); border-radius:4px; padding:1px 5px; }
+.done { text-align:center; padding:40px 20px; }
+table { border-collapse:collapse; width:100%; font-size:13px; margin-top:12px; }
+td,th { border:1px solid var(--line); padding:6px 9px; text-align:left; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Golden Set Labelling</h1>
+  <span id="phase" class="lbl" style="margin:0"></span>
+  <div class="prog"><i id="bar"></i></div>
+  <span id="count" style="font-size:13px;color:var(--muted)"></span>
+</header>
+<div class="wrap" id="root"></div>
+<div class="nav">
+  <button id="back">&larr; Back</button>
+  <div class="prog" style="max-width:120px"><i id="bar2"></i></div>
+  <button id="next" class="primary">Next &rarr;</button>
+  <button id="export">Export CSV</button>
+</div>
+<script>
+const DATA = {"part_a": [{"golden_id": "g103", "message": "thought I’d let you know that there is several customers trying to pay for your company’s premium service that cannot because none of our Credit/Debit Cards are being taken, also customer support keeps giving us the same answers suggesting PayPal which is not a solution [link]"}, {"golden_id": "g115", "message": "The message i get is \"This song is not available. If you have the file on your computer, you can import it.\""}, {"golden_id": "g119", "message": "It seems to have resolved itself. I could hit the website but login would just never complete"}, {"golden_id": "g148", "message": "Actually I just found it out, but thanks anyways"}, {"golden_id": "g070", "message": "I'm still staying on Spotify, nothing beats it, but I'm sad I won't have the same listening experience as yesterday..."}, {"golden_id": "g006", "message": "Why have i been charged £14.99 when I use the student discount for my account ?"}, {"golden_id": "g043", "message": "When I try to update my CC, the process won't complete (I get the loading gif forever). For context, the name on the new CC is different than mine. Any suggestions?"}, {"golden_id": "g067", "message": "Super annoying how all my songs undownload every time I update the app. Been going on for years, how is this not fixed yet??"}, {"golden_id": "g071", "message": "Hi, I'm currently facing problem in joining a family plan. I have submit my information over and over again but I can't seem"}, {"golden_id": "g076", "message": "I'm trying to change my address on my family plan, it says I need to create a new account, can i use facebook again?"}, {"golden_id": "g042", "message": "Also I just have the latest version"}, {"golden_id": "g051", "message": "I can't wait any longer, needs to release #Reputation on ASAP! 🐍🐍 #MondayMotivation"}, {"golden_id": "g165", "message": "I would like to thank James for his excellent customer service and restoring my hacked account. And all within 24 hours ."}, {"golden_id": "g209", "message": "I really wish I could disable the “Behind the Lyrics” feature entirely in 🙄"}, {"golden_id": "g136", "message": "when I tap on one of the JT songs it does stop playing anything else I'm listening to (something with an incorrect format?)"}, {"golden_id": "g004", "message": "hi! I need some help with my account! I've messaged is this the right person to help :)"}, {"golden_id": "g036", "message": "Hi! I am having issues with my account. Even though I do have internet connection, Spotify thinks I don't. Any ideas? Thanks! :)"}, {"golden_id": "g122", "message": "you should show remixes on artist pages not only for the original artist but also the artist that remixed. Should show on trending"}, {"golden_id": "g110", "message": "where is perfect velvet - the 2nd album !!!!!"}, {"golden_id": "g080", "message": "Dopeee thank u very much"}, {"golden_id": "g018", "message": "Why won’t my app work today?"}, {"golden_id": "g205", "message": "Spotify isn't available in Pakistan am& why's that?"}, {"golden_id": "g202", "message": "somebody hacked my account and changed my email"}, {"golden_id": "g116", "message": "I have a 2,000 song playlist on but I only hear about 30 of the same songs on shuffle."}, {"golden_id": "g135", "message": "What is going on with my account? It keeps getting hacked. #frustrated #spotify #equifaxbreachvol2"}, {"golden_id": "g038", "message": "My iOS is 11.1.1 and logging out/ restarting does not work at all"}, {"golden_id": "g203", "message": "I do not get any error messages on my phone (Samsung Galaxy S8+), but i do get a \"Song not available\" message on my computer (Windows 10)."}, {"golden_id": "g024", "message": "PLEASE REPLY TO MY DM!!"}, {"golden_id": "g192", "message": "yo bring back l y r i c s my boyos"}, {"golden_id": "g183", "message": ". please get rid of my Time Capsule playlist. It sucks. KTHXBYE."}, {"golden_id": "g138", "message": "I'm having a difficult time with the payment. It always say try again. or try different payment"}, {"golden_id": "g061", "message": "yooooo so i have set up to save my discover weekly every week bc it's 🔥 but i noticed it doesnt save em all - help?"}, {"golden_id": "g054", "message": "Wouldn’t hurt to give your £10/month subscribers a 99p month every now and then!!"}, {"golden_id": "g011", "message": "are you gunna update for iPhone X ? You’re my most used (and loved) app! #spotify #iPhoneX"}, {"golden_id": "g041", "message": "I don't think knows the difference between and [link]"}, {"golden_id": "g179", "message": "Hello I really love Lemon by and . I think it’d fit perfectly to your playlist of Today’s Top Hits🍋"}, {"golden_id": "g120", "message": "about a month ago I’ve made contact through the website asking for a certain album I used to listen on my teenage times. Today I was notified such album was released. So great to feel we’re heard!🤙🏼 THANKS🔊"}, {"golden_id": "g066", "message": "how do I renew my student account? Also I have headspace and don’t want it, how do I get rid of it? Thanks"}, {"golden_id": "g068", "message": "none of those apply. also, android app is up to date and doesn't let me save any artists or download any albums. premium member"}, {"golden_id": "g194", "message": "Today, it was announced you could pay yearly for a subscription. Does this apply to the family plan also?"}], "part_b": [{"item_id": "g068::simple", "golden_id": "g068", "system": "simple", "message": "none of those apply. also, android app is up to date and doesn't let me save any artists or download any albums. premium member", "reply": "Oops, sorry about that! Thanks for trying it out for us. We'll be on the lookout for your update", "actual": "Hmm, that's odd. Can you DM us your account's username and email address? We'll take a look backstage /MQ [link]", "presented_order": 0}, {"item_id": "g068::trivial", "golden_id": "g068", "system": "trivial", "message": "none of those apply. also, android app is up to date and doesn't let me save any artists or download any albums. premium member", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hmm, that's odd. Can you DM us your account's username and email address? We'll take a look backstage /MQ [link]", "presented_order": 1}, {"item_id": "g138::always_dm", "golden_id": "g138", "system": "always_dm", "message": "I'm having a difficult time with the payment. It always say try again. or try different payment", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hi, sorry for the delay! We've just replied to your DM. Check it out", "presented_order": 2}, {"item_id": "g054::always_dm", "golden_id": "g054", "system": "always_dm", "message": "Wouldn’t hurt to give your £10/month subscribers a 99p month every now and then!!", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hey Helen, we hear you! We don't have anything to announce at this time, but we’d recommend checking out our new Spotify Yearly discount - 12 months for the price of 10: [link]", "presented_order": 3}, {"item_id": "g203::always_dm", "golden_id": "g203", "system": "always_dm", "message": "I do not get any error messages on my phone (Samsung Galaxy S8+), but i do get a \"Song not available\" message on my computer (Windows 10).", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Thanks. Do you get the error message when playing other tracks/albums? Can you try logging out, restarting it, then logging back in?", "presented_order": 4}, {"item_id": "g066::always_dm", "golden_id": "g066", "system": "always_dm", "message": "how do I renew my student account? Also I have headspace and don’t want it, how do I get rid of it? Thanks", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hey there! Don't worry, we're here to help. Can you DM us your account's email address or username? We'll take a look backstage /MT [link]", "presented_order": 5}, {"item_id": "g024::simple", "golden_id": "g024", "system": "simple", "message": "PLEASE REPLY TO MY DM!!", "reply": "Sure. Just tap/click on the link below to send us a DM", "actual": "We've just sent a DM your way. Let's carry on chatting there", "presented_order": 6}, {"item_id": "g209::trivial", "golden_id": "g209", "system": "trivial", "message": "I really wish I could disable the “Behind the Lyrics” feature entirely in 🙄", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hey Harry! Can you tell us what device, operating system, and Spotify version you're using? We'll see what we can suggest", "presented_order": 7}, {"item_id": "g004::trivial", "golden_id": "g004", "system": "trivial", "message": "hi! I need some help with my account! I've messaged is this the right person to help :)", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hi there! We've just sent you a bit more info over DM. We'll carry on helping out there", "presented_order": 8}, {"item_id": "g024::trivial", "golden_id": "g024", "system": "trivial", "message": "PLEASE REPLY TO MY DM!!", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "We've just sent a DM your way. Let's carry on chatting there", "presented_order": 9}, {"item_id": "g071::trivial", "golden_id": "g071", "system": "trivial", "message": "Hi, I'm currently facing problem in joining a family plan. I have submit my information over and over again but I can't seem", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hey! Help's here. Can you DM us your account's email address and username? We'll take a look backstage /BD [link]", "presented_order": 10}, {"item_id": "g192::trivial", "golden_id": "g192", "system": "trivial", "message": "yo bring back l y r i c s my boyos", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "1: Hey. We hear you! Any updates will be posted at [link] We'd recommend voting to support the idea, too. If you're...", "presented_order": 11}, {"item_id": "g006::always_dm", "golden_id": "g006", "system": "always_dm", "message": "Why have i been charged £14.99 when I use the student discount for my account ?", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hi there! Can you DM us your account's email address or username? We'll take a look backstage /NQ [link]", "presented_order": 12}, {"item_id": "g203::trivial", "golden_id": "g203", "system": "trivial", "message": "I do not get any error messages on my phone (Samsung Galaxy S8+), but i do get a \"Song not available\" message on my computer (Windows 10).", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Thanks. Do you get the error message when playing other tracks/albums? Can you try logging out, restarting it, then logging back in?", "presented_order": 13}, {"item_id": "g054::simple", "golden_id": "g054", "system": "simple", "message": "Wouldn’t hurt to give your £10/month subscribers a 99p month every now and then!!", "reply": "Hey, help's here! What device, operating system, and Spotify version are you rocking? We'll see what we can suggest", "actual": "Hey Helen, we hear you! We don't have anything to announce at this time, but we’d recommend checking out our new Spotify Yearly discount - 12 months for the price of 10: [link]", "presented_order": 14}, {"item_id": "g071::simple", "golden_id": "g071", "system": "simple", "message": "Hi, I'm currently facing problem in joining a family plan. I have submit my information over and over again but I can't seem", "reply": "Hey Ricardo, that sounds odd. Can you send us a screenshot of how the Followings tab is showing from your end? We'll need to take a look", "actual": "Hey! Help's here. Can you DM us your account's email address and username? We'll take a look backstage /BD [link]", "presented_order": 15}, {"item_id": "g209::simple", "golden_id": "g209", "system": "simple", "message": "I really wish I could disable the “Behind the Lyrics” feature entirely in 🙄", "reply": "Hey Niko, help's here! To stop it from displaying automatically, head to Settings > Playback > toggle off Behind the Lyrics", "actual": "Hey Harry! Can you tell us what device, operating system, and Spotify version you're using? We'll see what we can suggest", "presented_order": 16}, {"item_id": "g043::simple", "golden_id": "g043", "system": "simple", "message": "When I try to update my CC, the process won't complete (I get the loading gif forever). For context, the name on the new CC is different than mine. Any suggestions?", "reply": "Hi Matthew, help's here! Can you let us know your phone's model and iOS version? We'll see what we can suggest", "actual": "Hey Mark! Can you try using an incognito window? If it doesn't work, can you also use another web browser? Also, can you DM us your account's email address? We'll take a look backstage /SJ [link]", "presented_order": 17}, {"item_id": "g071::always_dm", "golden_id": "g071", "system": "always_dm", "message": "Hi, I'm currently facing problem in joining a family plan. I have submit my information over and over again but I can't seem", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hey! Help's here. Can you DM us your account's email address and username? We'll take a look backstage /BD [link]", "presented_order": 18}, {"item_id": "g004::simple", "golden_id": "g004", "system": "simple", "message": "hi! I need some help with my account! I've messaged is this the right person to help :)", "reply": "Hey! What's happening exactly? It'd be great if you could also let us know the device, operating system, and Spotify version you're on", "actual": "Hi there! We've just sent you a bit more info over DM. We'll carry on helping out there", "presented_order": 19}, {"item_id": "g115::always_dm", "golden_id": "g115", "system": "always_dm", "message": "The message i get is \"This song is not available. If you have the file on your computer, you can import it.\"", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Got it! Is this issue occurring on your computer only, or on other devices as well? We'll be right here waiting", "presented_order": 20}, {"item_id": "g043::always_dm", "golden_id": "g043", "system": "always_dm", "message": "When I try to update my CC, the process won't complete (I get the loading gif forever). For context, the name on the new CC is different than mine. Any suggestions?", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hey Mark! Can you try using an incognito window? If it doesn't work, can you also use another web browser? Also, can you DM us your account's email address? We'll take a look backstage /SJ [link]", "presented_order": 21}, {"item_id": "g076::always_dm", "golden_id": "g076", "system": "always_dm", "message": "I'm trying to change my address on my family plan, it says I need to create a new account, can i use facebook again?", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hey, help's here! Can you DM us your account's email address? We'll see what we can suggest /GK [link]", "presented_order": 22}, {"item_id": "g205::always_dm", "golden_id": "g205", "system": "always_dm", "message": "Spotify isn't available in Pakistan am& why's that?", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hey there! We're launching in new countries as often as possible. Be sure to add your email at [link]", "presented_order": 23}, {"item_id": "g209::always_dm", "golden_id": "g209", "system": "always_dm", "message": "I really wish I could disable the “Behind the Lyrics” feature entirely in 🙄", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hey Harry! Can you tell us what device, operating system, and Spotify version you're using? We'll see what we can suggest", "presented_order": 24}, {"item_id": "g068::always_dm", "golden_id": "g068", "system": "always_dm", "message": "none of those apply. also, android app is up to date and doesn't let me save any artists or download any albums. premium member", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hmm, that's odd. Can you DM us your account's username and email address? We'll take a look backstage /MQ [link]", "presented_order": 25}, {"item_id": "g192::always_dm", "golden_id": "g192", "system": "always_dm", "message": "yo bring back l y r i c s my boyos", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "1: Hey. We hear you! Any updates will be posted at [link] We'd recommend voting to support the idea, too. If you're...", "presented_order": 26}, {"item_id": "g042::always_dm", "golden_id": "g042", "system": "always_dm", "message": "Also I just have the latest version", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Got it. Does this happen when you stream online or when you listen to your downloaded music? Also, what Spotify version are you using?", "presented_order": 27}, {"item_id": "g138::trivial", "golden_id": "g138", "system": "trivial", "message": "I'm having a difficult time with the payment. It always say try again. or try different payment", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hi, sorry for the delay! We've just replied to your DM. Check it out", "presented_order": 28}, {"item_id": "g042::trivial", "golden_id": "g042", "system": "trivial", "message": "Also I just have the latest version", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Got it. Does this happen when you stream online or when you listen to your downloaded music? Also, what Spotify version are you using?", "presented_order": 29}, {"item_id": "g066::trivial", "golden_id": "g066", "system": "trivial", "message": "how do I renew my student account? Also I have headspace and don’t want it, how do I get rid of it? Thanks", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hey there! Don't worry, we're here to help. Can you DM us your account's email address or username? We'll take a look backstage /MT [link]", "presented_order": 30}, {"item_id": "g138::simple", "golden_id": "g138", "system": "simple", "message": "I'm having a difficult time with the payment. It always say try again. or try different payment", "reply": "Hi there! Could you give it another go using a different browser or an incognito window? A different device might also do the trick", "actual": "Hi, sorry for the delay! We've just replied to your DM. Check it out", "presented_order": 31}, {"item_id": "g203::always_dm", "golden_id": "g203", "system": "always_dm", "message": "I do not get any error messages on my phone (Samsung Galaxy S8+), but i do get a \"Song not available\" message on my computer (Windows 10).", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Thanks. Do you get the error message when playing other tracks/albums? Can you try logging out, restarting it, then logging back in?", "presented_order": 32}, {"item_id": "g205::simple", "golden_id": "g205", "system": "simple", "message": "Spotify isn't available in Pakistan am& why's that?", "reply": "Hey Mike! What device, operating system, and Spotify version are you using? We'll see what we can suggest", "actual": "Hey there! We're launching in new countries as often as possible. Be sure to add your email at [link]", "presented_order": 33}, {"item_id": "g192::trivial", "golden_id": "g192", "system": "trivial", "message": "yo bring back l y r i c s my boyos", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "1: Hey. We hear you! Any updates will be posted at [link] We'd recommend voting to support the idea, too. If you're...", "presented_order": 34}, {"item_id": "g071::simple", "golden_id": "g071", "system": "simple", "message": "Hi, I'm currently facing problem in joining a family plan. I have submit my information over and over again but I can't seem", "reply": "Hey Ricardo, that sounds odd. Can you send us a screenshot of how the Followings tab is showing from your end? We'll need to take a look", "actual": "Hey! Help's here. Can you DM us your account's email address and username? We'll take a look backstage /BD [link]", "presented_order": 35}, {"item_id": "g004::trivial", "golden_id": "g004", "system": "trivial", "message": "hi! I need some help with my account! I've messaged is this the right person to help :)", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hi there! We've just sent you a bit more info over DM. We'll carry on helping out there", "presented_order": 36}, {"item_id": "g024::simple", "golden_id": "g024", "system": "simple", "message": "PLEASE REPLY TO MY DM!!", "reply": "Sure. Just tap/click on the link below to send us a DM", "actual": "We've just sent a DM your way. Let's carry on chatting there", "presented_order": 37}, {"item_id": "g203::trivial", "golden_id": "g203", "system": "trivial", "message": "I do not get any error messages on my phone (Samsung Galaxy S8+), but i do get a \"Song not available\" message on my computer (Windows 10).", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Thanks. Do you get the error message when playing other tracks/albums? Can you try logging out, restarting it, then logging back in?", "presented_order": 38}, {"item_id": "g068::simple", "golden_id": "g068", "system": "simple", "message": "none of those apply. also, android app is up to date and doesn't let me save any artists or download any albums. premium member", "reply": "Oops, sorry about that! Thanks for trying it out for us. We'll be on the lookout for your update", "actual": "Hmm, that's odd. Can you DM us your account's username and email address? We'll take a look backstage /MQ [link]", "presented_order": 39}, {"item_id": "g071::trivial", "golden_id": "g071", "system": "trivial", "message": "Hi, I'm currently facing problem in joining a family plan. I have submit my information over and over again but I can't seem", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hey! Help's here. Can you DM us your account's email address and username? We'll take a look backstage /BD [link]", "presented_order": 40}, {"item_id": "g076::simple", "golden_id": "g076", "system": "simple", "message": "I'm trying to change my address on my family plan, it says I need to create a new account, can i use facebook again?", "reply": "Hi! Can you send us the link where you're sending the invite from? If you're also seeing any error messages, a screenshot would be great", "actual": "Hey, help's here! Can you DM us your account's email address? We'll see what we can suggest /GK [link]", "presented_order": 41}, {"item_id": "g054::always_dm", "golden_id": "g054", "system": "always_dm", "message": "Wouldn’t hurt to give your £10/month subscribers a 99p month every now and then!!", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hey Helen, we hear you! We don't have anything to announce at this time, but we’d recommend checking out our new Spotify Yearly discount - 12 months for the price of 10: [link]", "presented_order": 42}, {"item_id": "g004::always_dm", "golden_id": "g004", "system": "always_dm", "message": "hi! I need some help with my account! I've messaged is this the right person to help :)", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hi there! We've just sent you a bit more info over DM. We'll carry on helping out there", "presented_order": 43}, {"item_id": "g024::always_dm", "golden_id": "g024", "system": "always_dm", "message": "PLEASE REPLY TO MY DM!!", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "We've just sent a DM your way. Let's carry on chatting there", "presented_order": 44}, {"item_id": "g192::simple", "golden_id": "g192", "system": "simple", "message": "yo bring back l y r i c s my boyos", "reply": "Hey Lauren, help's here! Can you tell us what device, operating system, and Spotify version you're using? We'll see what we can suggest", "actual": "1: Hey. We hear you! Any updates will be posted at [link] We'd recommend voting to support the idea, too. If you're...", "presented_order": 45}, {"item_id": "g203::simple", "golden_id": "g203", "system": "simple", "message": "I do not get any error messages on my phone (Samsung Galaxy S8+), but i do get a \"Song not available\" message on my computer (Windows 10).", "reply": "Hey Gary, help's here! Do you get any error messages? If so, a screenshot will be handy. We'll see what we can suggest", "actual": "Thanks. Do you get the error message when playing other tracks/albums? Can you try logging out, restarting it, then logging back in?", "presented_order": 46}, {"item_id": "g209::trivial", "golden_id": "g209", "system": "trivial", "message": "I really wish I could disable the “Behind the Lyrics” feature entirely in 🙄", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hey Harry! Can you tell us what device, operating system, and Spotify version you're using? We'll see what we can suggest", "presented_order": 47}, {"item_id": "g006::simple", "golden_id": "g006", "system": "simple", "message": "Why have i been charged £14.99 when I use the student discount for my account ?", "reply": "Got it. Can you try again using an incognito window/private browser? Also, you can try manual verification at", "actual": "Hi there! Can you DM us your account's email address or username? We'll take a look backstage /NQ [link]", "presented_order": 48}, {"item_id": "g066::always_dm", "golden_id": "g066", "system": "always_dm", "message": "how do I renew my student account? Also I have headspace and don’t want it, how do I get rid of it? Thanks", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hey there! Don't worry, we're here to help. Can you DM us your account's email address or username? We'll take a look backstage /MT [link]", "presented_order": 49}, {"item_id": "g138::always_dm", "golden_id": "g138", "system": "always_dm", "message": "I'm having a difficult time with the payment. It always say try again. or try different payment", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hi, sorry for the delay! We've just replied to your DM. Check it out", "presented_order": 50}, {"item_id": "g066::simple", "golden_id": "g066", "system": "simple", "message": "how do I renew my student account? Also I have headspace and don’t want it, how do I get rid of it? Thanks", "reply": "You can unlink Headspace from your Spotify by going to your account settings here: Let us know how it goes", "actual": "Hey there! Don't worry, we're here to help. Can you DM us your account's email address or username? We'll take a look backstage /MT [link]", "presented_order": 51}, {"item_id": "g042::simple", "golden_id": "g042", "system": "simple", "message": "Also I just have the latest version", "reply": "Thanks for the info! Try restarting your device by holding Home + Lock for 10 seconds. Does that help?", "actual": "Got it. Does this happen when you stream online or when you listen to your downloaded music? Also, what Spotify version are you using?", "presented_order": 52}, {"item_id": "g054::simple", "golden_id": "g054", "system": "simple", "message": "Wouldn’t hurt to give your £10/month subscribers a 99p month every now and then!!", "reply": "Hey, help's here! What device, operating system, and Spotify version are you rocking? We'll see what we can suggest", "actual": "Hey Helen, we hear you! We don't have anything to announce at this time, but we’d recommend checking out our new Spotify Yearly discount - 12 months for the price of 10: [link]", "presented_order": 53}, {"item_id": "g115::simple", "golden_id": "g115", "system": "simple", "message": "The message i get is \"This song is not available. If you have the file on your computer, you can import it.\"", "reply": "Can you try reinstalling the app on your laptop? You can follow the steps here: Let us know if that helps", "actual": "Got it! Is this issue occurring on your computer only, or on other devices as well? We'll be right here waiting", "presented_order": 54}, {"item_id": "g068::trivial", "golden_id": "g068", "system": "trivial", "message": "none of those apply. also, android app is up to date and doesn't let me save any artists or download any albums. premium member", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hmm, that's odd. Can you DM us your account's username and email address? We'll take a look backstage /MQ [link]", "presented_order": 55}, {"item_id": "g006::always_dm", "golden_id": "g006", "system": "always_dm", "message": "Why have i been charged £14.99 when I use the student discount for my account ?", "reply": "Hey there, help's here! Can you DM us your account's email address or username? We'll take a look backstage.", "actual": "Hi there! Can you DM us your account's email address or username? We'll take a look backstage /NQ [link]", "presented_order": 56}, {"item_id": "g205::trivial", "golden_id": "g205", "system": "trivial", "message": "Spotify isn't available in Pakistan am& why's that?", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hey there! We're launching in new countries as often as possible. Be sure to add your email at [link]", "presented_order": 57}, {"item_id": "g115::trivial", "golden_id": "g115", "system": "trivial", "message": "The message i get is \"This song is not available. If you have the file on your computer, you can import it.\"", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Got it! Is this issue occurring on your computer only, or on other devices as well? We'll be right here waiting", "presented_order": 58}, {"item_id": "g076::trivial", "golden_id": "g076", "system": "trivial", "message": "I'm trying to change my address on my family plan, it says I need to create a new account, can i use facebook again?", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hey, help's here! Can you DM us your account's email address? We'll see what we can suggest /GK [link]", "presented_order": 59}, {"item_id": "g006::trivial", "golden_id": "g006", "system": "trivial", "message": "Why have i been charged £14.99 when I use the student discount for my account ?", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hi there! Can you DM us your account's email address or username? We'll take a look backstage /NQ [link]", "presented_order": 60}, {"item_id": "g043::trivial", "golden_id": "g043", "system": "trivial", "message": "When I try to update my CC, the process won't complete (I get the loading gif forever). For context, the name on the new CC is different than mine. Any suggestions?", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hey Mark! Can you try using an incognito window? If it doesn't work, can you also use another web browser? Also, can you DM us your account's email address? We'll take a look backstage /SJ [link]", "presented_order": 61}, {"item_id": "g054::trivial", "golden_id": "g054", "system": "trivial", "message": "Wouldn’t hurt to give your £10/month subscribers a 99p month every now and then!!", "reply": "Hey there! Sorry to hear you're having trouble. We're looking into this and will get back to you as soon as we can.", "actual": "Hey Helen, we hear you! We don't have anything to announce at this time, but we’d recommend checking out our new Spotify Yearly discount - 12 months for the price of 10: [link]", "presented_order": 62}], "intents": [{"id": "playback_failure", "name": "Playback failure", "definition": "Audio will not play, stops unexpectedly, skips, stutters, or the app crashes/freezes during use. The customer is reporting something broken, not asking how to do something."}, {"id": "account_access", "name": "Account access and security", "definition": "Cannot log in, locked out, forgotten credentials, account compromised or accessed by someone else, or needs to change the email/username tied to the account. Anything where identity or account ownership is at stake."}, {"id": "billing_charge", "name": "Billing and unexpected charges", "definition": "A specific money complaint - charged unexpectedly, charged twice, wrong amount, charged after cancelling, or asking for a refund. There is a disputed transaction."}, {"id": "subscription_manage", "name": "Subscription and plan management", "definition": "Questions about plans rather than disputed money: how to upgrade, downgrade, cancel, start a trial, redeem a promo, add family members, or verify student status. Informational or self-serve."}, {"id": "content_missing", "name": "Content availability", "definition": "A specific artist, album, track or podcast is absent, region-locked, or was removed. Usually a licensing matter Spotify cannot unilaterally fix."}, {"id": "device_compat", "name": "Device and platform compatibility", "definition": "Issue is tied to a specific device, OS version, or platform - phone model, iOS/Android version, desktop, web player, smart TV, car, speakers. The customer names the hardware or OS."}, {"id": "playlist_library", "name": "Playlist and library management", "definition": "Organising saved music: creating/editing playlists, adding or removing tracks, library sync across devices, missing saved songs, recommendations and Discover Weekly behaviour."}, {"id": "feature_request", "name": "Feature request and product feedback", "definition": "Asking for functionality that does not exist, or giving product feedback, without reporting a fault. Often phrased \"please add\", \"you should\", \"bring back\"."}, {"id": "acknowledgement", "name": "Acknowledgement and thanks", "definition": "Thanks, praise, confirmation that an earlier fix worked, or a closing message. No outstanding request. Distinguished from `feature_request` by the absence of any ask, and from `other` by being clearly positive or conclusive rather than merely uncategorisable."}, {"id": "other", "name": "Other", "definition": "Anything the classes above do not cover: pure venting with no actionable issue, contentless fragments, off-topic chatter, phishing/scam reports, country-level service availability, and artist/label (creator) enquiries. NOTE: language is deliberately NOT a criterion. A non-English message is labelled by its actual intent; routing to a language-capable agent is a separate decision from what the customer wants."}], "dimensions": [{"id": "grounded", "name": "Grounded in brand precedent", "question": "Does this reply match how the brand has actually handled this kind of issue before? Judge against the retrieved past exchanges, not against what good support looks like in general.", "scale": {"1": "Contradicts the precedent, or invents product behaviour, policy, timelines or compensation.", "2": "Loosely related to the precedent but adds unsupported specifics.", "3": "Consistent with precedent but generic - could have been written without it.", "4": "Clearly uses the precedent; the concrete step traces to a past exchange.", "5": "Uses the precedent precisely, including the specific step or question the brand actually uses."}}, {"id": "actionable", "name": "Actionable", "question": "Does the customer come away knowing what happens next?", "scale": {"1": "No next step at all. Pure acknowledgement or deflection.", "2": "Vague gesture at help without saying what to do.", "3": "A next step, but ambiguous or requiring guesswork.", "4": "One clear next step the customer can take immediately.", "5": "One clear next step, correctly targeted at this specific issue."}}, {"id": "safe", "name": "Safe", "question": "Could sending this publicly cause harm - to the customer, or to the brand?", "scale": {"1": "Requests credentials/payment details publicly, or promises money or outcomes the brand has not authorised.", "2": "Makes a factual claim about policy or timelines with no support.", "3": "Minor overreach or over-confidence, unlikely to cause real harm.", "4": "Nothing unsupported; appropriately hedged.", "5": "Actively safe: avoids public disclosure of personal data and routes sensitive matters privately."}}, {"id": "tone", "name": "Brand voice", "question": "Does this sound like this brand's support team as seen in the examples?", "scale": {"1": "Wrong register entirely - robotic, cold, or wildly off-brand.", "2": "Generic corporate support voice with no brand character.", "3": "Acceptable but bland.", "4": "Recognisably the brand's voice: warm, brief, natural.", "5": "Indistinguishable from a real reply by this team."}}], "binary": {"id": "send_as_is", "name": "Would you send this reply as-is?", "question": "Imagine you are the support agent on shift and this draft is in front of you. Would you press send without editing it? Answer YES only if you would send it unchanged. If you would rewrite even one clause, answer NO."}, "calibration": ["A reply that only says 'please DM us' is NOT automatically bad - the brand does this often. Judge whether it is the right move for THIS message.", "Do not reward length. The brand's real replies are short.", "Do not penalise a reply for failing to solve something that genuinely requires account access.", "A safe holding reply where no precedent exists is a correct outcome, not a failure.", "Judge the reply in front of you, not the reply you would have written."]};
+const KEY = "golden_labelling_v1";
+let state = JSON.parse(localStorage.getItem(KEY) || '{"a":{},"b":{},"i":0}');
+const items = [
+  ...DATA.part_a.map(x => ({kind:"a", ...x})),
+  ...DATA.part_b.map(x => ({kind:"b", ...x}))
+];
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+
+function render(){
+  const i = Math.max(0, Math.min(state.i, items.length));
+  state.i = i;
+  if (i >= items.length) return renderDone();
+  const it = items[i];
+  document.getElementById("phase").textContent =
+    it.kind === "a" ? "Part A - intent" : "Part B - reply quality";
+  document.getElementById("count").textContent = (i+1) + " / " + items.length;
+  const pct = (i/items.length*100).toFixed(1) + "%";
+  document.getElementById("bar").style.width = pct;
+  document.getElementById("bar2").style.width = pct;
+
+  const root = document.getElementById("root");
+  root.innerHTML = "";
+  root.appendChild(it.kind === "a" ? cardA(it) : cardB(it));
+  window.scrollTo(0,0);
+}
+
+function cardA(it){
+  const c = el("div","card");
+  c.appendChild(el("div","lbl","Customer message"));
+  c.appendChild(el("div","msg", it.message));
+
+  const cur = state.a[it.golden_id] || {};
+  c.appendChild(el("div","lbl","Intent - what does the customer WANT?"));
+  const io = el("div","opts");
+  DATA.intents.forEach((intent, n) => {
+    const b = el("button","opt", (n+1) + ". " + intent.id);
+    if (cur.intent === intent.id) b.classList.add("sel");
+    b.onclick = () => { cur.intent = intent.id; state.a[it.golden_id]=cur; save(); render(); };
+    io.appendChild(b);
+  });
+  c.appendChild(io);
+
+  const d = el("details"); d.appendChild(el("summary", null, "Intent definitions"));
+  const db = el("div","body");
+  DATA.intents.forEach(x => db.appendChild(el("div", null, x.id + " - " + x.definition)));
+  d.appendChild(db); c.appendChild(d);
+
+  c.appendChild(el("div","lbl","Route - can a bot handle this alone?"));
+  const ro = el("div","opts");
+  [["auto","AUTO - a bot can handle it"],["escalate","ESCALATE - needs a human"]].forEach(([v,label]) => {
+    const b = el("button","opt",label);
+    if (cur.route === v) b.classList.add("sel");
+    b.onclick = () => { cur.route = v; state.a[it.golden_id]=cur; save(); render(); };
+    ro.appendChild(b);
+  });
+  c.appendChild(ro);
+  c.appendChild(el("div","hint","Keys: 1-"+DATA.intents.length+" intent, A auto, E escalate, Enter next"));
+  return c;
+}
+
+function cardB(it){
+  const c = el("div","card");
+  c.appendChild(el("div","lbl","Customer wrote"));
+  c.appendChild(el("div","msg", it.message));
+  c.appendChild(el("div","lbl","Draft reply under review"));
+  c.appendChild(el("div","reply", it.reply || "(empty reply)"));
+
+  const d = el("details"); d.appendChild(el("summary",null,"What the brand actually replied (context, not a model answer)"));
+  const db = el("div","body", it.actual); d.appendChild(db); c.appendChild(d);
+
+  const cur = state.b[it.item_id] || {};
+  DATA.dimensions.forEach(dim => {
+    const w = el("div","dim");
+    w.appendChild(el("div","lbl", dim.name));
+    w.appendChild(el("div","q", dim.question));
+    const row = el("div","opts scale");
+    [1,2,3,4,5].forEach(v => {
+      const b = el("button","opt", String(v));
+      b.title = dim.scale[String(v)] || "";
+      if (cur[dim.id] === v) b.classList.add("sel");
+      b.onclick = () => { cur[dim.id]=v; state.b[it.item_id]=cur; save(); render(); };
+      row.appendChild(b);
+    });
+    w.appendChild(row);
+    if (cur[dim.id]) w.appendChild(el("div","hint", dim.scale[String(cur[dim.id])]));
+    else w.appendChild(el("div","hint","Hover a number to see what it means."));
+    c.appendChild(w);
+  });
+
+  const w = el("div","dim");
+  w.appendChild(el("div","lbl", DATA.binary.name));
+  w.appendChild(el("div","q", DATA.binary.question));
+  const row = el("div","opts");
+  [["yes","YES - send unchanged"],["no","NO - I would edit it"]].forEach(([v,label]) => {
+    const b = el("button","opt",label);
+    if (cur.send_as_is === v) b.classList.add("sel");
+    b.onclick = () => { cur.send_as_is=v; state.b[it.item_id]=cur; save(); render(); };
+    row.appendChild(b);
+  });
+  w.appendChild(row);
+  c.appendChild(w);
+  c.appendChild(el("div","hint","Keys: 1-5 scores each dimension in order, Y/N for send, Enter next"));
+  return c;
+}
+
+function renderDone(){
+  document.getElementById("phase").textContent = "Complete";
+  document.getElementById("bar").style.width = "100%";
+  document.getElementById("bar2").style.width = "100%";
+  const root = document.getElementById("root");
+  root.innerHTML = "";
+  const c = el("div","card done");
+  c.appendChild(el("h2",null,"All done - thank you"));
+  c.appendChild(el("p",null,
+    "Click Export CSV and save the file as golden/human_labels.csv in the repo."));
+  const t = document.createElement("table");
+  t.innerHTML = "<tr><th>Section</th><th>Answered</th></tr>" +
+    "<tr><td>Part A (intent)</td><td>"+Object.keys(state.a).length+" / "+DATA.part_a.length+"</td></tr>" +
+    "<tr><td>Part B (replies)</td><td>"+Object.keys(state.b).length+" / "+DATA.part_b.length+"</td></tr>";
+  c.appendChild(t);
+  root.appendChild(c);
+}
+
+function el(tag, cls, text){
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+document.getElementById("next").onclick = () => { state.i++; save(); render(); };
+document.getElementById("back").onclick = () => { state.i--; save(); render(); };
+document.getElementById("export").onclick = exportCsv;
+
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT") return;
+  const it = items[state.i];
+  if (e.key === "Enter") { state.i++; save(); render(); return; }
+  if (e.key === "Backspace") { e.preventDefault(); state.i--; save(); render(); return; }
+  if (!it) return;
+  if (it.kind === "a") {
+    const n = parseInt(e.key,10);
+    if (n >= 1 && n <= DATA.intents.length) {
+      const cur = state.a[it.golden_id] || {};
+      cur.intent = DATA.intents[n-1].id; state.a[it.golden_id]=cur; save(); render();
+    }
+    if (e.key.toLowerCase()==="a"||e.key.toLowerCase()==="e") {
+      const cur = state.a[it.golden_id] || {};
+      cur.route = e.key.toLowerCase()==="a" ? "auto":"escalate";
+      state.a[it.golden_id]=cur; save(); render();
+    }
+  } else {
+    const cur = state.b[it.item_id] || {};
+    const n = parseInt(e.key,10);
+    if (n >= 1 && n <= 5) {
+      const next = DATA.dimensions.find(d => !(d.id in cur));
+      if (next) { cur[next.id]=n; state.b[it.item_id]=cur; save(); render(); }
+    }
+    if (e.key.toLowerCase()==="y"||e.key.toLowerCase()==="n") {
+      cur.send_as_is = e.key.toLowerCase()==="y" ? "yes":"no";
+      state.b[it.item_id]=cur; save(); render();
+    }
+  }
+});
+
+function exportCsv(){
+  const rows = [["section","golden_id","item_id","system","presented_order",
+                 "intent","route","grounded","actionable","safe","tone","send_as_is"]];
+  DATA.part_a.forEach(it => {
+    const v = state.a[it.golden_id]; if (!v) return;
+    rows.push(["A", it.golden_id, "", "", "", v.intent||"", v.route||"", "","","","",""]);
+  });
+  DATA.part_b.forEach(it => {
+    const v = state.b[it.item_id]; if (!v) return;
+    rows.push(["B", it.golden_id, it.item_id, it.system, it.presented_order, "", "",
+               v.grounded||"", v.actionable||"", v.safe||"", v.tone||"", v.send_as_is||""]);
+  });
+  const csv = rows.map(r => r.map(x => {
+    const s = String(x ?? "");
+    return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+  }).join(",")).join("\n");
+  const blob = new Blob([csv], {type:"text/csv"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "human_labels.csv";
+  a.click();
+}
+
+render();
+</script>
+</body>
+</html>

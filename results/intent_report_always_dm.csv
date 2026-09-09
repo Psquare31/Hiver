@@ -1,0 +1,11 @@
+intent,precision,recall,f1,support
+feature_request,0.148,1.0,0.257,31
+billing_charge,0.0,0.0,0.0,28
+device_compat,0.0,0.0,0.0,26
+playback_failure,0.0,0.0,0.0,23
+subscription_manage,0.0,0.0,0.0,22
+content_missing,0.0,0.0,0.0,21
+other,0.0,0.0,0.0,20
+account_access,0.0,0.0,0.0,17
+acknowledgement,0.0,0.0,0.0,12
+playlist_library,0.0,0.0,0.0,10

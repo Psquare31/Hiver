@@ -1,0 +1,30 @@
+# Core data
+pandas>=2.0
+numpy>=1.24
+pyarrow>=14.0
+scikit-learn>=1.3
+
+# Dataset access (HF mirror of the Kaggle twcs file)
+huggingface_hub>=0.30
+
+# LLM providers (both free tiers)
+google-genai>=1.0
+groq>=0.11
+
+# Retrieval
+rank-bm25>=0.2.2
+
+# Config / env
+pyyaml>=6.0
+python-dotenv>=1.0
+
+# Evaluation
+krippendorff>=0.6
+scipy>=1.11
+
+# Reporting / UX
+matplotlib>=3.7
+tqdm>=4.65
+
+# Tests
+pytest>=7.4
