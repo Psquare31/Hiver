@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd like to look into this further via DM. Please tap here to meet us there:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 454,
+  "completion_tokens": 25,
+  "latency_s": 1.51,
+  "created_at": "2026-09-12T13:42:02.579708+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: As soon as I updated my iPhone to the current IOS\nBrand: By current iOS do you mean 11.0.2? And what device is it running on? Let us know in DM.\n\n[Example 2]\nCustomer: just keynote and no I haven't downloaded it before with my ID\nBrand: Let’s try to download another free app to see if you get the same message. DM us if the issue persists.\n\n[Example 3]\nCustomer: X Bug, the home bar of the iPhone \"X\" appears as soon as a keyboard is active...\nBrand: Thanks for getting in contact with us. We'll be glad to look into this. Which iOS version do you have installed? DM us.\n\n[Example 4]\nCustomer: after I restored my phone any texts I get after I turn on my phone get deleted as soon as I type in my passcode\nBrand: Help is here. We'd like to look into this further via DM. Please tap here to meet us there:\n\nWrite a reply to this new customer message:\n\"\"\"Since the upgrade to High Sierra & Keynote 7.3, Keynote keeps crashing as hell as soon as I start playing the slideshow.\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

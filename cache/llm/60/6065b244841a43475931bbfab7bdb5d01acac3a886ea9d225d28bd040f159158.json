@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"Battery life is important, and we'd like to help! What kind of device do you have? Let's sort this out together in DM:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 448,
+  "completion_tokens": 36,
+  "latency_s": 0.905,
+  "created_at": "2026-09-12T13:20:28.477552+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: thanks for sucking the life out of my battery with ios11. #androidswitchlooksgoodnow\nBrand: Help is here. Let's work together in a DM to get this addressed. Tap here to continue:\n\n[Example 2]\nCustomer: The new iOS update seems to be crushing my battery life. What gives🤷🏽‍♀️\nBrand: Battery life is important, and we'd like to help! What kind of device do you have? Let's sort this out together in DM:\n\n[Example 3]\nCustomer: what is the fix for the poor battery life after ios 11?\nBrand: Hey there! Let's look at this together. Could you DM us which iPhone and iOS 11 version you're using?\n\n[Example 4]\nCustomer: thanks for giving my phone short ass battery life with ios11😑 fix it please it’s soo irritating\nBrand: We want to help. Send us a DM and let us know what iPhone and the exact iOS version this is occurring with.\n\nWrite a reply to this new customer message:\n\"\"\"Thanks for this #ios11update my battery life is half what it used to be\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

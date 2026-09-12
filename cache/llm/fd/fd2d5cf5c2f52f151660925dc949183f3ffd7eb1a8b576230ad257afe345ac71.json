@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We understand your concern. Please send us a DM with which iOS version is installed.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 429,
+  "completion_tokens": 22,
+  "latency_s": 1.014,
+  "created_at": "2026-09-12T13:11:05.197813+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: This damn question mark box annoying as hell\nBrand: We understand your concern. Please send us a DM with which iOS version is installed.\n\n[Example 2]\nCustomer: wtf is up with all these boxes and question marks?!??!! 🙃🙃🙃🙃\nBrand: We're happy to help you. Which device are you using? Send us a DM and let us know.\n\n[Example 3]\nCustomer: can y’all explain to me why I️ have question marks in boxes? what the hell is this I️\nBrand: Let's work together. We can start in DM with the iOS version. You can find that in Settings>General>About.\n\n[Example 4]\nCustomer: THESE QUESTION MARKS ARE GETTING REAL FUCKING ANNOYING\nBrand: We're here to assist. Please DM us the device and version of OS you're experiencing this with and we can go from there.\n\nWrite a reply to this new customer message:\n\"\"\"these damn boxes with question marks are annoying as hell and my phone is updated so can explain this\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

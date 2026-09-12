@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We would like to look into how we can assist. DM us the current iOS version you're using and which device.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 484,
+  "completion_tokens": 30,
+  "latency_s": 0.928,
+  "created_at": "2026-09-12T13:45:26.756119+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Yo , what’s up with this shit? I️ I️ I️?? I’m having to use a lower case L instead of an actual I️.\nBrand: We'd love to take a look. Try out the steps in this article: If you need more help, send us a DM.\n\n[Example 2]\nCustomer: Does anyone know why the letter “i” is having an issue on iPhones? When typing capital “i” alone this comes up: I️ #iphone\nBrand: Which version of iOS are you running? You can check in Settings > General > About > Version. Please let us know in DM:\n\n[Example 3]\nCustomer: can you please fix this I️ issue. I’m tired of having to maneuver “I’m” into every conversation instead of “I️”\nBrand: We would like to look into how we can assist. DM us the current iOS version you're using and which device.\n\n[Example 4]\nCustomer: What is going on with typing I️ you monsters\nBrand: Are you experiencing this on your device? If so, reach out to us in DM with your iOS version. We can work together there.\n\nWrite a reply to this new customer message:\n\"\"\"What is with this issue iPhones are having with typing “I️ “ instead of “I” FIX IT\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

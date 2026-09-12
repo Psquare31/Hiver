@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"Do you have a current backup of your device? If not, go ahead and make one and then let's have you go ahead and reach out to us in DM once that's done.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 507,
+  "completion_tokens": 45,
+  "latency_s": 1.121,
+  "created_at": "2026-09-12T13:06:37.520417+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: And I am now running 11.1.1\nBrand: Can you go to Settings > General > Background App Refresh to see if it's enabled. If it is, let us know if it's set to Wi-Fi or Wi-Fi & Cellular Data? Can you also check Background App Refresh to see if the Weather application appears there?\n\n[Example 2]\nCustomer: I am running 11.1.1 😰\nBrand: Thanks for that info. Do you have a current backup of your device? If not, go ahead and make one and then let's have you go ahead and reach out to us in DM once that's done.\n\n[Example 3]\nCustomer: i have an iPhone 6 & I am running iOS 11.0.1\nBrand: Thanks. Please update to iOS 11.0.3, after making sure you have a backup, and let us know if it helps with the issues.\n\n[Example 4]\nCustomer: I was using iOS 11.1 after updating to iOS 11.1.1 the issue solved.\nBrand: We appreciate the update. Please let us know if you have any other issues or questions. We're happy to help.\n\nWrite a reply to this new customer message:\n\"\"\"Since updating to iOS 11.1.1, I’ve had phone switch off, app crashing and have ‘spinning wheel’ running forever\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

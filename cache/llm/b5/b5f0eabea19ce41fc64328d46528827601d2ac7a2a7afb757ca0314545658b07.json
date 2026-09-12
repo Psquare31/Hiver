@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We want to help. Send us a DM letting us know if you get an error message or code in iTunes.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 450,
+  "completion_tokens": 33,
+  "latency_s": 1.159,
+  "created_at": "2026-09-12T13:25:43.410626+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: my iPhone got stuck while restoring it via itunes could you please help as your web services is down?\nBrand: We want to help. Send us a DM letting us know if you get an error message or code in iTunes.\n\n[Example 2]\nCustomer: Trying no via iTunes\nBrand: Let us know if the update has issues through iTunes.\n\n[Example 3]\nCustomer: I’ve tried removing them from my device and adding them again via both iTunes on my Mac and via the iTunes app. No joy 😥 2/2\nBrand: We'd like to look into this with you. Send us a DM including the device you're using. We'll go from there.\n\n[Example 4]\nCustomer: hi, my iTunes account won’t let me download a movie. Error 3050. Only 1 acc has been used with iTunes. Confused?\nBrand: Thanks for contacting us, we can help you. Please check out and try the steps from this support article:\n\nWrite a reply to this new customer message:\n\"\"\"- Hi, Need urgent help !!! Rs. 4500 INR got deducted from my account via iTunes.\"\"\"\n\nThe customer's issue has been classified as: account_appleid\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"That’s not what we’d like to hear. Let us know more about what’s changed since the update via DM and we’ll start there.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 468,
+  "completion_tokens": 38,
+  "latency_s": 1.19,
+  "created_at": "2026-09-12T13:14:36.673518+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Phone shuts off randomly, and then to make calls I have to shut it off or else I can't hear them or them hear me. Great update\nBrand: Was this the iOS 11.0.2 update? DM us and let us know more details. We can help.\n\n[Example 2]\nCustomer: you and iOS 11 got the whole game messed up. Why can’t I hear when people call me?\nBrand: We're here to help. When did you first encounter this issue?\n\n[Example 3]\nCustomer: i still hear the static even after the update 😤\nBrand: We want your call quality as clear as possible. Send us a DM and we'll take a closer look.\n\n[Example 4]\nCustomer: On top of that cant even hear when people call me ??????? Have to restart my phone all the time!!!! Nothing has ever happened to my phone\nBrand: That’s not what we’d like to hear. Let us know more about what’s changed since the update via DM and we’ll start there.\n\nWrite a reply to this new customer message:\n\"\"\"Dearest — after downloading the iOS update and the 2nd update I now cant hear people when they phone me - great job 👍🏼\"\"\"\n\nThe customer's issue has been classified as: connectivity\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

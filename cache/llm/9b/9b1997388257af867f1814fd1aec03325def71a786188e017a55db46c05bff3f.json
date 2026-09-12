@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We want to help. What happens when someone sends you a photo by iMessage? Can you receive some photos, but not others? DM us.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 401,
+  "completion_tokens": 35,
+  "latency_s": 1.307,
+  "created_at": "2026-09-12T13:13:16.738368+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I can’t use cellular data at all\nBrand: Thanks for the update. Let's try the steps here: Reach us via DM for more assistance.\n\n[Example 2]\nCustomer: why can’t I get photos on imessage anymore\nBrand: We want to help. What happens when someone sends you a photo by iMessage? Can you receive some photos, but not others? DM us.\n\n[Example 3]\nCustomer: why can’t I rename files/images I’m saving to “files”/iCloud drive anymore? WTF?\nBrand: Hey there. You can rename the files you already have when you press firmly on them.\n\n[Example 4]\nCustomer: I don’t have that option anymore.\nBrand: No worries, you can restart your phone using the steps here:\n\nWrite a reply to this new customer message:\n\"\"\"i can’t use gifs in iMessage anymore?? No images option at all\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

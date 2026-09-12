@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We want to make sure your device is running great & you enjoy the new update. DM us details of the issue you're experiencing.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 426,
+  "completion_tokens": 33,
+  "latency_s": 0.999,
+  "created_at": "2026-09-12T13:44:22.591930+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: this new update #sucks! Please fix asap\nBrand: We're here for you. Please provide us some details of what you're experiencing along with the iOS version you're currently using.\n\n[Example 2]\nCustomer: Hey can you fix your update pls bc my phone is fucked up\nBrand: We want to make sure your device is running great & you enjoy the new update. DM us details of the issue you're experiencing.\n\n[Example 3]\nCustomer: battery getting killed and phone is sloooooowwwww after latest update. Please fix ASAP!\nBrand: We want your update to go smoothly. Please send us a DM so we may better assist you.\n\n[Example 4]\nCustomer: Yo this update fucked my phone all the way up do better 😒😒😒\nBrand: We always want your update to go smoothly. Could you let us know a few of the specific issues you are having with iOS 11?\n\nWrite a reply to this new customer message:\n\"\"\"This update really fucked up my phone. please fix is asap. Ty\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

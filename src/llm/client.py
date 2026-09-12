@@ -70,6 +70,13 @@ class ModelSpec:
 
 
 class LLMClient:
+    # How long to stop asking a model that reported daily quota exhaustion.
+    # Long, because the quota really is daily; short enough that a rolling
+    # reset mid-run is picked up (3.7-flash recovered within a session).
+    COOLDOWN_S = 1800.0
+    # A 503 is momentary overload, not quota - come back to it quickly.
+    OVERLOAD_COOLDOWN_S = 60.0
+
     def __init__(
         self,
         config_path: Path | None = None,
@@ -119,6 +126,8 @@ class LLMClient:
 
         self.retry_max = int(self.config.get("retry", {}).get("max_attempts", 5))
         self.retry_base = float(self.config.get("retry", {}).get("base_delay_s", 2.0))
+        # model_key -> monotonic time after which it is worth trying again.
+        self._exhausted_until: dict[str, float] = {}
 
     def _limiter_for(self, spec: ModelSpec) -> RateLimiter:
         """Return the limiter governing this model, creating per-model ones lazily."""
@@ -201,8 +210,22 @@ class LLMClient:
             )
 
         chain = [model_key] + list(self.config.get("fallbacks", {}).get(model_key, []))
+
+        # EXHAUSTION IS STICKY FOR A WHILE.
+        # Without this, every single call re-attempts a model whose daily quota
+        # is already gone, burns all five retries with exponential backoff, and
+        # only then fails over - so a run that should take ~8s/row was taking
+        # 71s/row and projecting three hours. Once a model reports quota
+        # exhaustion we stop asking it for a cooldown period.
+        now = time.monotonic()
+        live = [k for k in chain if self._exhausted_until.get(k, 0.0) <= now]
+        if not live:
+            # Everything is cooling down; fall back to the original order and
+            # let it fail loudly rather than silently skipping the work.
+            live = chain
+
         last_exc: Exception | None = None
-        for i, key in enumerate(chain):
+        for i, key in enumerate(live):
             if key not in self.models:
                 continue
             try:
@@ -230,13 +253,18 @@ class LLMClient:
                 if not failover_worthy:
                     raise
                 last_exc = e
-                if i + 1 < len(chain):
-                    print(
-                        f"[llm] {key} exhausted; falling back to {chain[i+1]}",
-                        flush=True,
-                    )
+                if "429" in msg or "RESOURCE_EXHAUSTED" in msg:
+                    # Daily quota, not a momentary blip: stop asking this model.
+                    self._exhausted_until[key] = time.monotonic() + self.COOLDOWN_S
+                    print(f"[llm] {key} quota exhausted; skipping for "
+                          f"{self.COOLDOWN_S // 60:.0f}min", flush=True)
+                elif "503" in msg or "UNAVAILABLE" in msg or "high demand" in msg:
+                    # Transient overload: short cooldown so we come back to it.
+                    self._exhausted_until[key] = time.monotonic() + self.OVERLOAD_COOLDOWN_S
+                if i + 1 < len(live):
+                    print(f"[llm] falling back to {live[i+1]}", flush=True)
         raise RuntimeError(
-            f"All models exhausted for {model_key!r} (tried {chain}). Last: {last_exc}"
+            f"All models exhausted for {model_key!r} (tried {live}). Last: {last_exc}"
         )
 
     def _complete_one(

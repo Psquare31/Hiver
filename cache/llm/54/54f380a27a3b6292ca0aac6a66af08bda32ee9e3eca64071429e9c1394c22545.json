@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"Let's look into this together. Could you tell us which Apple device you're using?\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 525,
+  "completion_tokens": 25,
+  "latency_s": 1.055,
+  "created_at": "2026-09-12T13:16:13.593823+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: - 3rd iOS 11 update and you still haven’t fixed the WiFi & Bluetooth turning on by itself?\nBrand: Let's look into this together. Could you tell us which Apple device and iOS version you're using?\n\n[Example 2]\nCustomer: ever since iOS 11.0.3 came out my IPhone 7 keeps turning on and off it’s wifi and Bluetooth and locations when it says off?\nBrand: We're happy to help. Are you turning your Bluetooth and Wi-Fi off in the Settings app or using the Control Center?\n\n[Example 3]\nCustomer: iOS 11 wifi and bluetooth are turning itself on (even after toggling it off on the control center).\nBrand: Thanks for reaching out. We've made some changes to how Wi-Fi and Bluetooth work in Control Center:\n\n[Example 4]\nCustomer: iOS 11.1.1 and yes, it’s turned off in settings but when I reboot it comes back on. Phone model is iPhone 8+\nBrand: Thank you! So you're not touching the Bluetooth quick-disconnect button in the Control Center at all, you only use the power button in Settings > Bluetooth to turn it on/off, is that right?\n\nWrite a reply to this new customer message:\n\"\"\"Wanna see magic? Sleep by turning off your #Wifi and #Bluetooth on your #iPhone with iOS 11.1.1 and see it getting turned on in the morning. Buggiest #iOS update ever.\"\"\"\n\nThe customer's issue has been classified as: connectivity\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We'd be happy to look into this with you. Can you provide us the macOS and iOS version you're using?\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 462,
+  "completion_tokens": 36,
+  "latency_s": 0.938,
+  "created_at": "2026-09-12T13:46:54.908720+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: when i try to airdrop pictures from my macbook air to iphone 7, the mac doesn’t detect my phone. i made sure bluetooth/airdrop/etc was on.\nBrand: We'd be happy to look into this with you. Can you provide us the macOS and iOS version you're using?\n\n[Example 2]\nCustomer: can’t find my subscription button in my account settings. Help! 😵\nBrand: We can help with this. Can you tell us what device you're using and the type of subscription you're looking for?\n\n[Example 3]\nCustomer: I have lost my iPhone6 with below details. Kindly help me to find it.\nBrand: For more assistance with a lost or stolen device check out: If you have more questions, DM us.\n\n[Example 4]\nCustomer: My mac after updating to high Sierra won't detect my hdmi cable. will be hearing about this!!!!\nBrand: We want to help. Does restarting your Mac have any impact on the issue? What happens when you try using the HDMI cable?\n\nWrite a reply to this new customer message:\n\"\"\"my iphone is able to find my mac, but my mac still cannot find my iphone on airdrop.\"\"\"\n\nThe customer's issue has been classified as: connectivity\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

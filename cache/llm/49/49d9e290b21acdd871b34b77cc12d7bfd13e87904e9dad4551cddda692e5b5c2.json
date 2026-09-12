@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We'd like to take a look at this with you. DM us your iPhone model and iOS version to get started.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 509,
+  "completion_tokens": 35,
+  "latency_s": 0.831,
+  "created_at": "2026-09-12T13:21:52.972896+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Dear Apple, I would like to know how my phone went from 24% to 5% in 5 minutes. Sincerely, Confused and angry customer\nBrand: We'd like to take a look at this with you. DM us your iPhone model and iOS version to get started.\n\n[Example 2]\nCustomer: since software 11 launched my iphone7 plus battery goes from 100% to 10% in less than 2 hours .. while tweeting this i lost 5%\nBrand: We're here to help. Have you had the chance to try the steps provided in this article?\n\n[Example 3]\nCustomer: It’s like not working at all and I dropped from 32% to 20% in not even 5 minutes wtf\nBrand: We'd love to help. To be sure we are on the same page, have you been unable to download or install the iOS update? DM us here:\n\n[Example 4]\nCustomer: my battery went from 100% to 40% in 5 minuets fix yourself\nBrand: We want to help out! What kind of device do you use? In Settings > General > About, what does it show for Version?\n\nWrite a reply to this new customer message:\n\"\"\"I would like to know why my phone goes from 100-5% in 5 hours if I’m mainly in class and not using it.\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

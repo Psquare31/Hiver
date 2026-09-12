@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd like to help. Send us a DM with your device and iOS version so we can look into this.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 471,
+  "completion_tokens": 29,
+  "latency_s": 1.026,
+  "created_at": "2026-09-12T13:40:53.185938+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Can u pls fix the battery life, the freezing of apps and the slowness of everything of iOS11!? It’s driving me insane.\nBrand: We're here to help! What type of device do you have and which version of iOS 11 is currently installed?\n\n[Example 2]\nCustomer: It’s driving me insane\nBrand: We'd like to help. Send us a DM with your iOS version and we'll go from there:\n\n[Example 3]\nCustomer: Omg whyyy is IOS making that error on “I” pls fix this is driving me insane\nBrand: Hey, thanks for bringing this to our attention. Send us a DM with your device and iOS version so we can look into this.\n\n[Example 4]\nCustomer: on the news app how do u find out what u are following?\nBrand: Thank you for reaching out to us. In the News app, tap the Following tab to see what you are following.\n\nWrite a reply to this new customer message:\n\"\"\". your 2 step security verification is totally flawed & driving me insane. Even glitches & logs me out when following the steps 2 turn it off. Currently locked out of everything except on my cell. 2017 u making big L's\"\"\"\n\nThe customer's issue has been classified as: account_appleid\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

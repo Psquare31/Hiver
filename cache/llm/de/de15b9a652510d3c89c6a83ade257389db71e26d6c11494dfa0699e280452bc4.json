@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"Let's investigate together! What happens when you try to send an iMessage? When did the behavior first begin?\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 417,
+  "completion_tokens": 34,
+  "latency_s": 1.113,
+  "created_at": "2026-09-12T13:24:12.693444+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: What's going on with \"I\"? Why is this happening?? Can anyone on Twitter explain? #imessage #iphone\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 2]\nCustomer: Anyone's else's iPhones alarms stop working?\nBrand: Thank you for reaching out to us. Can you tell us about what you are experiencing? What is your device iOS version?\n\n[Example 3]\nCustomer: So why is my iMessage not working\nBrand: Let's investigate together! What happens when you try to send an iMessage? When did the behavior first begin?\n\n[Example 4]\nCustomer: imessage not working on ios 11\nBrand: We're happy to assist. Which iOS 11 version are you currently running? Go to Settings > General > About for the version.\n\nWrite a reply to this new customer message:\n\"\"\"Is anyone else's iMessage not working what's happening !\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

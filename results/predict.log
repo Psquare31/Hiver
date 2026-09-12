@@ -1,2 +1,5 @@
 [predict] trivial: 210 rows
 [predict] always_dm: 210 rows
+[predict] simple: 210 rows
+agent:   0%|          | 0/210 [00:00<?, ?it/s]agent:   1%|          | 2/210 [00:00<00:23,  8.70it/s]agent:   2%|▏         | 4/210 [00:00<00:18, 11.41it/s]agent:   3%|▎         | 6/210 [00:00<00:27,  7.33it/s]agent:   3%|▎         | 7/210 [00:00<00:27,  7.33it/s]agent:   4%|▍         | 9/210 [00:01<00:22,  8.87it/s]agent:   5%|▍         | 10/210 [00:01<00:22,  9.04it/s]agent:   6%|▌         | 12/210 [00:01<00:18, 10.64it/s]agent:   7%|▋         | 14/210 [00:01<00:18, 10.65it/s]agent:   7%|▋         | 14/210 [00:20<00:18, 10.65it/s][llm] gemini_flash quota exhausted; skipping for 30min
+[llm] falling back to gemini_flash_36

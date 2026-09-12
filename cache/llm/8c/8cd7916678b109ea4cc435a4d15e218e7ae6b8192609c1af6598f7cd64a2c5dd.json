@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"You're welcome.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 453,
+  "completion_tokens": 10,
+  "latency_s": 0.868,
+  "created_at": "2026-09-12T13:39:25.362393+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Thank you, I haven’t seen that there were a new version available. I’m downloading it. Thank you for your time\nBrand: You're welcome. Let us know how your alarms react after you complete that update.\n\n[Example 2]\nCustomer: Hello, i have a problem with the purchase new movie. Why ? I use the French App Store. Thank you\nBrand: We will do our best to help with this. What device and iOS version are you using?\n\n[Example 3]\nCustomer: About half a day. Prior to upgrade I didn’t need a charge till end of day. I haven’t changed my useage.\nBrand: We understand what you mean. DM us next and let us know about when you installed the 11.0.3 update exactly.\n\n[Example 4]\nCustomer: Hello? Would be nice to listen to music that I’m paying for\nBrand: We’re investigating and will update our System Status page as more info becomes available:\n\nWrite a reply to this new customer message:\n\"\"\"Hello! Thank you for the information! Its glad I haven’t open any of the URL. Will directly report to Apple :) Have a nice day\"\"\"\n\nThe customer's issue has been classified as: acknowledgement\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}
