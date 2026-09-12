@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We can help. Which device are you experiencing this issue with?\"}",
+  "model": "gemini-3.7-flash",
+  "provider": "gemini",
+  "prompt_tokens": 425,
+  "completion_tokens": 551,
+  "latency_s": 2.472,
+  "created_at": "2026-09-12T12:37:08.349654+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: this is happening in the latest version of IOS 11.0.3\nBrand: Thank you for those details. Have you had a chance to restart the iPhone and test for the issue?\n\n[Example 2]\nCustomer: I’m currently running the latest version of iOS 11\nBrand: Has this been occurring since the latest update or have you been having issues since the initial update to iOS 11?\n\n[Example 3]\nCustomer: Thank you, my iOS version is 11.0.2\nBrand: Thanks for letting us know that. Is there an error message on your screen? When do you notice this behavior?\n\n[Example 4]\nCustomer: iOS 11.0.2 is causing lot of issues - Early battery drain, freezing the phone, affected mobile data etc. Fix ASAP\nBrand: We can help. Which device are you experiencing this issue with? Are there any steps you've already tried?\n\nWrite a reply to this new customer message:\n\"\"\"iOS 11 is the best version of mobile OS...\"\"\"\n\nThe customer's issue has been classified as: feedback_complaint\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"Here’s what you can do to work around the issue until it’s fixed in a future software update:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 438,
+  "completion_tokens": 28,
+  "latency_s": 0.968,
+  "created_at": "2026-09-12T12:23:59.908272+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Fix this capital I️ bullshit\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 2]\nCustomer: FIX THIS CAPITAL I BULLSHIT\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 3]\nCustomer: I️WANT YOU TO FIX THIS SHIT I️ HATE I️T I️ I️ I️ I️. I️ II I️. WHY\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 4]\nCustomer: hey fix your bug on the letter i please. Updated iOS still can’t use a capital i, get this I️ instead\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\nWrite a reply to this new customer message:\n\"\"\"Seriously fix your letter Ii “I️ “ Capital A random ? Mark” bullshit IIIIIIIII WANT TO USE i JESUS!\"\"\"\n\nThe customer's issue has been classified as: other\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

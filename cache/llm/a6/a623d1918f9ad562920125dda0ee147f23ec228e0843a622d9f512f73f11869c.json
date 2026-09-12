@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"Here’s what you can do to work around the issue until it’s fixed in a future software update:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 460,
+  "completion_tokens": 28,
+  "latency_s": 0.89,
+  "created_at": "2026-09-12T12:30:12.866392+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: please fix the “l” bug. This is seriously annoying. #fixitplease #applesupport #appleglitch\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 2]\nCustomer: can you please fix this update.. It’s frustrating not being able to type “l” (l used a lowercase L, for the purpose of this tweet)\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 3]\nCustomer: please fix the glitch that is changing the letter “l” into weird symbols. Thanks\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 4]\nCustomer: This is ever since updating to 11, and every update since. I never had issues before 11.\nBrand: About how long ago did you update to 11.0.3? Please let us know in DM.\n\nWrite a reply to this new customer message:\n\"\"\"Seriously now my “ l “ is being weird? I️ had no issues before. Fix this please\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

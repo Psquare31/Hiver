@@ -249,6 +249,8 @@ class GroqProvider(Provider):
     # completion tokens drop ~3x (29 vs 95), which matters directly against
     # Groq's 200K tokens/day free-tier budget.
     REASONING_MODELS = ("gpt-oss", "qwen")
+    REASONING_FLOOR = 1024
+    MAX_ESCALATIONS = 3
 
     def _is_reasoning(self, model: str) -> bool:
         return any(m in model for m in self.REASONING_MODELS)
@@ -256,51 +258,66 @@ class GroqProvider(Provider):
     def complete(
         self, model: str, prompt: str, temperature: float, max_tokens: int
     ) -> LLMResponse:
-        kwargs = {}
-        if self._is_reasoning(model):
-            # Qwen does not accept reasoning_effort; it emits inline
-            # <think> blocks instead (stripped in client._extract_json).
-            if "gpt-oss" in model:
-                kwargs["reasoning_effort"] = "low"
-            # Reasoning tokens are drawn from the same budget as the answer, so
-            # a ceiling sized for the answer alone truncates mid-thought.
-            max_tokens = max(max_tokens, 512)
+        """Complete, escalating the ceiling if reasoning eats the whole budget.
+
+        Same failure shape as Gemini, different mechanism: gpt-oss writes its
+        chain-of-thought into `message.reasoning` and only fills `content`
+        afterwards. If the ceiling is reached first, the call returns HTTP 200
+        with finish_reason="length" and an EMPTY content string.
+
+        A fixed floor of 512 was not enough - gpt-oss-20b exceeded it on the
+        classifier prompt - and because truncation is deterministic, treating it
+        as retryable just burned five identical attempts. So the ceiling is
+        escalated instead, exactly as on the Gemini side.
+        """
+        reasoning = self._is_reasoning(model)
+        budget = max(max_tokens, self.REASONING_FLOOR) if reasoning else max_tokens
 
         t0 = time.perf_counter()
-        try:
-            resp = self.client.chat.completions.create(
-                model=model,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=temperature,
-                max_tokens=max_tokens,
-                **kwargs,
+        for _ in range(self.MAX_ESCALATIONS):
+            kwargs = {}
+            if "gpt-oss" in model:
+                # Qwen does not accept reasoning_effort; it emits inline
+                # <think> blocks instead (stripped in client._extract_json).
+                kwargs["reasoning_effort"] = "low"
+            try:
+                resp = self.client.chat.completions.create(
+                    model=model,
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=temperature,
+                    max_tokens=budget,
+                    **kwargs,
+                )
+            except self._groq.RateLimitError as e:
+                raise RetryableError(f"groq 429: {e}") from e
+            except (self._groq.APIConnectionError, self._groq.InternalServerError) as e:
+                raise RetryableError(f"groq transient: {e}") from e
+            except self._groq.APIStatusError as e:
+                raise ProviderError(f"groq {e.status_code}: {e}") from e
+
+            choice = resp.choices[0]
+            text = choice.message.content or ""
+            if text.strip() or choice.finish_reason != "length":
+                break
+            budget *= 4
+        else:
+            # Not retryable - the caller should fail over to another model
+            # rather than spin on a deterministic truncation.
+            raise ProviderError(
+                f"groq {model}: still truncated mid-reasoning at "
+                f"max_tokens={budget // 4} after {self.MAX_ESCALATIONS} "
+                "escalations; content stayed empty."
             )
-        except self._groq.RateLimitError as e:
-            raise RetryableError(f"groq 429: {e}") from e
-        except (self._groq.APIConnectionError, self._groq.InternalServerError) as e:
-            raise RetryableError(f"groq transient: {e}") from e
-        except self._groq.APIStatusError as e:
-            raise ProviderError(f"groq {e.status_code}: {e}") from e
 
         elapsed = time.perf_counter() - t0
-        choice = resp.choices[0]
-        text = choice.message.content or ""
-
-        # Truncation must be loud. An empty answer that cost tokens is a
-        # failure, and silently caching "" would corrupt every downstream metric.
-        if not text.strip() and choice.finish_reason == "length":
-            raise RetryableError(
-                f"groq {model}: truncated mid-reasoning (finish_reason=length, "
-                f"{resp.usage.completion_tokens} completion tokens, empty content). "
-                "Raise max_tokens."
-            )
-
         usage = resp.usage
         return LLMResponse(
             text=text,
             model=model,
             provider=self.name,
             prompt_tokens=getattr(usage, "prompt_tokens", 0) or 0,
+            # Groq's completion_tokens already includes reasoning tokens, so
+            # no separate adjustment is needed here (unlike Gemini).
             completion_tokens=getattr(usage, "completion_tokens", 0) or 0,
             latency_s=round(elapsed, 3),
         )

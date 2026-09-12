@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We'd love to help. Please DM and tell us what version of iOS 11 you see under Settings > General > About > Version.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 472,
+  "completion_tokens": 40,
+  "latency_s": 1.046,
+  "created_at": "2026-09-12T12:33:37.470598+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: updated to 11.03 and battery drains within 2 hours and half my calls and texts won't go through, what's going on?\nBrand: Let's work through this together. How long has it been since updating? Also, have you tried restarting since noticing this?\n\n[Example 2]\nCustomer: ios11 is draining my battery\nBrand: We want to be sure you get the most out of your battery life. Which device are you using? We'd like to help.\n\n[Example 3]\nCustomer: my phone is draining by the second after the update-7plus. fix this please. I refuse to buy a new phone. This is ridiculous.\nBrand: We'd love to help. Please DM and tell us what version of iOS 11 you see under Settings > General > About > Version.\n\n[Example 4]\nCustomer: Uhmmm why am I receiving this....? Ios11.03 is such a mess\nBrand: We'd like to look into this with you. DM us what device you're using and we'll continue there.\n\nWrite a reply to this new customer message:\n\"\"\"Why is ios11.03 draining my battery on 7plus within half a day!! This is ridiculous\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

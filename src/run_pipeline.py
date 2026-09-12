@@ -143,10 +143,26 @@ def stage_judge(args) -> None:
         if args.with_ceiling:
             judges["ceiling"] = client.config["roles"]["judge_ceiling"]
 
+    # The primary judge can also be scoped. A full run is 210 rows x 4 systems
+    # = 840 calls, which free-tier quota often cannot absorb in one day. Scoping
+    # by GOLDEN ROW (not by prediction row) keeps all systems comparable on
+    # exactly the same messages - sampling predictions directly would score
+    # different systems on different messages and make the comparison invalid.
+    judged_ids = None
+    if args.judge_sample and golden.shape[0] > args.judge_sample:
+        judged_ids = set(
+            golden.sample(n=args.judge_sample, random_state=20260910).index
+        )
+        print(
+            f"[judge] scoping to {len(judged_ids)} golden rows x "
+            f"{preds['system'].nunique()} systems "
+            f"= {len(judged_ids) * preds['system'].nunique()} calls"
+        )
+
     rows = []
     for judge_name, model_key in judges.items():
         judge = ReplyJudge(client, model_key=model_key)
-        subset = preds
+        subset = preds if judged_ids is None else preds[preds["golden_id"].isin(judged_ids)]
         if judge_name != "primary":
             # Secondary judges run on a capped, deterministic subset. Groq's
             # free tier allows ~171 judge calls/day, so scoring all 840 is not
@@ -254,6 +270,9 @@ def main() -> None:
     ap.add_argument("--primary-only", action="store_true")
     ap.add_argument("--with-ceiling", action="store_true")
     ap.add_argument("--ignore-roster", action="store_true")
+    ap.add_argument("--judge-sample", type=int, default=0,
+                    help="limit judging to N golden rows (0 = all); all systems "
+                         "are scored on the same rows so they stay comparable")
     ap.add_argument("--secondary-sample", type=int, default=150,
                     help="cap on rows scored by non-primary judges")
     ap.add_argument("--agreement-ids", default=None,

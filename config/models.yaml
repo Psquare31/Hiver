@@ -60,6 +60,13 @@ models:
     input_price_per_1m: 0.10
     output_price_per_1m: 0.40
 
+  gemini_flash_lite_31:
+    provider: gemini
+    model_id: gemini-3.1-flash-lite
+    role: classify         # extra failover capacity, not an arena entry
+    input_price_per_1m: 0.10
+    output_price_per_1m: 0.40
+
   # CEILING ROW - REQUIRES BILLING, NOT JUST A KEY.
   # Pro models were removed from the Gemini free tier: the API reports
   # "limit: 0, model: gemini-3.1-pro" for free-tier input tokens. An AI Pro
@@ -99,17 +106,29 @@ models:
 # than documented - gemini-3.8-flash and then 3.7-flash both returned
 # RESOURCE_EXHAUSTED after fewer than 40 total requests. Without failover a
 # 210-row evaluation cannot complete. The serving model is recorded per row.
+# Chains are long on purpose. Quota exhaustion is per model AND rolling: over
+# one session gemini-3.8 died, then 3.7, then 3.6, while 3.7 later recovered.
+# Any single-model assumption breaks mid-run.
 fallbacks:
-  gemini_flash:      [gemini_flash_36, gemini_flash_lite]
-  gemini_flash_36:   [gemini_flash_lite]
-  gemini_flash_lite: [gemini_flash_36]
-  gpt_oss_120b:      [gpt_oss_20b]
-  gpt_oss_20b:       [gpt_oss_120b]
+  gemini_flash:         [gemini_flash_36, gemini_flash_lite, gemini_flash_lite_31]
+  gemini_flash_36:      [gemini_flash_lite, gemini_flash_lite_31, gemini_flash]
+  gemini_flash_lite:    [gemini_flash_lite_31, gemini_flash_36, gemini_flash]
+  gemini_flash_lite_31: [gemini_flash_lite, gemini_flash_36]
+  gpt_oss_120b:         [qwen_27b, gpt_oss_20b]
+  gpt_oss_20b:          [qwen_27b, gpt_oss_120b]
+  qwen_27b:             [gpt_oss_20b]
 
 # Role assignments used by the pipeline unless overridden on the command line.
 roles:
-  classifier: gemini_flash_lite
-  drafter: gemini_flash_36
+  # CLASSIFIER RUNS ON GROQ, DRAFTER AND JUDGE ON GEMINI - a budget decision,
+  # not a quality one. Both Gemini models share one account-wide 10 RPM limit,
+  # so putting classify and draft there made prediction alone 420 Gemini calls
+  # at ~26s/row, and left too little of the daily allowance for the 840-call
+  # judge run. Classification is short, structured, and well within Groq's
+  # per-model token budget (210 x ~650 = 137K of 190K), so moving it there
+  # halves Gemini load and roughly halves wall-clock.
+  classifier: gpt_oss_20b
+  drafter: gemini_flash
   # JUDGE ASSIGNMENT IS DECIDED BY MEASURED CAPACITY, NOT PREFERENCE.
   # A full judge run is 210 rows x 4 systems = 840 calls at ~1,111 tokens each
   # (~933K tokens). Groq's free tier allows 190K tokens/day/model = ~171 calls,
@@ -120,7 +139,7 @@ roles:
   # Gemini. Rather than assert the bias away, the Groq cross-family judge scores
   # a capped subset and the delta between them is reported as a result - which
   # is the only honest way to handle a constraint you cannot design around.
-  judge_primary: gemini_flash_36
+  judge_primary: gemini_flash
   judge_cross_family: gpt_oss_120b
   judge_ceiling: gemini_pro
 

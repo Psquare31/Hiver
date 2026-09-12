@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We'd like to see if we can assist you with your iPhone. To begin, DM us your iPhone model and iOS version. We'll start there:\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 417,
+  "completion_tokens": 43,
+  "latency_s": 1.147,
+  "created_at": "2026-09-12T12:27:50.513184+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Yes!!! My phone keeps freezing and I have to restart it a few times a day, it's the worst!\nBrand: We'd like to see if we can assist you with your iPhone. To begin, DM us your iPhone model and iOS version. We'll start there:\n\n[Example 2]\nCustomer: Updated iOS and now I can’t make...phone calls! How do you mess up phone calls ?\nBrand: We can help. Try following this article and let us know the results\n\n[Example 3]\nCustomer: I cannot make or receive calls. And my iPhone is rebooting at least 4 times per day...\nBrand: Which version of iOS are you using? Check Settings > General > About and let us know in DM.\n\nWrite a reply to this new customer message:\n\"\"\"so not only do i have to suffer with crashing or freezing on an hourly basis. I now need to charge my phone 3 times a day and to top it off I can’t make any calls. This is a joke\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

@@ -159,6 +159,19 @@ returns clean JSON in 13–27 tokens. Support is not uniform (3.7-flash requires
 the parameter, 3.5-flash-lite rejects it with a 400), so it is probed per model
 and memoised.
 
+**22a. The classifier runs on Groq, the drafter and judge on Gemini.**
+A budget decision, not a quality one. Both Gemini models share one account-wide
+10 RPM limit, so putting classify and draft there made prediction alone 420
+Gemini calls at ~26s/row and left too little of the daily allowance for the
+840-call judge run. Classification is short and structured and fits Groq's
+per-model token budget (210 x ~650 = 137K of 190K), so moving it there halves
+Gemini load and roughly halves wall-clock. It measures 5/5 on a spot check.
+
+**22b. Failover chains are long because quota exhaustion is rolling.**
+Across one session gemini-3.8-flash died, then 3.7, then 3.6 - and 3.7 later
+recovered. Any single-model assumption breaks mid-run, so every model has a
+multi-step chain and the serving model is recorded per row.
+
 **23. gpt-oss returns its answer in a separate field.**
 Groq's gpt-oss models emit chain-of-thought into `message.reasoning` and only
 fill `content` afterwards. With a small `max_tokens` they return
@@ -166,7 +179,10 @@ fill `content` afterwards. With a small `max_tokens` they return
 every cross-family judge verdict without raising. Fixed with
 `reasoning_effort="low"`, which also cut completion tokens ~3× (29 vs 95).
 Qwen has the same problem in a different shape: inline `<think>` blocks,
-stripped in `_extract_json`.
+stripped in `_extract_json`. A fixed 512-token floor was not enough either -
+gpt-oss-20b exceeded it on the classifier prompt - so Groq escalates the
+ceiling on truncation exactly as the Gemini path does, rather than retrying a
+deterministic failure.
 
 **24. Truncation is a loud error — but escalated, not retried.**
 An empty or truncated answer that cost tokens is a failure, and caching it

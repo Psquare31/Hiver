@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We want to help! How long has this been going on? Do you have the most recent version of iOS 11.0.2 downloaded?\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 441,
+  "completion_tokens": 41,
+  "latency_s": 0.973,
+  "created_at": "2026-09-12T12:31:50.396254+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: why has my battery been dying stupid fast and my internet connection been really bad since I updated?\nBrand: We know you need to get as much battery as possible to get through your day. Which device is giving you these issues?\n\n[Example 2]\nCustomer: ever since the update ios 11 my battery has been going down quicker. I have the 7 plus\nBrand: We want to help! How long has this been going on? Do you have the most recent version of iOS 11.0.2 downloaded?\n\n[Example 3]\nCustomer: Phone keeps dying fast 🙂\nBrand: We want to help. Which iOS version is your device running? We want to make sure that you're running the latest version.\n\n[Example 4]\nCustomer: Hey why the hell has my phone been getting extremely hot and the battery life dies so quick ?!?!\nBrand: We can help you. First, try optimizing your settings for battery life, and DM us if this continues:\n\nWrite a reply to this new customer message:\n\"\"\"My 7 plus iPhone's battery has been dying extremely fast.... does replace batteries for free...?\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}
