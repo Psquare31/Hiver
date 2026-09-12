@@ -1,0 +1,11 @@
+{
+  "text": "{\"reply\": \"Here’s what you can do to work around the issue until it’s fixed in a future software update:\"}",
+  "model": "gemini-3.6-flash",
+  "provider": "gemini",
+  "prompt_tokens": 448,
+  "completion_tokens": 973,
+  "latency_s": 8.089,
+  "created_at": "2026-09-12T12:13:01.886768+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: If doesn’t fix the letter ‘i’ problem in the new iOS, I am going to lose my mind.\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 2]\nCustomer: if my iPhone 7 freezes one more time I am going to lose my mind.\nBrand: We've got your back! When did this issue start on your iPhone? How often are you seeing it? Does it happen in all apps?\n\n[Example 3]\nCustomer: if y’all don’t fix this I️ problem immediately\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 4]\nCustomer: if y’all don’t fix this i️ issue then Eye am going to get an android. You have 24 hours.\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\nWrite a reply to this new customer message:\n\"\"\"If u don’t fix this 👁 problem 👁 am going to lose it\"\"\"\n\nThe customer's issue has been classified as: feedback_complaint\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_36"
+}

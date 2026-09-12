@@ -1,4 +1,4 @@
-# AI Support Agent — SpotifyCares
+# AI Support Agent — AppleSupport
 
 An inbound-triage agent over real Twitter customer-support conversations. For
 each incoming customer message it (1) classifies intent, (2) drafts a reply
@@ -78,7 +78,7 @@ message
    │
    ├─► classify.py    intent, 1 of 10, with confidence      (prompt built from taxonomy.yaml)
    │
-   ├─► retrieve.py    BM25 over 7,607 past resolutions      (time-filtered per query)
+   ├─► retrieve.py    BM25 over 39,436 past resolutions     (time-filtered per query)
    │
    ├─► draft.py       reply grounded in retrieved exemplars (or a safe holding reply)
    │
@@ -91,48 +91,47 @@ message
   on HuggingFace — a byte-faithful mirror of the Kaggle
   `thoughtvector/customer-support-on-twitter` file. **2,811,774 rows**, exact
   match to the original. Avoids the Kaggle credential dance; schema is identical.
-- **Brand:** SpotifyCares — 41,585 (customer → first agent reply) pairs,
-  7,652 with substantive replies.
+- **Brand:** AppleSupport — 106,623 (customer → first agent reply) pairs,
+  **39,510 (37.1%) with substantive replies** — the most groundable brand in
+  the corpus.
 - **Unit of work:** the customer's opening message → the brand's first reply.
   Not the whole thread: that is the decision an inbound triage agent actually
   faces, and using the full thread would leak the resolution into the input.
 
-### Why SpotifyCares
+### Why AppleSupport
 
-Volume and usability are inversely correlated here. Measured across the top 15
-brands (`results/brand_selection.csv`):
+Measured across the top 15 brands (`results/brand_selection.csv`):
 
 | brand | agent tweets | substantive | handoff | groundable replies |
 |---|---|---|---|---|
-| AppleSupport | 106,860 | 37.1% | 47.2% | 39,603 |
-| **SpotifyCares** | 43,265 | **18.4%** | 50.3% | **7,962** |
+| **AppleSupport** | 106,860 | **37.1%** | 47.2% | **39,603** |
+| SpotifyCares | 43,265 | 18.4% | 50.3% | 7,962 |
 | AmazonHelp | 169,840 | 5.9% | 40.4% | 9,941 |
 | Uber_Support | 56,270 | 2.2% | **75.7%** | 1,251 |
 | Ask_Spectrum | 25,860 | 3.0% | 64.0% | 772 |
 
-The biggest accounts are the least usable: their replies are channel handoffs
-("share your details here: `<link>`") because resolution happens in DMs the
-dataset never captured. Apple has more groundable replies than Spotify —
-contradicting my initial estimate, and recorded rather than buried — but its
-intent space spans the entire product line, which makes "a small set of intents"
-indefensible. Brand is a config parameter.
+Volume and usability are inversely correlated. AmazonHelp is the largest support
+account in the corpus and one of the least usable — its replies are almost
+entirely *"Kindly share your details here: `<link>`"*, because resolution happens
+in DMs the dataset never captured. AppleSupport has by far the most groundable
+material. Brand is a config parameter (`BRAND` env var); switching costs no code
+change, but it does cost a new taxonomy and a fresh labelling pass.
 
 ### Intent taxonomy
 
 10 intents, derived bottom-up. TF-IDF + KMeans over 4,000 customer messages (k
 swept 6–14) produced the *reading material*, not the taxonomy — silhouette
-peaked at 0.02 and one cluster absorbed 55% of messages. I read cluster
+peaked at 0.023 and one cluster absorbed 52% of messages. I read cluster
 exemplars and authored `config/taxonomy.yaml`, tracing each intent to observed
 structure.
 
-`playback_failure` · `account_access` · `billing_charge` · `subscription_manage`
-· `content_missing` · `device_compat` · `playlist_library` · `feature_request`
-· `acknowledgement` · `other`
+`battery_power` · `os_update` · `device_performance` · `connectivity` ·
+`app_software` · `account_appleid` · `hardware_repair` · `feedback_complaint` ·
+`acknowledgement` · `other`
 
 `acknowledgement` was **added after labelling, not before** — clustering never
-surfaced it, but 12 of 32 `other` rows turned out to be thanks/praise/closing
-messages. Splitting it out dropped `other` from 15.2% to 9.5%, back under the
-coverage threshold the taxonomy sets for itself.
+surfaced it. `other` sits at **7.6%**, under the 15% threshold the taxonomy sets
+for itself and a test enforces.
 
 ---
 
@@ -155,19 +154,23 @@ handles and under-represent exactly where it fails.
 **The set is deliberately not representative**, so every row carries a `weight`
 and every headline is reported raw *and* reweighted to the natural distribution.
 
-| | count |
+| intent | count |
 |---|---|
-| feature_request | 31 |
-| billing_charge | 28 |
-| device_compat | 26 |
-| playback_failure | 23 |
-| subscription_manage | 22 |
-| content_missing | 21 |
-| other | 20 |
-| account_access | 17 |
-| acknowledgement | 12 |
-| playlist_library | 10 |
-| **route: auto / escalate** | **145 / 65** |
+| app_software | 55 |
+| device_performance | 38 |
+| battery_power | 23 |
+| hardware_repair | 19 |
+| connectivity | 17 |
+| other | 16 |
+| account_appleid | 15 |
+| feedback_complaint | 14 |
+| os_update | 10 |
+| acknowledgement | 3 |
+| **route: auto / escalate** | **156 / 54** |
+
+**14.8% of the set is a single 2017 bug** — the iOS 11 fault rendering "I" as a
+boxed question mark. That concentration is a headline limitation, not trivia;
+see the report.
 
 ### Human labelling
 
@@ -220,12 +223,27 @@ Open in a browser (~1 hour, progress saved automatically), then Export CSV to
 
 | role | model | provider | why |
 |---|---|---|---|
-| drafter, primary judge | `gemini-3.8-flash` | Gemini | token-rich free tier |
+| drafter | `gemini-3.6-flash` | Gemini | had free-tier quota left (see below) |
 | classifier | `gemini-3.5-flash-lite` | Gemini | cheapest adequate |
-| ceiling | `gemini-3.1-pro-preview` | Gemini | frontier reference row |
-| cross-family judge | `openai/gpt-oss-120b` | Groq | independent of drafter |
-| classifier | `openai/gpt-oss-20b` | Groq | speed/quality tradeoff |
-| third family | `qwen/qwen3.6-27b` | Groq | family diversity |
+| **primary judge** | `openai/gpt-oss-120b` | Groq | **different family from the drafter** |
+| cross-family judge | `gemini-3.6-flash` | Gemini | independent check on the judge |
+| arena | `openai/gpt-oss-20b` | Groq | speed/quality tradeoff |
+| arena | `qwen/qwen3.6-27b` | Groq | third model family |
+| ceiling | `gemini-3.1-pro-preview` | Gemini | **excluded — not on the free tier** |
+
+Two things worth knowing before you trust the roster:
+
+**Free-tier quota is per model, and far tighter than documented.** Gemini
+publishes 1,500 requests/day; this key exhausted `gemini-3.8-flash` and then
+`gemini-3.7-flash` after **fewer than 40 total requests**, while 3.6-flash and
+the flash-lite models kept serving. The client therefore implements failover
+down a configured chain, and records which model actually answered each row so
+results are never attributed to a model that did not produce them.
+
+**Pro models are not on the free tier at all** — the API reports
+`limit: 0, model: gemini-3.1-pro`. A Google AI Pro subscription does not enable
+this; its Cloud credit must be attached as billing on the API project. The
+ceiling row is excluded rather than silently failing.
 
 Everything runs on free tiers, so **cost is reported as tokens consumed and
 equivalent price at published paid rates**, plus latency. Actual spend is zero,

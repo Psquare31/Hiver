@@ -38,8 +38,18 @@ models:
   # ---- Gemini -----------------------------------------------------------
   gemini_flash:
     provider: gemini
-    model_id: gemini-3.8-flash
+    model_id: gemini-3.7-flash
     role: draft            # primary drafter and primary judge
+    input_price_per_1m: 0.30
+    output_price_per_1m: 2.50
+    # NOT gemini-3.8-flash. Free-tier quota is allocated PER MODEL, and the
+    # newest Flash returns 429 RESOURCE_EXHAUSTED on this key while 3.7, 3.6
+    # and 3.5 all serve normally. Newest != most available on a free tier.
+
+  gemini_flash_36:
+    provider: gemini
+    model_id: gemini-3.6-flash
+    role: classify         # arena entry, one generation back
     input_price_per_1m: 0.30
     output_price_per_1m: 2.50
 
@@ -50,10 +60,16 @@ models:
     input_price_per_1m: 0.10
     output_price_per_1m: 0.40
 
+  # CEILING ROW - REQUIRES BILLING, NOT JUST A KEY.
+  # Pro models were removed from the Gemini free tier: the API reports
+  # "limit: 0, model: gemini-3.1-pro" for free-tier input tokens. An AI Pro
+  # subscription does not by itself enable this; its Cloud credit must be
+  # linked as billing on the API project. Excluded from `arena` by default so
+  # the pipeline runs without it; add it back once billing is attached.
   gemini_pro:
     provider: gemini
     model_id: gemini-3.1-pro-preview
-    role: ceiling          # frontier reference row, paid via AI Pro credit
+    role: ceiling
     input_price_per_1m: 1.25
     output_price_per_1m: 10.00
 
@@ -79,19 +95,36 @@ models:
     input_price_per_1m: 0.15
     output_price_per_1m: 0.60
 
+# Failover chains. Free-tier quota is per model and, on this key, far tighter
+# than documented - gemini-3.8-flash and then 3.7-flash both returned
+# RESOURCE_EXHAUSTED after fewer than 40 total requests. Without failover a
+# 210-row evaluation cannot complete. The serving model is recorded per row.
+fallbacks:
+  gemini_flash:      [gemini_flash_36, gemini_flash_lite]
+  gemini_flash_36:   [gemini_flash_lite]
+  gemini_flash_lite: [gemini_flash_36]
+  gpt_oss_120b:      [gpt_oss_20b]
+  gpt_oss_20b:       [gpt_oss_120b]
+
 # Role assignments used by the pipeline unless overridden on the command line.
 roles:
   classifier: gemini_flash_lite
-  drafter: gemini_flash
-  judge_primary: gemini_flash
-  judge_cross_family: gpt_oss_120b
+  drafter: gemini_flash_36
+  # PRIMARY JUDGE IS A DIFFERENT FAMILY FROM THE DRAFTER, ON PURPOSE.
+  # Originally Gemini judged Gemini's drafts, with a Groq cross-check. Gemini
+  # free-tier quota forced the judge onto Groq - and that is the better design
+  # anyway: the headline judge now has no self-preference stake in the drafts
+  # it scores, and Gemini becomes the cross-family check instead.
+  judge_primary: gpt_oss_120b
+  judge_cross_family: gemini_flash_36
   judge_ceiling: gemini_pro
 
 # Every model that takes part in the classification arena.
 arena:
   - gemini_flash
+  - gemini_flash_36
   - gemini_flash_lite
-  - gemini_pro
   - gpt_oss_120b
   - gpt_oss_20b
   - qwen_27b
+# gemini_pro is deliberately absent - see the note on that model above.

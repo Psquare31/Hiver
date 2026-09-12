@@ -39,7 +39,9 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from data.text import for_display  # noqa: E402
 
-GOLDEN = ROOT / "golden" / "golden_labelled.parquet"
+import os
+BRAND = os.environ.get("BRAND", "AppleSupport")
+GOLDEN = ROOT / "golden" / f"golden_labelled_{BRAND}.parquet"
 PRED = ROOT / "results" / "predictions.parquet"
 TAXONOMY = ROOT / "config" / "taxonomy.yaml"
 RUBRIC = ROOT / "config" / "rubric.yaml"

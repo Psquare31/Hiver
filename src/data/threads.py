@@ -65,7 +65,6 @@ def build_pairs(brand: str) -> pd.DataFrame:
     Returns one row per pair with the fields every later stage needs.
     """
     sub = load_brand_universe(brand)
-    by_id = sub.set_index(sub["tweet_id"].astype("int64"))
 
     brand_replies = sub[sub["author_id"] == brand].copy()
     brand_replies = brand_replies.dropna(subset=["in_response_to_tweet_id"])
@@ -76,35 +75,38 @@ def build_pairs(brand: str) -> pd.DataFrame:
     brand_replies = brand_replies.sort_values("created_at")
     first = brand_replies.drop_duplicates(subset=["parent_id"], keep="first")
 
-    rows = []
-    for _, r in first.iterrows():
-        pid = int(r["parent_id"])
-        if pid not in by_id.index:
-            continue
-        parent = by_id.loc[pid]
-        if isinstance(parent, pd.DataFrame):  # duplicate ids, take first
-            parent = parent.iloc[0]
-        # Only customer-authored parents are valid inbound messages.
-        if not bool(parent["inbound"]):
-            continue
+    # Join rather than loop. An earlier row-wise version with per-row .loc
+    # lookups was fine on Spotify (41k pairs) and did not finish in 10 minutes
+    # on AppleSupport (2.5x the volume) - the lookups are what scale badly,
+    # not the data.
+    parents = sub.copy()
+    parents["parent_id"] = parents["tweet_id"].astype("int64")
+    parents = parents.drop_duplicates(subset=["parent_id"], keep="first")
+    # Only customer-authored parents are valid inbound messages.
+    parents = parents[parents["inbound"].astype(bool)]
 
-        rows.append(
-            {
-                "pair_id": f"{brand}-{pid}",
-                "brand": brand,
-                "customer_tweet_id": pid,
-                "customer_author": parent["author_id"],
-                "customer_text": str(parent["text"]),
-                "customer_at": parent["created_at"],
-                "agent_tweet_id": int(r["tweet_id"]),
-                "agent_text": str(r["text"]),
-                "agent_at": r["created_at"],
-            }
-        )
+    merged = first.merge(
+        parents[["parent_id", "author_id", "text", "created_at"]],
+        on="parent_id",
+        how="inner",
+        suffixes=("_agent", "_customer"),
+    )
+    if merged.empty:
+        return pd.DataFrame()
 
-    pairs = pd.DataFrame(rows)
-    if pairs.empty:
-        return pairs
+    pairs = pd.DataFrame(
+        {
+            "pair_id": brand + "-" + merged["parent_id"].astype(str),
+            "brand": brand,
+            "customer_tweet_id": merged["parent_id"],
+            "customer_author": merged["author_id_customer"],
+            "customer_text": merged["text_customer"].astype(str),
+            "customer_at": merged["created_at_customer"],
+            "agent_tweet_id": merged["tweet_id"].astype("int64"),
+            "agent_text": merged["text_agent"].astype(str),
+            "agent_at": merged["created_at_agent"],
+        }
+    )
 
     pairs["response_lag_min"] = (
         (pairs["agent_at"] - pairs["customer_at"]).dt.total_seconds() / 60

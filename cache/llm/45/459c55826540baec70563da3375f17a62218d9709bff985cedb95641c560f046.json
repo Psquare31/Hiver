@@ -1,0 +1,11 @@
+{
+  "text": "```json\n{\"reply\": \"We'd be happy to see how we can help. Send us a DM with your device and iOS version and we'll see what's going on.\"}\n```",
+  "model": "gemini-3.7-flash",
+  "provider": "gemini",
+  "prompt_tokens": 428,
+  "completion_tokens": 43,
+  "latency_s": 1.424,
+  "created_at": "2026-09-09T23:26:50.632640+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: whatsapp notifications aren’t working anymore\nBrand: Notifications are important to have working. Does WhatsApp have an update in the App Store? Which iOS version is installed?\n\n[Example 2]\nCustomer: i️ can’t type “i️”and it’s annoying because i️ use “i️” in almost all of my sentences pls get it together\nBrand: Thanks for reaching out. If you're on iOS 11.1, try this: Questions? Feel free to send us a DM.\n\n[Example 3]\nCustomer: fuck up with my capital i not working\nBrand: We'd be happy to see how we can help. DM us your device and OS version and we'll see what's going on.\n\n[Example 4]\nCustomer: my calls aren’t working after this update 😭\nBrand: You're in the right spot. What happens when you try to make a call? Have you received any errors?\n\nWrite a reply to this new customer message:\n\"\"\"and capital i’s aren’t working. Get it together\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash"
+}

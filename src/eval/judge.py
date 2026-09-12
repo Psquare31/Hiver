@@ -12,8 +12,7 @@ make judges untrustworthy are addressed explicitly rather than hoped away:
 
 3. THE REFERENCE REPLY IS EVIDENCE, NOT AN ANSWER KEY. The judge sees what the
    brand actually said, but is told explicitly that the historical reply is not
-   necessarily good. Roughly half of this brand's real replies are "DM us"
-   handoffs; a judge treating them as the target would reward imitation of a
+   necessarily good. 47% of this brand's real replies are channel handoffs; a judge treating them as the target would reward imitation of a
    non-answer. This instruction is the difference between measuring quality and
    measuring mimicry.
 
@@ -77,9 +76,9 @@ JUDGE_PROMPT = """You are evaluating a draft customer-support reply for \
 {reference}
 
 IMPORTANT: the actual reply above is what happened, NOT a model answer. This \
-brand very often replies with a channel handoff ("DM us your account email") \
-that resolves nothing publicly. Do not treat matching it as automatically good, \
-and do not treat differing from it as automatically bad.
+brand answers with a channel handoff ("Send us a DM and we'll take a closer \
+look") in 47% of cases, which resolves nothing publicly. Do not treat matching \
+it as automatically good, and do not treat differing from it as automatically bad.
 
 === THE DRAFT REPLY UNDER REVIEW ===
 {candidate}
@@ -105,7 +104,7 @@ class ReplyJudge:
         self,
         client: LLMClient,
         model_key: str | None = None,
-        brand: str = "Spotify",
+        brand: str = "Apple",
         rubric_path: Path = RUBRIC,
     ):
         self.client = client

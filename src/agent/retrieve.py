@@ -6,8 +6,8 @@ side, and the agent side becomes evidence in the drafting prompt.
 
 THREE CHOICES THAT MATTER FOR THE EVALUATION:
 
-1. ONLY SUBSTANTIVE REPLIES ARE INDEXED. Roughly half of Spotify's replies are
-   channel handoffs ("DM us your account email"). Indexing those would teach the
+1. ONLY SUBSTANTIVE REPLIES ARE INDEXED. 47.3% of AppleSupport's replies are
+   channel handoffs ("Send us a DM and we'll take a closer look"). Indexing those would teach the
    drafter that the correct response to anything is "please DM us" - and because
    the same handoffs dominate the ground truth, a judge would score that highly.
    Filtering them is the single most important line in this file.
@@ -19,7 +19,7 @@ THREE CHOICES THAT MATTER FOR THE EVALUATION:
    The filter is applied at SEARCH time, not by pruning the index. A single
    global cutoff was tried first and failed badly - the corpus spans only
    ~2 months and the golden set covers all of it, so cutting at the earliest
-   golden timestamp left 90 usable pairs out of 7,652. Per-query filtering
+   golden timestamp left 90 usable pairs out of thousands. Per-query filtering
    keeps the whole index available while preserving the guarantee exactly.
 
 3. LEXICAL, NOT NEURAL. BM25 needs no embedding API, runs offline, and - the
@@ -45,8 +45,10 @@ sys.path.insert(0, str(ROOT / "src"))
 from data.brand import has_substance  # noqa: E402
 from data.text import normalise  # noqa: E402
 
-PAIRS = ROOT / "data" / "processed" / "pairs_SpotifyCares.parquet"
-INDEX_PATH = ROOT / "data" / "processed" / "bm25_index.pkl"
+import os
+BRAND = os.environ.get("BRAND", "AppleSupport")
+PAIRS = ROOT / "data" / "processed" / f"pairs_{BRAND}.parquet"
+INDEX_PATH = ROOT / "data" / "processed" / f"bm25_index_{BRAND}.pkl"
 
 TOKEN_RE = re.compile(r"[a-z0-9']+")
 
@@ -130,7 +132,7 @@ class ResolutionIndex:
         occurred strictly earlier than the message being answered are eligible.
         A single global cutoff cannot work here - the corpus is ~2 months wide
         and the golden set spans all of it, so cutting at the earliest golden
-        timestamp left 90 usable pairs out of 7,652. Filtering per query keeps
+        timestamp left 90 usable pairs out of thousands. Filtering per query keeps
         the full index available while preserving the guarantee exactly.
 
         The honest consequence, reported rather than hidden: early-period
@@ -176,14 +178,14 @@ def build_default() -> ResolutionIndex:
     guarantee is enforced per query at search time via `before=`, not by a
     global cutoff here - see ResolutionIndex.search for why.
     """
-    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled.parquet")
+    golden = pd.read_parquet(ROOT / "golden" / f"golden_labelled_{BRAND}.parquet")
     idx = ResolutionIndex.build(exclude_pair_ids=set(golden["pair_id"]))
     idx.save()
     return idx
 
 
 if __name__ == "__main__":
-    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled.parquet")
+    golden = pd.read_parquet(ROOT / "golden" / f"golden_labelled_{BRAND}.parquet")
     idx = build_default()
 
     print(f"[retrieve] index date range: "

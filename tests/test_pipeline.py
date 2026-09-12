@@ -62,11 +62,41 @@ def test_escalation_triggers_respect_word_boundaries():
     from agent.route import Router
 
     r = Router()
-    d = r.route("I have an issue with my playlist", "playlist_library", 0.9)
+    d = r.route("I have an issue with my battery", "battery_power", 0.9)
     assert d.route == "auto", f"'issue' wrongly triggered {d.rule_id}"
 
     d = r.route("I will sue you over this", "other", 0.9)
     assert d.route == "escalate" and d.rule_id == "legal_or_regulatory"
+
+
+def test_safety_hazard_rule_fires_and_outranks_intent_prior():
+    """A swollen battery must never get an automated troubleshooting reply,
+    even though battery_power's prior is auto."""
+    from agent.route import Router
+
+    r = Router()
+    d = r.route("my battery is swollen and bulging", "battery_power", 0.99)
+    assert d.route == "escalate" and d.rule_id == "safety_hazard"
+
+
+def test_known_rule_gaps_are_still_gaps():
+    """Documented in golden/labels_author.py and reported as a failure mode.
+
+    These are phrasings a human escalates and the regexes miss. The test pins
+    the gap so it cannot silently change without the report changing too.
+    """
+    from agent.route import Router
+
+    r = Router()
+    for phrasing in [
+        "our laptop is practically on fire after 20 mins",   # list has "caught fire"
+        "I got an electric shock from your headphones",      # absent entirely
+        "it is not supposed to inflate like this",           # list has "swelling"
+    ]:
+        d = r.route(phrasing, "device_performance", 0.9)
+        assert d.rule_id != "safety_hazard", (
+            f"Gap closed for {phrasing!r} - update the report's failure analysis"
+        )
 
 
 def test_shouting_detector_is_case_sensitive():
@@ -237,26 +267,26 @@ def test_judge_vs_human_joins_on_system_not_just_id():
 # --------------------------------------------------------------------------
 
 @pytest.mark.skipif(
-    not (ROOT / "data" / "processed" / "bm25_index.pkl").exists(),
+    not (ROOT / "data" / "processed" / "bm25_index_AppleSupport.pkl").exists(),
     reason="index not built",
 )
 def test_no_golden_thread_appears_in_retrieval_index():
     from agent.retrieve import ResolutionIndex
 
     idx = ResolutionIndex.load()
-    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled.parquet")
+    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled_AppleSupport.parquet")
     assert not set(idx.df["pair_id"]) & set(golden["pair_id"])
 
 
 @pytest.mark.skipif(
-    not (ROOT / "data" / "processed" / "bm25_index.pkl").exists(),
+    not (ROOT / "data" / "processed" / "bm25_index_AppleSupport.pkl").exists(),
     reason="index not built",
 )
 def test_retrieved_exemplars_always_predate_their_query():
     from agent.retrieve import ResolutionIndex
 
     idx = ResolutionIndex.load()
-    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled.parquet")
+    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled_AppleSupport.parquet")
     for _, row in golden.head(40).iterrows():
         for e in idx.search(row["customer_text"], k=4, before=row["customer_at"]):
             assert e.customer_at < row["customer_at"]
@@ -270,7 +300,7 @@ def test_golden_labels_are_complete_and_valid():
     import yaml
     from labels_author import LABELS
 
-    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled.parquet")
+    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled_AppleSupport.parquet")
     tax = yaml.safe_load((ROOT / "config" / "taxonomy.yaml").read_text(encoding="utf-8"))
     valid = {i["id"] for i in tax["intents"]}
 
@@ -280,12 +310,12 @@ def test_golden_labels_are_complete_and_valid():
 
 
 def test_golden_set_size_is_within_brief():
-    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled.parquet")
+    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled_AppleSupport.parquet")
     assert 150 <= len(golden) <= 250
 
 
 def test_other_class_stays_under_coverage_threshold():
     """The taxonomy file commits to <15% `other`. If this fails, the taxonomy
     is missing a class rather than the classifier being wrong."""
-    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled.parquet")
+    golden = pd.read_parquet(ROOT / "golden" / "golden_labelled_AppleSupport.parquet")
     assert (golden["intent"] == "other").mean() < 0.15

@@ -6,11 +6,9 @@ document the human annotator used. Change the YAML and every model in the arena
 sees the change on the next run.
 
 TOKEN BUDGET IS A DESIGN CONSTRAINT, NOT AN AFTERTHOUGHT. Groq's free tier
-allows 200K tokens/day, shared across the whole arena. A prompt carrying every
-positive and negative example for ten intents runs ~1,800 tokens, which is
-~110 classifications/day - not enough to score a 210-row golden set. The
-compact rendering below runs ~520 tokens, which fits two Groq models in one
-day. `verbose=True` restores the full examples for the ablation that measures
+allows 200K tokens/day per model. A prompt carrying every positive and
+negative example for ten intents runs ~1,220 tokens; the compact rendering
+below runs ~580, which is what lets a 210-row run fit alongside the judge. `verbose=True` restores the full examples for the ablation that measures
 what that compression costs.
 """
 
@@ -36,6 +34,10 @@ class Classification:
     intent: str
     confidence: float
     raw: str = ""
+    # Which model actually answered. May differ from the requested model when
+    # the client fails over on quota exhaustion, so results are never
+    # attributed to a model that did not produce them.
+    served_by: str = ""
 
 
 def load_taxonomy(path: Path = TAXONOMY) -> dict:
@@ -63,8 +65,8 @@ def render_taxonomy(tax: dict, verbose: bool = False) -> str:
     return "\n".join(lines)
 
 
-PROMPT = """You are triaging inbound customer messages for {brand}, a music \
-streaming service, on Twitter.
+PROMPT = """You are triaging inbound customer messages for {brand} \
+({brand_description}) on Twitter.
 
 Classify the message into exactly one intent:
 
@@ -99,6 +101,13 @@ class IntentClassifier:
     def build_prompt(self, message: str) -> str:
         return PROMPT.format(
             brand=self.tax["brand"],
+            # Comes from the taxonomy so the brand and its description can
+            # never drift apart. An earlier version hardcoded "a music
+            # streaming service", which survived the switch to AppleSupport and
+            # would have told the model the wrong thing on every message.
+            brand_description=self.tax.get(
+                "brand_description", "a consumer technology company"
+            ),
             taxonomy=self.rendered,
             message=normalise(message)[:600],
         )
@@ -127,7 +136,9 @@ class IntentClassifier:
             conf = float(data.get("confidence", 0.5))
         except (TypeError, ValueError):
             conf = 0.5
-        return Classification(intent, max(0.0, min(1.0, conf)), raw=resp.text)
+        return Classification(
+            intent, max(0.0, min(1.0, conf)), raw=resp.text, served_by=resp.model
+        )
 
 
 if __name__ == "__main__":

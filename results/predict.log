@@ -1,0 +1,4 @@
+[predict] trivial: 210 rows
+[predict] always_dm: 210 rows
+[predict] simple: 210 rows
+agent:   0%|          | 0/210 [00:00<?, ?it/s]agent:   1%|          | 2/210 [00:00<00:15, 13.75it/s]Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.

@@ -30,13 +30,16 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from data.text import normalise  # noqa: E402
 
-PAIRS = ROOT / "data" / "processed" / "pairs_SpotifyCares.parquet"
-OUT = ROOT / "results" / "intent_clusters.txt"
+import os
+BRAND = os.environ.get("BRAND", "AppleSupport")
+PAIRS = ROOT / "data" / "processed" / f"pairs_{BRAND}.parquet"
+OUT = ROOT / "results" / f"intent_clusters_{BRAND}.txt"
 
 # Domain stopwords: brand handles and pure-politeness tokens dominate TF-IDF
 # otherwise and produce clusters that differ only in greeting style.
 EXTRA_STOP = [
-    "spotify", "hi", "hey", "hello", "please", "pls", "thanks", "thank",
+    "spotify", "apple", "applesupport", "iphone",  # brand/device tokens dominate otherwise
+    "hi", "hey", "hello", "please", "pls", "thanks", "thank",
     "thx", "just", "im", "ive", "dont", "cant", "wont", "got", "get",
     "like", "know", "need", "want", "help", "guys", "yes", "no", "ok",
     "okay", "app", "amp",

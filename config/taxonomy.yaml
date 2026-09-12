@@ -1,217 +1,233 @@
-# Intent taxonomy for SpotifyCares.
+# Intent taxonomy for AppleSupport.
 #
-# PROVENANCE: authored by reading the TF-IDF/KMeans cluster report at
-# results/intent_clusters.txt (k swept 6-14, k=9 read in detail). Clustering was
-# a reading aid only - silhouette peaked at 0.02, and one cluster absorbed 55% of
-# messages, so the clusters are not usable as labels. Each intent below traces to
-# observed cluster structure; the mapping is recorded in `derived_from`.
+# PROVENANCE: authored by reading results/intent_clusters_AppleSupport.txt
+# (TF-IDF + KMeans, k swept 6-14, k=10 read in detail). Clustering was a reading
+# aid only - silhouette peaked at 0.023 and one cluster absorbed 52% of
+# messages, so the clusters are not usable as labels. Each intent traces to
+# observed structure via `derived_from`.
+#
+# CORPUS CONTEXT THAT SHAPES THIS TAXONOMY: 96% of the corpus falls in
+# Oct-Dec 2017, the iOS 11 release window. The clusters are therefore dominated
+# by one product event - battery regressions, post-update faults, and the
+# "I" -> question-mark-in-a-box Unicode bug. A taxonomy fitted to this period
+# will over-represent update-related intents relative to a normal support month.
+# This is recorded here because it directly limits how far the headline numbers
+# generalise, and it is restated in the report.
 #
 # DESIGN RULES
-#  * Intents must be separable by a human from the customer's FIRST message
-#    alone. If two intents need the resolution to tell apart, they are one intent.
-#  * Intents must differ in what the agent DOES. `billing_charge` and
-#    `subscription_manage` look similar but route differently (money dispute vs
-#    self-serve explanation), so they stay separate.
-#  * `other` is a real class, not a dumping ground for classifier failure. If it
-#    exceeds ~15% on a sample, the taxonomy is wrong and must be revised.
+#  * Intents must be separable from the customer's FIRST message alone.
+#  * Intents must differ in what the agent DOES. `device_performance` and
+#    `hardware_repair` look similar but route differently (troubleshooting vs
+#    booking a service appointment), so they stay separate.
+#  * `other` is a real class, not a dumping ground. If it exceeds ~15% on a
+#    labelled sample, the taxonomy is wrong and must be revised.
 
-version: 1
-brand: SpotifyCares
+version: 2
+brand: AppleSupport
+brand_description: >-
+  Apple's customer support account, covering iPhone, iPad, Mac, Watch, AirPods
+  and Apple services such as iCloud, the App Store and Apple Music
 
 intents:
-  - id: playback_failure
-    name: Playback failure
-    derived_from: [cluster_5, cluster_0]
+  - id: battery_power
+    name: Battery and power
+    derived_from: [cluster_0, cluster_8]
     definition: >
-      Audio will not play, stops unexpectedly, skips, stutters, or the app
-      crashes/freezes during use. The customer is reporting something broken,
-      not asking how to do something.
+      Battery draining unusually fast, not charging, charging slowly, or the
+      device shutting down unexpectedly at non-zero charge. The complaint is
+      about how long the device stays alive.
     positive_examples:
-      - "so your app just decides to stop playing music... great!"
-      - "Hey what's going on the past couple days? It's crashing all the time."
-      - "i can't play any song"
+      - "I have a 6s and battery life is horrible now after upgrading to iOS 11"
+      - "I Bought the iPhone X Today & My Phone Won't Charge Pass 4%"
+      - "-10% for 30 minutes. iOS 11.2 iPad 2017. Why so fast."
     negative_examples:
-      - "why isn't the new Taylor Swift album on Spotify"
-      - "how do I add songs to a playlist"
+      - "my phone keeps freezing since the update"
     default_route: auto
 
-  - id: account_access
-    name: Account access and security
-    derived_from: [cluster_1, cluster_8]
+  - id: os_update
+    name: OS update problems
+    derived_from: [cluster_2, cluster_8]
     definition: >
-      Cannot log in, locked out, forgotten credentials, account compromised or
-      accessed by someone else, or needs to change the email/username tied to
-      the account. Anything where identity or account ownership is at stake.
+      The update itself is the subject: it will not install, is not offered,
+      stalled, or the customer wants to undo it. Also regressions the customer
+      explicitly attributes to updating, where no more specific class fits.
     positive_examples:
-      - "Someone has compromised my account. I changed pw and they keep coming back"
-      - "it says my email is no longer attached to an account"
-      - "Someone is signing in to my spotify from a device that is not mine"
+      - "How can I undo the latest update please? I updated to 11.1.2 yesterday"
+      - "I would just like to know why my phone STILL doesn't even offer the iOS 11 update"
+      - "Currently at 26 minutes to boot up my computer after updating to High Sierra"
     negative_examples:
-      - "how do I cancel premium"
+      - "battery life is worse since iOS 11"
+    default_route: auto
+
+  - id: device_performance
+    name: Device performance and stability
+    derived_from: [cluster_3, cluster_9, cluster_5]
+    definition: >
+      The device freezes, crashes, restarts, runs slowly, or the screen is
+      unresponsive. A software-level fault in how the device behaves, with no
+      physical damage reported.
+    positive_examples:
+      - "New iOS 11.0.3 on 6s: touchscreen is unresponsive, phone freezes completely"
+      - "I have an iPhone 7, and I have to hard reset my phone more than twice a day"
+      - "My iPhone just freezed to death. Had to reboot it."
+    negative_examples:
+      - "My current iPhone has a crack in the screen"
+    default_route: auto
+
+  - id: connectivity
+    name: Connectivity and accessories
+    derived_from: [cluster_3, cluster_8]
+    definition: >
+      Wi-Fi, Bluetooth, cellular, AirPlay, hotspot, or pairing and behaviour of
+      accessories such as AirPods, Watch, or CarPlay.
+    positive_examples:
+      - "when i turn off wifi it automatically turns it back on after lock and unlock"
+      - "My new airpods are skipping usually around 4-8 times within 4 mins"
+      - "since you updated the iOS I can't airplay"
+    negative_examples:
+      - "how much for an Apple Watch screen replacement"
+    default_route: auto
+
+  - id: app_software
+    name: App and software behaviour
+    derived_from: [cluster_6, cluster_7]
+    definition: >
+      A specific app or software feature misbehaves - Messages, Mail, Music,
+      Photos, Safari, iTunes, Pages, keyboard and autocorrect. Includes the
+      iOS 11 autocorrect bug rendering "I" as a boxed question mark.
+    positive_examples:
+      - "Why does my phone change I into a question mark inside of a box?"
+      - "I cannot download iTunes on my PC, please assist"
+      - "Been facing this weird animation bug on iMessage and mail app"
+    negative_examples:
+      - "the whole phone freezes constantly"
+    default_route: auto
+
+  - id: account_appleid
+    name: Apple ID, iCloud and purchases
+    derived_from: [cluster_3, cluster_7]
+    definition: >
+      Apple ID sign-in, password, two-factor, iCloud storage or sync, App Store
+      or iTunes purchases, subscriptions and charges. Anything where identity,
+      stored data, or money is at stake.
+    positive_examples:
+      - "my iPhone won't stop stating an old Apple ID when I try to update apps"
+      - "I can't sign in to iCloud, it keeps asking for a verification code"
+      - "I was charged twice for an App Store purchase"
+    negative_examples:
+      - "my phone is slow since the update"
     default_route: escalate
 
-  - id: billing_charge
-    name: Billing and unexpected charges
-    derived_from: [cluster_3, cluster_6]
+  - id: hardware_repair
+    name: Hardware damage, repair and warranty
+    derived_from: [cluster_5]
     definition: >
-      A specific money complaint - charged unexpectedly, charged twice, wrong
-      amount, charged after cancelling, or asking for a refund. There is a
-      disputed transaction.
+      Physical damage, repair cost, warranty or AppleCare coverage, service
+      appointments, replacements and trade-ins. Something must be physically
+      fixed or a commercial decision made.
     positive_examples:
-      - "I keep getting charged 9.99 and I havnt an account with you"
-      - "I was charged for a regular subscription when I have a student one"
-      - "why did I get charged $9.99 for this month"
+      - "how much would it cost to get my Apple Watch Series 1 a replacement screen?"
+      - "My current iPhone has a crack in the screen. Do I need to repair it before sending it in?"
+      - "Green vertical lines on start up, apple logo then a white screen"
     negative_examples:
-      - "how much does family premium cost"
+      - "my screen is laggy since iOS 11"
     default_route: escalate
 
-  - id: subscription_manage
-    name: Subscription and plan management
-    derived_from: [cluster_6, cluster_3]
+  - id: feedback_complaint
+    name: Complaint and product feedback
+    derived_from: [cluster_1, cluster_4]
     definition: >
-      Questions about plans rather than disputed money: how to upgrade,
-      downgrade, cancel, start a trial, redeem a promo, add family members, or
-      verify student status. Informational or self-serve.
+      Dissatisfaction, frustration or product opinion with no specific
+      diagnosable fault, and no request that could be actioned. Includes
+      "fix your stuff" venting and feature opinions.
     positive_examples:
-      - "Premium for Family will not let me add members"
-      - "if i already have premium and disable it and take the promotion, will it work"
-      - "tried connecting Hulu and student Spotify today"
+      - "Dear please can you stop releasing IOS updates full of bugs"
+      - "ur iphone 8 is trash fix it or im gonna break my iphone"
+      - "spent $2000 on an iPhone X and I'm disgusted at the product testing"
     negative_examples:
-      - "I was charged twice this month"
-    default_route: auto
-
-  - id: content_missing
-    name: Content availability
-    derived_from: [cluster_7]
-    definition: >
-      A specific artist, album, track or podcast is absent, region-locked, or
-      was removed. Usually a licensing matter Spotify cannot unilaterally fix.
-    positive_examples:
-      - "why the new Taylor Swift album isn't on Spotify?"
-      - "You have SCANDAL but sadly not their best album yellow available in Germany"
-      - "I can not find the Jonas Brothers album A Little Bit Longer at all"
-    negative_examples:
-      - "my downloaded songs disappeared"
-    default_route: auto
-
-  - id: device_compat
-    name: Device and platform compatibility
-    derived_from: [cluster_4]
-    definition: >
-      Issue is tied to a specific device, OS version, or platform - phone model,
-      iOS/Android version, desktop, web player, smart TV, car, speakers. The
-      customer names the hardware or OS.
-    positive_examples:
-      - "is there an ETA on when the iOS app will get iPhone X support"
-      - "iPhone 6, 11.0.3 iPhone version and 8.4.25 Spotify version"
-      - "Screen saver on smart TV whilst listening to Spotify"
-    negative_examples:
-      - "the app keeps crashing"
-    default_route: auto
-
-  - id: playlist_library
-    name: Playlist and library management
-    derived_from: [cluster_2]
-    definition: >
-      Organising saved music: creating/editing playlists, adding or removing
-      tracks, library sync across devices, missing saved songs, recommendations
-      and Discover Weekly behaviour.
-    positive_examples:
-      - "i added new songs to my playlist from my phone but on my computer the songs won't show"
-      - "How do I remove songs from my account that I don't want anymore?"
-      - "how dare you include Pentatonix in a recommended playlist for me"
-    negative_examples:
-      - "no song will play at all"
-    default_route: auto
-
-  - id: feature_request
-    name: Feature request and product feedback
-    derived_from: [cluster_0]
-    definition: >
-      Asking for functionality that does not exist, or giving product feedback,
-      without reporting a fault. Often phrased "please add", "you should",
-      "bring back".
-    positive_examples:
-      - "please please bring back the feature that shows who's following your playlists"
-      - "The one thing I'd really like is the ability to drop a song from the mix"
-      - "How about letting premium users have the queue function on their web player?"
-    negative_examples:
-      - "the queue function is broken"
+      - "my battery drains in 2 hours since 11.1"
     default_route: auto
 
   - id: acknowledgement
     name: Acknowledgement and thanks
-    derived_from: [labelling_pass]   # NOT from clustering - see note below
+    derived_from: [labelling_pass]
     definition: >
-      Thanks, praise, confirmation that an earlier fix worked, or a closing
-      message. No outstanding request. Distinguished from `feature_request` by
-      the absence of any ask, and from `other` by being clearly positive or
-      conclusive rather than merely uncategorisable.
+      Thanks, praise, confirmation that a fix worked, or a closing message. No
+      outstanding request.
     positive_examples:
-      - "It worked thank you very much for the assistance!!!!"
-      - "Actually I just found it out, but thanks anyways"
-      - "I would like to thank James for his excellent customer service"
+      - "That worked, thank you so much!"
+      - "Thanks for responding"
     negative_examples:
-      - "thanks for nothing but whatever, i'll just cancel"
+      - "thanks for nothing, still broken"
     default_route: auto
-
-  # ADDED AFTER LABELLING, NOT BEFORE.
-  # The KMeans pass never surfaced this class - closing/thanks messages were
-  # absorbed into the 55% catch-all cluster, which is exactly the failure mode
-  # that makes clustering a reading aid rather than a taxonomy. It only became
-  # visible when labelling put 12 of 32 `other` rows under one reason code.
-  # Splitting it out drops `other` from 15.2% to 9.5%, back under the coverage
-  # threshold this file sets for itself.
 
   - id: other
     name: Other
-    derived_from: [cluster_0]
+    derived_from: [cluster_7]
     definition: >
-      Anything the classes above do not cover: pure venting with no actionable
-      issue, contentless fragments, off-topic chatter, phishing/scam reports,
-      country-level service availability, and artist/label (creator) enquiries.
+      Anything the classes above do not cover: contentless fragments, off-topic
+      chatter, press or developer enquiries, product availability and pricing
+      questions, scam and phishing reports.
       NOTE: language is deliberately NOT a criterion. A non-English message is
       labelled by its actual intent; routing to a language-capable agent is a
       separate decision from what the customer wants.
     positive_examples:
-      - "DAMMIT FIX YOURSELF MF I NEED MUSIC"
-      - "I got an email about registering for Spotify Soundwave, it looks suspicious"
-      - "Spotify isn't available in Pakistan am& why's that?"
+      - "is non contiguous selection possible on Pages?"
+      - "when is the iPhone X coming to Ireland"
     negative_examples:
-      - "It worked thank you very much!"
+      - "That worked, thank you!"
     default_route: escalate
 
 # ---------------------------------------------------------------------------
 # Escalation policy.
 #
 # `default_route` above is the prior for an intent. These rules override it for
-# an individual message. They are deliberately asymmetric: auto-handling
-# something that needed a human is far more costly than escalating something a
-# bot could have answered, so every rule here pushes toward escalation.
+# an individual message and are one-directional: they can only escalate, never
+# force an auto-handle. Auto-handling something that needed a human is far more
+# costly than the reverse, so every rule pushes the same way.
 escalation_rules:
+  - id: safety_hazard
+    description: >
+      Battery swelling, overheating, burning or smoke. Apple-specific and the
+      highest-severity trigger here - a swollen battery is a fire risk and must
+      never receive an automated troubleshooting reply.
+    triggers: ["swollen", "swelling", "bulging", "overheating", "burning smell",
+               "caught fire", "smoke", "exploded", "burnt", "too hot to touch"]
+    reason: "Potential physical safety hazard - requires immediate human handling, not troubleshooting."
+
+  - id: data_loss
+    description: Irreplaceable data reported missing.
+    triggers: ["lost all my photos", "photos are gone", "deleted everything",
+               "lost my contacts", "backup failed", "data is gone", "wiped my"]
+    reason: "Possible permanent data loss - needs a human to attempt recovery before further steps."
+
   - id: account_compromise
-    description: Any sign the account is compromised or accessed by a third party.
-    triggers: ["hacked", "compromised", "someone else", "not me", "unauthorised", "unauthorized", "stolen"]
+    description: Signs the Apple ID is compromised.
+    triggers: ["hacked", "compromised", "someone else", "unauthorised",
+               "unauthorized", "stolen", "not my apple id"]
     reason: "Account security incident - requires identity verification a bot cannot perform."
 
   - id: money_dispute
     description: A disputed transaction or refund demand.
-    triggers: ["refund", "charged twice", "double charged", "chargeback", "money back", "fraudulent"]
+    triggers: ["refund", "charged twice", "double charged", "chargeback",
+               "money back", "fraudulent", "unauthorised charge"]
     reason: "Disputed transaction - financial action requires human authorisation."
 
   - id: legal_or_regulatory
     description: Legal threats, data protection requests, regulator mentions.
-    triggers: ["lawyer", "legal", "sue", "gdpr", "data protection", "ombudsman", "trading standards"]
+    triggers: ["lawyer", "legal action", "sue", "gdpr", "data protection",
+               "ombudsman", "trading standards", "class action"]
     reason: "Legal or regulatory exposure - must be handled by a trained agent."
 
   - id: vulnerability_or_abuse
     description: Self-harm, threats, or abusive content requiring human judgement.
-    triggers: ["kill myself", "suicide", "harm", "threat"]
+    triggers: ["kill myself", "suicide", "self harm", "threat"]
     reason: "Potential user-safety issue - requires immediate human attention."
 
   - id: repeat_contact
     description: Customer states they have already asked and been failed.
-    triggers: ["third time", "3rd time", "again and again", "still waiting", "no one has replied", "weeks now"]
+    triggers: ["third time", "3rd time", "again and again", "still waiting",
+               "no one has replied", "weeks now", "months now"]
     reason: "Repeat unresolved contact - further automation risks escalating frustration."
 
 # Confidence floor: below this, escalate regardless of intent, on the grounds

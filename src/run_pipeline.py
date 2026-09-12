@@ -32,7 +32,9 @@ from eval.judge import ReplyJudge  # noqa: E402
 from eval.metrics import evaluate_system, intent_report  # noqa: E402
 from llm.client import LLMClient  # noqa: E402
 
-GOLDEN = ROOT / "golden" / "golden_labelled.parquet"
+import os
+BRAND = os.environ.get("BRAND", "AppleSupport")
+GOLDEN = ROOT / "golden" / f"golden_labelled_{BRAND}.parquet"
 RESULTS = ROOT / "results"
 PRED_PATH = RESULTS / "predictions.parquet"
 JUDGE_PATH = RESULTS / "judgements.parquet"
@@ -70,6 +72,8 @@ def run_agent(
                 "grounded": d.grounded,
                 "prompt_tokens": d.prompt_tokens,
                 "completion_tokens": d.completion_tokens,
+                "classifier_model": c.served_by,
+                "drafter_model": d.served_by,
             }
         )
     return rows
@@ -98,6 +102,8 @@ def stage_predict(args) -> None:
                     "grounded": bool(p.exemplar_ids),
                     "prompt_tokens": 0,
                     "completion_tokens": 0,
+                    "classifier_model": "",
+                    "drafter_model": "",
                 }
             )
         print(f"[predict] {name}: {len(preds)} rows")

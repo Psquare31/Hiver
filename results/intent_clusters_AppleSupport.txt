@@ -1,0 +1,265 @@
+ k  inertia  silhouette
+ 6   3772.5      0.0146
+ 7   3757.9      0.0161
+ 8   3742.9      0.0164
+ 9   3730.9      0.0179
+10   3720.6      0.0176
+11   3708.3      0.0203
+12   3699.2      0.0203
+13   3678.9      0.0226
+14   3670.6      0.0216
+
+==============================================================================
+k = 8
+==============================================================================
+
+--- cluster 0  (n=122, 3.0%) ---
+  terms: issue, fix, having, having issue, fix issue, letter, update, issue letter, fixed, keyboard, phone, going
+    * I don’t why but I’m having troubles using my iPhone X in cold weather. The iPhone X freezes a lot!!!??Anyway I
+    * Having the same issue too. I opened a radar #34904227
+    * Yeh - my phone updated overnight, which appeared to stop my alarm working and also blocked incoming calls. Is 
+    * Which I understand could be part of the issue, but is it a lot to ask that the app be able to handle that. lea
+    * is no help. Over an hour of them transferring me to every department possible and no one knew how to help me o
+    * The real question is how has not fixed the "I" coming up as a box issue???
+
+--- cluster 1  (n=386, 9.7%) ---
+  terms: 11, ios 11, ios, phone, plus, battery, update, 6s, updated, 11 update, updated ios, fix
+    * this keeps happening on my iPhone 8 plus iOS 11.0.0, 11.0.1 and 11.0.2
+    * Mi celular era una luz antes de instalar el iOS 11. Instalé la actualización qe supuestamente “corrige” errore
+    * iOS 11.1 (15B93) draining battery faster than anything else... 🤷‍♂️
+    * I have iOS 11.1, updated today. I can send to you screen recording, so you could see that bug.
+    * Since iOS 11 the music position (e.g 2:30) on the now playing widget on the lock screen has just been still fr
+    * iOS 11 broke my phone thank you so much
+
+--- cluster 2  (n=116, 2.9%) ---
+  terms: problem, fix problem, fix, having problem, having, fixed, going fix, going, question, case, update, gonna
+    * y’all need to fix this problem on iPhone with the letter I️ because this isent flying #iOS11
+    * I have the X and when ever someone calls me my ringer is really loud and then all of a sudden it goes down aut
+    * problem with new Snapchat notifications icon on Apple Watch Series 3.
+    * I thought this new iOS update was supposed to fix this A ? Problem. What’s gives ?
+    * Even when I’m connected to WiFi. I never had the problem until the update loads of other problems too but I do
+    * Yes, it seems this has solved the problem completely! No crashes now! Thank you for precise and quick reply. K
+
+--- cluster 3  (n=130, 3.2%) ---
+  terms: shit, fix shit, fix, fucking, shit fix, phone, question, yo, update, question mark, mark, wtf
+    * Dear please can you stop releasing IOS updates full of bugs and forcing me to upgrade. My phone is shit now. F
+    * i have a BRAND NEW iphone 8+ and all it does is freeze... i literally restart it 2 times a day, every day. fix
+    * There’s been so many glitches on my phone since the fucking update . needs to fix their shit and soon 😒
+    * Yo you wanna fix this shit or wut
+    * See what is this shit
+    * I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ I️ Fix this shit bro
+
+--- cluster 4  (n=2182, 54.5%) ---
+  terms: update, new, music, screen, ios11, working, does, time, ve, work, apps, don
+    * WHY AM I STILL SEEING THE BOX WITH THE QUESTION MARK AS EMOJIS 😤😤😤😤😤
+    * All the above. I Don’t even use the cloud.
+    * Yo why is this happening whenever I️ type the letter “eye”
+    * ever since my iPhone 6s Plus and I have the most updated one on my iPhone 8 plus. I have Comcast for my email
+    * Currently at 26 minutes to boot up my computer after updating to #HighSierra. 😡 guess I don’t need to do homew
+    * I have been awake 35 minutes. I’ve used my iPhone during that time, checking news and social media. It started
+
+--- cluster 5  (n=266, 6.7%) ---
+  terms: battery, battery life, life, update, phone, draining, ios11, ios, 11, new, drain, battery draining
+    * This software update is horrible! I hope fixes all these problems really soon! Its no fun getting lost and hav
+    * I'm having the same problem with my iPad Air2, marked deterioration in battery life and charging time 🤔 #iOS11
+    * I have kept my power saving mode on but still battery draining fast. Can u send me link to degrade ios10.
+    * any to check the overall battery health of my iPhone 7+ ?
+    * since I installed #iOS11 my #iphone heats up, it’s slow, Siri doesn’t work as well and the battery drains in 4
+    * Last few iOS updates have been pathetic ever since the 11 series has started :( Battery life has become vulner
+
+--- cluster 6  (n=244, 6.1%) ---
+  terms: fix, glitch, letter, fix glitch, bug, going, going fix, type, annoying, thing, update, stupid
+    * what is wrong with the ITunes podcast app? Why is it always crashing??!! It is the worst thing EVER 😑😢please f
+    * Fix this stupid glitch. I️ hate it
+    * ya done messed up, I️ can’t get my point across. I️ am very upset about this, please fix so I️ can be happy ag
+    * Okay - enough with the I “A Question mark box” error in texts and Facebook! Fix it!
+    * so yah got all these updates but can’t fix how a word is typed ..FIX I.T !!!!!!!!
+    * . pls fix the “I” glitch it’s hella annoying
+
+--- cluster 7  (n=554, 13.8%) ---
+  terms: phone, update, new, update phone, updated, updated phone, keeps, does, freezing, phone keeps, won, apps
+    * just witnessed my phone go from 37% to 23% lol fuck y’all
+    * Definitely not highly recommended at this point. Paying for a defective $1150 phone and having to jump through
+    * Word! I don't get the new update so you guys literally just start taking away all the functions of my phone 1 
+    * If doesn’t come with the update that doesn’t make your phone super Fucking slow I’m switching to android
+    * the update has managed to make my phone die even faster than before, thanks
+    * I have an iPhone 7, and I have to hard reset my phone more than twice a day. This IOS update sucks. Fix it
+
+==============================================================================
+k = 9
+==============================================================================
+
+--- cluster 0  (n=401, 10.0%) ---
+  terms: 11, ios 11, ios, battery, phone, plus, updated, 6s, update, fix, 11 update, updated ios
+    * Yes, I got the battery problems after upgrading to iOS 11.0.2 on my iPhone 7
+    * Been facing this weird animation bug on iMessage and mail app ever since I updated to ios 11 on my iPhone 6 wh
+    * Hello! After I updated my iPhone 6 to iOS 11, my calendar app stopped working properly. What can I do?
+    * Music is awesome, indeed. I have an iPhone 6s and and iPad Air, both with the latest iOS 11.0.2. I hope you ca
+    * My iPhone 7 has been useless since the string of iOS 11 updates and it’s even worse now with 11.1. Pretty much
+    * I have downloaded iOS 11.1 and i can not make calls anymore
+
+--- cluster 1  (n=350, 8.8%) ---
+  terms: update, phone, latest, latest update, update phone, ios update, battery, won, apps, ios, slow, ios11
+    * I have restarted the app store and it is still showing the update as being installed twice. Once today and onc
+    * Hey why does your latest ios update eat up my battery so quickly?
+    * I need help, I can’t update any apps until I fix my billing info, it’s telling me my card number is invalid
+    * My phone is glitching and miss spelling like help me. Another update for bug fixes please ???
+    * Help by putting out an update that fixes everyone’s battery. Literally read all over the internet how bad it i
+    * My MacBook Air slowed down after the MacOS 10.13.1 update. Please fix it.
+
+--- cluster 2  (n=246, 6.2%) ---
+  terms: fix, shit, fix shit, issue, letter, bug, boxes, yo, thing, annoying, fucking, fix issue
+    * what is wrong with the ITunes podcast app? Why is it always crashing??!! It is the worst thing EVER 😑😢please f
+    * Please fix your fucking update please I’m begging
+    * you’re really pissing me off with that question mark box shit. Fix it. 😒😠🙄
+    * How do I fix my disabled Apple ID? #help 🙏
+    * Bruh why is the I️ messing up. fix this.
+    * y’all needa get it together with this letter “I️” situation. My phone just did the exclamation point & box whe
+
+--- cluster 3  (n=120, 3.0%) ---
+  terms: problem, fix problem, fix, having, having problem, fixed, going fix, going, question, update, case, gonna
+    * I have a problem with the emails on my iPhone 7 (only had it since April!) is ther any online support?
+    * are you guys kidding me? It has already been two updates within 3 weeks and we still have cellular data proble
+    * Some #WednesdayWisdom - the problem with the iPhone typing an “I” not limited to iPhone - check out messages o
+    * I thought this new iOS update was supposed to fix this A ? Problem. What’s gives ?
+    * that update did not fix that fucking “I” problem
+    * Yes, it seems this has solved the problem completely! No crashes now! Thank you for precise and quick reply. K
+
+--- cluster 4  (n=250, 6.2%) ---
+  terms: new, new update, update, new ios, phone, ios, battery, new phone, brand, ios update, fix, brand new
+    * The new iOS update has rendered my #iphone completely unusable.
+    * i have updated my phone to 11.1.2. But to get my backup from my 7 installed on my X. Is it possible as I set u
+    * This new #ios11 sucks, flash text on my screen and hanging #goingdown #iosvsandroid
+    * Carrier settings updated New settings required for your device have been Installed. What does this Mean?
+    * my MacBook crashed because of this new Sierra update..
+    * Hi, recently got a new iphone 6+, but the battery life is a bit concerning since the battery life app shows hi
+
+--- cluster 5  (n=446, 11.2%) ---
+  terms: phone, updated, battery, keeps, updated phone, phone keeps, does, time, calls, does phone, ios11, apps
+    * just witnessed my phone go from 37% to 23% lol fuck y’all
+    * call someone, set phone on speaker. Start conversation and the speaker drop off after a minute ...
+    * my phone freezes like 10 times per day......... and I’m a good person so I avoid force rebooting it unless it 
+    * How convenient for that my phone goes to shit when they want me to update it or buy their newest phone
+    * Fix your crap I have to reset my phone every 5 minutes because my apps freeze!
+    * Not to mention that my fucking phone keep acting up and closing all of my apps every two minutes
+
+--- cluster 6  (n=149, 3.7%) ---
+  terms: music, work, doesn work, doesn, songs, fix, didn work, phone, working, listen, does, subscription
+    * Is there any way I can disable the music censoring on Apple Music (on the UAE store)
+    * So charges me for my Apple Music membership, but won’t actually allow me to use it. Right 🙃
+    * what does it mean when you manually drag n' drop music to an iPod touch, but the songs are just grey with a do
+    * how can I allow explicit content in Music permanently? My Apply Music playlist keep missing songs. iOS11 on iP
+    * music app doesn’t work since 11-11.0.2, this is a joke. Fix this.
+    * Done that & ive got the music back now! Thank you
+
+--- cluster 7  (n=160, 4.0%) ---
+  terms: type, glitch, letter, fix, type letter, fix glitch, eye, time type, question, time, wtf, box
+    * you see how my typing has to change because can’t fix the glitch with the letter ‘I’ 🤦🏽‍♀️
+    * When the heck is going to fix this glitch with the letter, “I” (I️) and the word, “it” (I️t)?!?! I KNOW YOU’VE
+    * creates amazing technology..... but talk to text still messes up 90% of what I will it to type..... #fixyourcr
+    * Yo , how come every time i type “i” this happens: I️. Y’all should fix that.
+    * Whenever someone types the letter “I” a box with a question mark pops up like an emoji
+    * Why can I️ type the letter I️
+
+--- cluster 8  (n=1878, 47.0%) ---
+  terms: battery, ios11, does, screen, working, ve, time, issue, use, going, don, getting
+    * Hello, I still have that icons disappear bug after the update. Once I log out and Log back on it's back. Just 
+    * None of that addresses self-discharge when unused.
+    * had an ipad for several years and up until installing ios10, very impressed. Now, im totally sick of the 32sec
+    * My IPhone 8+256Gb cannot open ITunes, in Uruguay there’s no help available. I tried downloading/installing las
+    * song is playing but timing is still 0.00😲😲
+    * Thanks, but I've been doing that for the past several hours with no luck. How quickly do you press and release
+
+==============================================================================
+k = 10
+==============================================================================
+
+--- cluster 0  (n=233, 5.8%) ---
+  terms: battery, life, battery life, update, ios, ios11, draining, phone, 11, new, drain, fix
+    * Please fix this . I have a 6s and battery life is hoorible now after upgrading to iOS 11
+    * I'm having the same problem with my iPad Air2, marked deterioration in battery life and charging time 🤔 #iOS11
+    * Hi, i’ve updated my iPhone 6 Plus to the new IOS 11.1, and the battery life has gone worse than before. It dra
+    * #ios1102 battery drain Any help here
+    * NO APPS running all day....been off the charger since 1pm, and almost HALF my battery is gone?!? #iOS11 is GAR
+    * It won’t let me force restart I just get the battery charging screen (the one with the battery icon filled wit
+
+--- cluster 1  (n=281, 7.0%) ---
+  terms: fix, glitch, problem, fix problem, letter, going fix, going, issue, bug, fix glitch, gonna, annoying
+    * ur iphone 8 is trash fix it or im gonna break my iphone
+    * y’all need to fix this I️
+    * if I️ get this A with the ? in the box one more time ima snap. FIX THIS!!
+    * Omg now the shortcut doesn’t work anymore.... if you don’t fix this I️ thing...I’m gonna flip out.
+    * hey can we fix this because i’m very sick of my i️ looking like that. how am i️ supposed to have serious conve
+    * I’ve even made a shortcut to try to fix it. No dice.
+
+--- cluster 2  (n=120, 3.0%) ---
+  terms: updated, updated phone, phone, ios, 11, updated 11, updated ios, latest, updated latest, new, apps, update
+    * HI! I updated iOS a couple of days ago and since then my phone is not working ok, I cannot even make phone cal
+    * Updated my phone now my music gone , I’m so sick of like 700+ songs GOOOOOOOONNNNEEE 😡🤬🤬🤬
+    * i updated and when i turn off wifi it automatically turns it back on after lock and unlock.. very annoying.. u
+    * How can I undo the latest update please? I updated to 11.1.2 yesterday and it’s messed up my ‘phone.
+    * since you updated the iOS I can’t airplay wtf
+    * been having screen freeze ever since I updated to 11.0.3 . Battery draining faster is an issue too
+
+--- cluster 3  (n=479, 12.0%) ---
+  terms: phone, update, new, update phone, does, slow, calls, won, time, freezes, work, doesn
+    * I hate new update it kills my battery faster I can’t use my fucking phone for a hour without it dying fix your
+    * Why do things on my phone just stop working? cellular & volume? iPhone 6 in perfect condition but funny its af
+    * my iPhone won't stop stating an old Apple ID when I try to update apps, despite the phone being logged into my
+    * Everything seemed to be fine last night when I went to bed last night. I noticed this morning that my Apple ma
+    * I Bought the iPhone X Today & My Phone Won’t Charge Pass 4%. Had it On the Charger For 2 Hours
+    * I have an iPhone 7, and I have to hard reset my phone more than twice a day. This IOS update sucks. Fix it
+
+--- cluster 4  (n=117, 2.9%) ---
+  terms: shit, fix shit, fix, fucking, shit fix, phone, yo, update, tired, wtf, pay, ur shit
+    * Dear please can you stop releasing IOS updates full of bugs and forcing me to upgrade. My phone is shit now. F
+    * Omg when are you going to fix this shit! ^^^
+    * There’s been so many glitches on my phone since the fucking update . needs to fix their shit and soon 😒
+    * I️ know same😂 get ur shit together
+    * See what is this shit
+    * stop fucking playing and fix this dumb shit I️ I️ I️ I️
+
+--- cluster 5  (n=130, 3.2%) ---
+  terms: screen, lock screen, lock, doesn, update, text, touch, 6s, ios, freezes, screen doesn, phone
+    * Hey, how much would it cost for me to get my Apple Watch Series 1 42mm sport a replacement screen?
+    * spent $2000 on an iPhone X with a laggy and unresponsive screen. Disgusted at the shitty product testing prior
+    * I can’t send #WhatsApp messages from my locked screen on my iPhones... I guess this is one more problem of #iO
+    * I tried it in and out of the case. did the 2.75gb update. force restart, reboot to the factory. the screen doe
+    * My current iPhone has a crack in the screen. Anyone know if I need to get it repaired before sending it in?
+    * Green vertical lines on start up, apple logo with loading but it goes to a white screen :/
+
+--- cluster 6  (n=87, 2.2%) ---
+  terms: question, question mark, mark, box, question marks, marks, mark box, boxes, seeing, fix, type, mark boxes
+    * Hi FIX THE FUCKING LETTER I!!!! The update didn’t do a thing! The damn question mark A thing is still popping 
+    * FIX THIS STUPID QUESTION MARK IN THE BOX BULLSHIT
+    * why does this keep happening?!? All the random capital A’s and boxed question marks?! Getting to be annoying.
+    * Updated my phone and I’m still seeing this box with the question mark in it. Pissed.
+    * WHY ARE i’s SHOWING UP AS QUESTION MARK BOXES?! FIX THIS SHIT
+    * hi question. Why does my phone change “I️” into a question mark inside of a box??? Help. Pls fix
+
+--- cluster 7  (n=2078, 52.0%) ---
+  terms: update, new, problem, music, ios11, working, does, time, apps, work, ve, issue
+    * It just closes the app
+    * Not sure what’s happening with my #macbook #finder #macos #highsierra
+    * is non contigous selection possible on Pages?
+    * Alguien me puede explicar porqué la batería me está durando tan poco? Tengo el 6. Anoche se apagó sin batería,
+    * Currently at 26 minutes to boot up my computer after updating to #HighSierra. 😡 guess I don’t need to do homew
+    * I have been awake 35 minutes. I’ve used my iPhone during that time, checking news and social media. It started
+
+--- cluster 8  (n=370, 9.2%) ---
+  terms: 11, ios 11, ios, phone, plus, battery, update, 6s, 11 update, 10, fix, updated ios
+    * My new airpods are skipping Usually around 4-8 times within 4 mins Is it possible ios 11 compatibility? I have
+    * Been facing this weird animation bug on iMessage and mail app ever since I updated to ios 11 on my iPhone 6 wh
+    * I would just like to know why my phone STILL doesn't even offer the iOS 11 update.
+    * Music is awesome, indeed. I have an iPhone 6s and and iPad Air, both with the latest iOS 11.0.2. I hope you ca
+    * -10% for 30 minutes. iOS 11.2 iPad 2017. Why so fast. Do something pls (
+    * New iOS 11.0.3 on 6s: touchscreen is unresponsive, phone freezes completely and can’t turn it off.. #HELP
+
+--- cluster 9  (n=105, 2.6%) ---
+  terms: keeps, happening, phone keeps, freezing, phone, keeps freezing, keeps crashing, crashing, update, shutting, update keeps, keeps shutting
+    * Seriously this is the stupidest notification in history. No context, no ready. It just keeps popping up. Learn
+    * Since up date keeps freezing 😤😡😡😡
+    * Same here. Keeps freezing 4-5 times a day
+    * Hey , my phone keeps autocorrecting garri to Harrison. Sort this shit out... pls 🙃
+    * why does this keep happening? I️
+    * My iPhone just freezed to death. Had to reboot it. Why is this happening?

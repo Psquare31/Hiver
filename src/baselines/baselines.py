@@ -8,8 +8,8 @@ informative of the set.
                     1-nearest-neighbour retrieval for the reply. No LLM at all.
   3. ALWAYS_DM    - replies "please DM us" to literally everything.
 
-Why ALWAYS_DM earns its place: about half of SpotifyCares' real replies are
-channel handoffs. So a bot that only ever says "DM us" is not obviously wrong
+Why ALWAYS_DM earns its place: 47.3% of AppleSupport's real replies are
+channel handoffs (measured, src/data/brand.py). So a bot that only ever says "DM us" is not obviously wrong
 by the standard of "what did the brand actually do" - it is imitating the modal
 brand behaviour. Any judge that rewards it highly is telling us the metric
 rewards non-answers. It is included precisely so the report can show that, and
@@ -40,16 +40,22 @@ sys.path.insert(0, str(ROOT / "src"))
 from agent.retrieve import ResolutionIndex  # noqa: E402
 from data.text import normalise  # noqa: E402
 
-GOLDEN = ROOT / "golden" / "golden_labelled.parquet"
+import os
+BRAND = os.environ.get("BRAND", "AppleSupport")
+GOLDEN = ROOT / "golden" / f"golden_labelled_{BRAND}.parquet"
 
 CANNED_REPLY = (
     "Hey there! Sorry to hear you're having trouble. We're looking into this "
     "and will get back to you as soon as we can."
 )
 
+# Verbatim in the style of AppleSupport's single most common reply shape.
+# Using the brand's own words matters: a clumsy strawman handoff would be easy
+# for the judge to mark down, and the whole point of this baseline is that it
+# is genuinely hard to distinguish from what the brand really does.
 DM_REPLY = (
-    "Hey there, help's here! Can you DM us your account's email address or "
-    "username? We'll take a look backstage."
+    "We're here for you. Send us a DM, and we'll take a closer look at the "
+    "issue together there."
 )
 
 

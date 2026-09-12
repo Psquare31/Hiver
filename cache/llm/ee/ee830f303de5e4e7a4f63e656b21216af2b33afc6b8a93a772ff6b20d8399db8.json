@@ -1,0 +1,11 @@
+{
+  "text": "```json\n{\"reply\": \"We'd love to help. DM us what iOS version you're on and we'll help.\"}\n```",
+  "model": "gemini-3.6-flash",
+  "provider": "gemini",
+  "prompt_tokens": 486,
+  "completion_tokens": 928,
+  "latency_s": 6.363,
+  "created_at": "2026-09-12T12:12:52.873768+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I downloaded the newest update and now my phone doesn’t work send help pls\nBrand: We'd love to help. Can you explain more about what you mean when you say it doesn't work? Also, what iOS version did you update to?\n\n[Example 2]\nCustomer: I downloaded the newest update and my phone literally is dogshit now. Switching to android. I know you don’t give a fuck\nBrand: Hello Leo, we'd like to work together and see what's going on with your device. Let us know what's going on in DM here:\n\n[Example 3]\nCustomer: why do I now lose a battery percent per text now after your latest update?\nBrand: We'd be happy to help how we can. When did this start happening? Are you running iOS 11.0.2?\n\n[Example 4]\nCustomer: Dear I hate you. Sincerely every #iphone owner that you did a stupid update on & now we have no #Battery. #updatesucks #apple\nBrand: We'd love to help. DM us what iOS version you're on and we'll help.\n\nWrite a reply to this new customer message:\n\"\"\"Dear , I downloaded the newest update and now I lose 1% battery every two minutes. Fix that. It’s a problem. Cc:\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_36"
+}

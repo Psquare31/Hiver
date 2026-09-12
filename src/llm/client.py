@@ -181,10 +181,57 @@ class LLMClient:
         temperature: float = 0.0,
         max_tokens: int = 512,
     ) -> LLMResponse:
+        """Complete, falling back to configured alternates on quota exhaustion.
+
+        FAILOVER EXISTS BECAUSE FREE-TIER QUOTA IS NOT WHAT THE DOCS SAY.
+        Gemini's published free tier is 1,500 requests/day, but this key
+        exhausted gemini-3.8-flash and then gemini-3.7-flash after fewer than
+        40 requests total, while 3.6-flash and the flash-lite models kept
+        serving. Quota is per model and apparently much tighter than
+        documented, so a single-model pipeline simply cannot finish a 210-row
+        evaluation.
+
+        The model that actually answered is recorded on the response and
+        written into the results, so the report never attributes an output to a
+        model that did not produce it.
+        """
         if model_key not in self.models:
             raise ValueError(
                 f"Unknown model key {model_key!r}. Configured: {sorted(self.models)}"
             )
+
+        chain = [model_key] + list(self.config.get("fallbacks", {}).get(model_key, []))
+        last_exc: Exception | None = None
+        for i, key in enumerate(chain):
+            if key not in self.models:
+                continue
+            try:
+                return self._complete_one(
+                    key, prompt, temperature=temperature, max_tokens=max_tokens
+                )
+            except (RuntimeError, ProviderError) as e:
+                # Only quota/availability failures are worth failing over; a
+                # bad prompt would fail identically on every model.
+                if "429" not in str(e) and "RESOURCE_EXHAUSTED" not in str(e):
+                    raise
+                last_exc = e
+                if i + 1 < len(chain):
+                    print(
+                        f"[llm] {key} exhausted; falling back to {chain[i+1]}",
+                        flush=True,
+                    )
+        raise RuntimeError(
+            f"All models exhausted for {model_key!r} (tried {chain}). Last: {last_exc}"
+        )
+
+    def _complete_one(
+        self,
+        model_key: str,
+        prompt: str,
+        *,
+        temperature: float = 0.0,
+        max_tokens: int = 512,
+    ) -> LLMResponse:
         spec = self.models[model_key]
         params = {"temperature": temperature, "max_tokens": max_tokens}
         key = cache_key(spec.provider, spec.model_id, prompt, params)
@@ -273,11 +320,23 @@ class LLMClient:
 
 
 _FENCE_RE = re.compile(r"```(?:json)?\s*(.*?)```", re.DOTALL)
+# Qwen emits its chain-of-thought inline as <think>...</think> before the
+# answer, unlike gpt-oss which uses a separate API field. Stripping it here
+# keeps the arena fair: we are comparing intent accuracy across models, not
+# which of them happens to wrap its reasoning in the tidier envelope.
+_THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
+_OPEN_THINK_RE = re.compile(r"<think>.*$", re.DOTALL | re.IGNORECASE)
 
 
 def _extract_json(text: str) -> dict[str, Any] | None:
     """Best-effort JSON extraction from a model response."""
     if not text:
+        return None
+    text = _THINK_RE.sub(" ", text)
+    # An unterminated <think> means the answer never arrived; drop the tail so
+    # we do not mine JSON fragments out of the model's reasoning.
+    text = _OPEN_THINK_RE.sub(" ", text)
+    if not text.strip():
         return None
     candidates = [text]
     fenced = _FENCE_RE.search(text)

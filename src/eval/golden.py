@@ -37,7 +37,9 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from data.text import for_display, normalise  # noqa: E402
 
-PAIRS = ROOT / "data" / "processed" / "pairs_SpotifyCares.parquet"
+import os
+BRAND = os.environ.get("BRAND", "AppleSupport")
+PAIRS = ROOT / "data" / "processed" / f"pairs_{BRAND}.parquet"
 TAXONOMY = ROOT / "config" / "taxonomy.yaml"
 OUT_DIR = ROOT / "golden"
 
@@ -49,31 +51,34 @@ SEED = 20260910
 # ground truth and never enter evaluation - they exist to spread the sample
 # across the taxonomy so every class is measurable.
 PROVISIONAL_RULES: dict[str, re.Pattern] = {
-    "billing_charge": re.compile(
-        r"\b(charged|charge|refund|billed|payment failed|double.?charg|"
-        r"money back|invoice|overcharg)\b", re.I),
-    "account_access": re.compile(
-        r"\b(log ?in|login|log ?out|password|hacked|compromised|locked out|"
-        r"can'?t access|sign ?in|username|my email|account.{0,15}(stolen|taken))\b", re.I),
-    "subscription_manage": re.compile(
-        r"\b(premium|family plan|student|subscription|cancel|upgrade|downgrade|"
-        r"trial|promo|renew|hulu)\b", re.I),
-    "content_missing": re.compile(
-        r"\b(album|not available|unavailable|missing from|removed|region|"
-        r"licens|why isn'?t .{0,25}on spotify|can'?t find .{0,20}(album|song|artist))\b", re.I),
-    "device_compat": re.compile(
-        r"\b(iphone|ipad|android|ios|windows|mac|macos|os x|smart ?tv|chromecast|"
-        r"alexa|car ?play|web player|desktop|version \d)\b", re.I),
-    "playlist_library": re.compile(
-        r"\b(playlist|my library|saved songs|discover weekly|liked songs|"
-        r"add.{0,15}songs?|remove.{0,15}songs?|sync)\b", re.I),
-    "playback_failure": re.compile(
-        r"\b(crash|freez|won'?t play|not playing|stops? playing|skipping|"
-        r"buffering|keeps? pausing|no sound|cuts out|glitch)\b", re.I),
-    "feature_request": re.compile(
-        r"\b(please add|you should add|bring back|feature request|wish .{0,15}could|"
-        r"would be (great|nice) if|why can'?t we)\b", re.I),
+    "hardware_repair": re.compile(
+        r"\b(crack|cracked|broken screen|repair|replacement|warranty|applecare|"
+        r"genius bar|trade.?in|water damage|shattered|how much (would|does|is))\b", re.I),
+    "account_appleid": re.compile(
+        r"\b(apple ?id|icloud|itunes account|app store|two.?factor|verification code|"
+        r"password|sign ?in|signed out|storage (full|plan)|subscription|"
+        r"purchase|receipt|billed|charged)\b", re.I),
+    "battery_power": re.compile(
+        r"\b(battery|charging|charge|drain|draining|dies|died|shut ?(down|off)|"
+        r"powers? off|percent)\b", re.I),
+    "connectivity": re.compile(
+        r"\b(wi.?fi|bluetooth|cellular|airplay|hotspot|airpods|carplay|"
+        r"pairing|paired|signal|lte|network)\b", re.I),
+    "app_software": re.compile(
+        r"\b(imessage|messages app|mail app|safari|itunes|apple music|photos app|"
+        r"keyboard|autocorrect|question mark|emoji|siri|facetime|"
+        r"notes|calendar|pages|numbers)\b", re.I),
+    "os_update": re.compile(
+        r"\b(ios ?1?[0-9]|update|updated|updating|upgrade|high sierra|"
+        r"downgrade|new version|latest version|software update)\b", re.I),
+    "device_performance": re.compile(
+        r"\b(freez|crash|slow|lag|unresponsive|restart|reboot|stuck|"
+        r"not working|glitch)\b", re.I),
+    "feedback_complaint": re.compile(
+        r"\b(fix (this|your|it)|garbage|trash|rubbish|worst|terrible|"
+        r"ridiculous|disappointed|sucks)\b", re.I),
 }
+
 
 # Signals that a message is genuinely hard. Oversampled on purpose: a golden set
 # of easy cases proves nothing about a system meant to decide autonomy.
@@ -101,19 +106,20 @@ HARD_SIGNALS: dict[str, re.Pattern] = {
 def provisional_intent(text: str) -> str:
     """First matching rule wins, in a priority order that reflects routing cost.
 
-    Billing and account come first because misrouting those is the expensive
-    error; a message mentioning both "premium" and "charged twice" should land
-    in billing.
+    Repair and Apple ID come first because misrouting those is the expensive
+    error: a message mentioning both "cracked screen" and "iOS 11" belongs in
+    hardware_repair, and one mentioning both "charged" and "update" belongs in
+    account_appleid. Cheap-to-misroute classes are matched last.
     """
     for intent in (
-        "billing_charge",
-        "account_access",
-        "playback_failure",
-        "content_missing",
-        "subscription_manage",
-        "device_compat",
-        "playlist_library",
-        "feature_request",
+        "hardware_repair",
+        "account_appleid",
+        "battery_power",
+        "connectivity",
+        "app_software",
+        "device_performance",
+        "os_update",
+        "feedback_complaint",
     ):
         if PROVISIONAL_RULES[intent].search(text):
             return intent
@@ -200,7 +206,7 @@ def build(n_random: int = N_RANDOM, n_stratified: int = N_STRATIFIED,
 if __name__ == "__main__":
     g = build()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    out = OUT_DIR / "golden_pool.parquet"
+    out = OUT_DIR / f"golden_pool_{BRAND}.parquet"
     g.to_parquet(out, index=False)
 
     print(f"[golden] n = {len(g)}")

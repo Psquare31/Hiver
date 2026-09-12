@@ -1,7 +1,7 @@
 """Grounded reply drafting.
 
 The reply is written from retrieved historical resolutions, not from the
-model's general knowledge of music streaming. That distinction is the whole
+model's general knowledge of the brand's products. That distinction is the whole
 claim of the system, so the prompt is built to make ungrounded output visibly
 wrong rather than merely discouraged:
 
@@ -14,7 +14,7 @@ wrong rather than merely discouraged:
   * The exemplar ids are returned alongside the draft, so the judge and a human
     reader can both check the draft against the evidence that produced it.
 
-The prompt also encodes what Spotify's own replies look like - short, one
+The prompt also encodes what this brand's own replies look like - short, one
 concrete next step, no invented policy - derived from reading the corpus, not
 from generic "be helpful" instructions.
 """
@@ -43,6 +43,8 @@ class Draft:
     raw: str = ""
     prompt_tokens: int = 0
     completion_tokens: int = 0
+    # Which model actually answered - see Classification.served_by.
+    served_by: str = ""
 
 
 GROUNDED_PROMPT = """You are a customer support agent for {brand} replying \
@@ -110,7 +112,7 @@ class ReplyDrafter:
         client: LLMClient,
         index: ResolutionIndex,
         model_key: str | None = None,
-        brand: str = "Spotify",
+        brand: str = "Apple",
         k: int = 4,
     ):
         self.client = client
@@ -164,4 +166,5 @@ class ReplyDrafter:
             raw=resp.text,
             prompt_tokens=resp.prompt_tokens,
             completion_tokens=resp.completion_tokens,
+            served_by=resp.model,
         )

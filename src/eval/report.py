@@ -25,6 +25,8 @@ sys.path.insert(0, str(ROOT / "src"))
 RESULTS = ROOT / "results"
 PRED = RESULTS / "predictions.parquet"
 JUDGE = RESULTS / "judgements.parquet"
+import os
+BRAND = os.environ.get("BRAND", "AppleSupport")
 HUMAN = ROOT / "golden" / "human_labels.csv"
 
 DIMS = ["grounded", "actionable", "safe", "tone"]
