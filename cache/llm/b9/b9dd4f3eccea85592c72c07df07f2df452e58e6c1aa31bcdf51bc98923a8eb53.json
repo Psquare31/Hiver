@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"That's certainly not the experience we want you to have. What's going on with your device? You can also DM us if you'd like:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 479,
+  "completion_tokens": 38,
+  "latency_s": 0.95,
+  "created_at": "2026-09-12T14:05:02.988980+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I have had iPhone for 10 years, this iOS update is the worst ever.\nBrand: That's certainly not the experience we want you to have. What's going on with your device? You can also DM us if you'd like:\n\n[Example 2]\nCustomer: I️ am so fed up with this weird I️ glitch from the new iOS update get it together\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 3]\nCustomer: I am fed up with this “I️” crap Get it together!\nBrand: We recently released an iOS update, 11.1.1, that contains a fix for autocorrect issues. Let’s be sure to back up your device prior to updating. How to back up:\n\n[Example 4]\nCustomer: will you please explain to me why every time I update my iPhone I start having more and more problems with it?\nBrand: We're here to help. What issue(s) are you experiencing exactly with your device?\n\nWrite a reply to this new customer message:\n\"\"\"Fed up with the update, the iphone is getting more problems everytime i update! After 10 years of iphone usage, im buying samsung at least i get better camera😒\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

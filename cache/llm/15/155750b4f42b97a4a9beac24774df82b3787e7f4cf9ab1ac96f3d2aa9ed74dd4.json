@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd like to help. Tell us more about the issue you're experiencing and which device and system you're using via DM.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 450,
+  "completion_tokens": 34,
+  "latency_s": 1.388,
+  "created_at": "2026-09-12T14:02:03.410714+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: i'm enjoying ios11. i am having issues with nba 2k18 though. what issues are you having?\nBrand: Let's team up and get you back to shooting hoops in NBA2K18. What issues are you having and on which device model?\n\n[Example 2]\nCustomer: I am having issues with random shutdowns and freezing screen on my iPhone 8 Plus\nBrand: We'd like to see how we can help. Send us a DM and let us know which iOS version you're running. We'll start there.\n\n[Example 3]\nCustomer: I’m having trouble with my photos\nBrand: We'd like to help. Tell us more about the issue you're experiencing and which device and system you're using via DM.\n\n[Example 4]\nCustomer: how do I fix my issue of not being able to make phone calls with iOS 11.02\nBrand: Hi there! What happens when you attempt to make a call?\n\nWrite a reply to this new customer message:\n\"\"\"Are you having issues with screen freezing? I have had trouble with not being able to answer calls. Also with texting.\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

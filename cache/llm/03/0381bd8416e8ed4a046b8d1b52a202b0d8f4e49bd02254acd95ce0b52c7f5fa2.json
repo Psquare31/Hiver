@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"For help with missing photos, please contact our photos experts: Select Apps & Software > iOS apps\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 409,
+  "completion_tokens": 24,
+  "latency_s": 1.035,
+  "created_at": "2026-09-12T13:56:33.203844+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: iCloud backup & iTunes backup are both not working.\nBrand: Thanks for reaching out to us for support. When did you first encounter this issue?\n\n[Example 2]\nCustomer: where are my photos\nBrand: For help with missing photos, please contact our photos experts: Select Apps & Software > iOS apps\n\n[Example 3]\nCustomer: Hey - something wrong with iCloud backup on iPhone 6s since iOS 11. It gives error - no space where as I have enough space\nBrand: Backups are important, so let’s figure out what is going on. Is the error message pertaining to iCloud or internal storage?\n\n[Example 4]\nCustomer: Hey what the fuck did you do to the letter I️\nBrand: We would like to get your device responding correctly. Please send us a DM so we can guide you from there.\n\nWrite a reply to this new customer message:\n\"\"\"Hey I did an iCloud backup but quick question: WHERE THE FUCK ARE MY PHOTOS\"\"\"\n\nThe customer's issue has been classified as: account_appleid\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

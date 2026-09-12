@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We can help you with your battery life. Optimize the settings on your iPhone, and DM us if this continues:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 325,
+  "completion_tokens": 28,
+  "latency_s": 0.793,
+  "created_at": "2026-09-12T13:53:25.706249+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: ios 11.0.2 just killed my iphone 7 plus battery...\nBrand: We can help you with your battery life Optimize the settings on your iPhone, and DM us if this continues:\n\n[Example 2]\nCustomer: iPhone 6 updated to 11.0.2\nBrand: Are only shortcuts created before the update not working? Try creating a new one to test and let us know.\n\nWrite a reply to this new customer message:\n\"\"\"the battery drain is a bit much. iOS 11.0.2 on a A1533 iPhone 5S.\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"Let's take a look at this together. What model of iOS device are you using? Let us know in DM.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 442,
+  "completion_tokens": 35,
+  "latency_s": 0.899,
+  "created_at": "2026-09-12T13:51:11.508554+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: IPhone saying got no storage! No matter what do! Help\nBrand: Let's take a look at this together. How much space is available in Settings > General > About? Let us know in DM.\n\n[Example 2]\nCustomer: OH MY GOD NO ME TOO ITS THE WORST. MINE KEEPS CRASHING AND RESTARTING\nBrand: We want to help! What model of iOS device are you using? Do you have the most recent version of iOS 11.0.3 installed?\n\n[Example 3]\nCustomer: Oh wow iOS 11 slowed my iPhone6s down a shitload who could have possible seen that one coming no wayyyyyy 🖕🏽🖕🏽🖕🏽🖕🏽\nBrand: We'd like to offer our assistance. Have you had a chance to update to iOS 11.0.2? You can DM us with that answer.\n\n[Example 4]\nCustomer: OH yes!\nBrand: Please check out the following link for to Use Night Shift on your iOS device:\n\nWrite a reply to this new customer message:\n\"\"\"Oh no got a straggler. 🙃\"\"\"\n\nThe customer's issue has been classified as: other\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

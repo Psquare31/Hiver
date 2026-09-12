@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We're happy to look into this with you. Please send us a DM and let us know which device you're using.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 453,
+  "completion_tokens": 32,
+  "latency_s": 0.982,
+  "created_at": "2026-09-12T13:54:23.996502+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: if I have a downloaded video in Files, how do I remove it (from my device) without deleting it from the cloud?\nBrand: Great Question! You have the option to add the video to your device. Take a look:\n\n[Example 2]\nCustomer: I hate it,can no longer get my emails via Outlook from\nBrand: We'd love to look into this with you. What device are you currently using with Outlook?\n\n[Example 3]\nCustomer: I'm from indonesia. I have a problem when I make a purchase in the app using my itunes balance. Please help me\nBrand: We want to help. What happens when you try to make an in-app purchase?\n\n[Example 4]\nCustomer: I cannot get thru a single project without either Photoshop or iMovie crashing at some point. , can you please get your shit together?\nBrand: We're happy to look into this with you. Please send us a DM and let us know which device you're using.\n\nWrite a reply to this new customer message:\n\"\"\"Can I Get a home video I made in iMovie from my iPhone to my Moms iMac without using the cloud? Via iTunes maybe?\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

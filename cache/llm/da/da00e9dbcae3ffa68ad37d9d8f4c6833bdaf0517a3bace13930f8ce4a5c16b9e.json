@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We'd like to gather more information to help. Please DM us the device you are using.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 463,
+  "completion_tokens": 30,
+  "latency_s": 0.927,
+  "created_at": "2026-09-12T13:59:28.116849+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: splain dat\nBrand: Let's look into this together. Please send us a DM with the current iOS version on your device, and we'll get started.\n\n[Example 2]\nCustomer: IK I’m early, but can you guys help me with an #iMovie problem?\nBrand: Thank you for reaching out to us. We'd like to gather more information to help. Please DM us the device you are using.\n\n[Example 3]\nCustomer: Say man my iMessage effects not working wassup wit dat ?\nBrand: Thanks for letting us know, we’d be glad to look into this further. Please confirm your iOS version via DM.\n\n[Example 4]\nCustomer: My phone is dying so early like what. Fix dat shit\nBrand: Having a long-lasting battery is important! Let us help you with yours. DM us your exact iOS version. We’ll continue from there.\n\nWrite a reply to this new customer message:\n\"\"\"Beste , hoe zorg ik ervoor dat foto’s en filmpjes niet DIRECT in iCloud worden opgeslagen? Echt totaal idioot dat ik ze, twee minuten na het nemen, weer moet downloaden om ze aan iemand te versturen. Help, bitte!\"\"\"\n\nThe customer's issue has been classified as: account_appleid\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

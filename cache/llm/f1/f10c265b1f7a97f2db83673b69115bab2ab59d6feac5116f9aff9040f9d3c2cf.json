@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We know how important your battery is. Which software version are you using? Also, has this happened before?\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 519,
+  "completion_tokens": 27,
+  "latency_s": 1.222,
+  "created_at": "2026-09-12T14:03:03.263599+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: My phone’s battery went from 73% to 66% in less than 5 minutes. Explain like .-. Wtffff\nBrand: We know how important your battery is. Which software version are you using? Also, has this happened before?\n\n[Example 2]\nCustomer: so i updated and somehow my phone went from 80% to 25% explain yourselves\nBrand: We’re glad to be here for you and understand the importance of your battery life. Following an update, it is important to make sure that your settings are optimized. You can find some great recommendations here: DM us with any questions.\n\n[Example 3]\nCustomer: My phone just went from 54% to 1% in 0.5 seconds. it's 2017 when are we gonna fix this\nBrand: Thanks for reaching out. DM which iPhone and specific iOS version are you using at this time?\n\n[Example 4]\nCustomer: Explain to me how my iPhone 7+ with “extended battery life” just went from 65% to 19% in 10 minutes\nBrand: Battery life is essential for the enjoyment of your iPhone; we'll do all we can to help. To get started, let us know in DM the exact iOS version installed:\n\nWrite a reply to this new customer message:\n\"\"\"WTFFFF my phone literally went from 85% to 54% to 37% in under 30 minutes explain yourselves\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

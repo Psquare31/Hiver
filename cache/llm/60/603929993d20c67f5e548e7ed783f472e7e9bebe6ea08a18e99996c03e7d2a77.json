@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We want you to be able to enjoy your device. DM us and let us know what device you're using.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 500,
+  "completion_tokens": 29,
+  "latency_s": 0.9,
+  "created_at": "2026-09-12T13:59:31.465025+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: why does your technology keep freezing? IOS 11 has so many bugs. Why wont you let me downgrade to ios10?\nBrand: We want you to be able to enjoy your device. DM us and let us know what device you're using.\n\n[Example 2]\nCustomer: sometthing wrong with #ios11,Battery goes fron 36 to 55 in seconds and decreases also in same way. #pissed #badupdate\nBrand: We're here for you! Which device is this occurring on? Are you on iOS 11, 11.0.1 or 11.0.2?\n\n[Example 3]\nCustomer: is there a way to remove the bar from the bottom of my screen? It doesn’t seem to do anything and is really annoying...\nBrand: That is a strange one. We can help though. Which version of iOS is installed? Does it happen in all apps or just on Twitter?\n\n[Example 4]\nCustomer: #ios11 glitch! No clock on lockscreen 👇 need updates soon to get rid of the glitches 😓\nBrand: We're here to help. Have you performed any troubleshooting steps such as restarting your device?\n\nWrite a reply to this new customer message:\n\"\"\"iOS11 is riddled with glitches. Is there an easy way to downgrade to iOS10? Also happy to share my list of bugs.\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

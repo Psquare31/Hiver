@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"That's certainly not expected after an update. Check out this article and see if it helps:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 503,
+  "completion_tokens": 25,
+  "latency_s": 0.946,
+  "created_at": "2026-09-12T13:58:33.162128+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: : No cellular service after upgrading to iOS 11.1 on TMobile iPhone 6+.\nBrand: That's certainly not expected after an update. Check out this article and see if it helps:\n\n[Example 2]\nCustomer: battery life on iPhone 7 after the update to iOS 11.1.1 sucks big time :/\nBrand: We can get to the bottom of this together. It's good to see that your iPhone is up to date, do you have any app updates available? To check, open the App Store and tap \"Updates\".\n\n[Example 3]\nCustomer: I updated to iOS 11.0.3. Why on earth does my Wi-Fi keep switching itself back on after I’ve turned it off??\nBrand: Thanks for reaching out. Here's a link that'll explain more about how Wi-Fi functions after the update:\n\n[Example 4]\nCustomer: why does my iPhone WiFi keeps turn on on its own after I updated it to iOS 11.0.1?\nBrand: The Wi-Fi toggle in Control Center works a bit differently in iOS 11, check this out:\n\nWrite a reply to this new customer message:\n\"\"\"why on earth does this springboard has to show up on cellular data usage after iOS 11.1.2 update on iPhone 7?? VERY IRRITATING .... isn’t it supposed to be hidden ?\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

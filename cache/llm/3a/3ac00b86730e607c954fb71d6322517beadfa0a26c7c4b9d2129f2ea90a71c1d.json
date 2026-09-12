@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We're more than happy to help you with this. Please DM your location and device model. We'll continue from there.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 493,
+  "completion_tokens": 32,
+  "latency_s": 1.3,
+  "created_at": "2026-09-12T14:00:51.874607+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Yes it sucks wish I could remove it my music on Bluetooth to my truck has 5 second delay to change songs and I hate Apple Pay\nBrand: We'd love to check out what's happening with your Bluetooth connectivity together. Does a restart of the device change anything?\n\n[Example 2]\nCustomer: i cant make a new apple id system\nBrand: We're more than happy to help you with this. Please DM your location and device model. We'll continue from there.\n\n[Example 3]\nCustomer: idk why, but i cant install apple music on my galaxy s7. It have the newest version but i cant install it from the play store\nBrand: We'll certainly ensure we're getting the issue headed towards a resolution. Select the following link to join us in a DM.\n\n[Example 4]\nCustomer: Hey I️ would like to be able to type the letter I️ “eye”. But I️ can’t, so if you could fix that. #apple #update #mad\nBrand: We'd be happy to look into what's going on. Which device and iOS version are you using? Send us a DM.\n\nWrite a reply to this new customer message:\n\"\"\"i would like to change my apple store region but i cant do it 'cause my apple id balance is $0.01, could you please remove it?\"\"\"\n\nThe customer's issue has been classified as: account_appleid\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

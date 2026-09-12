@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We're here to help. Which model device are you using?\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 449,
+  "completion_tokens": 19,
+  "latency_s": 0.865,
+  "created_at": "2026-09-12T13:59:25.879053+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Power problems persist even after installing IOS 11.0.3. Stops charging after a few minutes. IOS update a disaster.\nBrand: We're here to help. Which model device are you using? Are you using the Apple branded charging cord and adapter?\n\n[Example 2]\nCustomer: This 11.0.3 update is still slow,\nBrand: Having your device work great is our goal! DM us your model of device, and the iOS version you first noticed this slowness.\n\n[Example 3]\nCustomer: iOS 11.0.3 is too bad, my iPhone 6s is lagging now after update\nBrand: We're here to help. When did you update your iOS software? Is your iPhone lagging when using specific apps?\n\n[Example 4]\nCustomer: getting massive battery drain after installing iOS 11.0.3 😔\nBrand: We'd like to help. Send us a DM and let us know which model device this is happening on. We can work from there.\n\nWrite a reply to this new customer message:\n\"\"\"MY SPEAKERS STILL CRACK!! EVEN AFTER iOS 11.0.3 UPDATE!!!!!!!\"\"\"\n\nThe customer's issue has been classified as: connectivity\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

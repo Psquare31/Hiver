@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd like to help. Send us a DM and let us know which iOS version you're running currently.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 469,
+  "completion_tokens": 29,
+  "latency_s": 1.283,
+  "created_at": "2026-09-12T13:55:21.868630+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: sir i have using apple iPhones past 3 years and recently bought iphone7 and was happy but den these ios updates worst ever updates ever phone is hanging cant use multiple apps at the same time never expected this from apple...worst updates ever\nBrand: Hi there. We'd like to help with your iPhone 7. Please tell us what version of iOS you see under Settings > General > About > Version.\n\n[Example 2]\nCustomer: pathetic update for my iPhone. 3 times automatically off. Not expected from Apple\nBrand: We can definitely look into this with you. Send us a DM and let us know which iOS version you're running currently.\n\n[Example 3]\nCustomer: And it’s the worst thing ever. Sometimes my phone gets prompted with keyboard from neighbors Apple TV 😂🤦🏻‍♀️ great design,\nBrand: We can help! Go to Settings-Notifications-Apple TV Keyboard. Turn off \"allow notifications\" to stop that prompt.\n\n[Example 4]\nCustomer: Worst update ever #ios11 😣\nBrand: What's the exact iOS version running on your iPhone? DM us, and we'll sort this out together.\n\nWrite a reply to this new customer message:\n\"\"\"worst support ever. Expected more from #apple #EpicFail\"\"\"\n\nThe customer's issue has been classified as: feedback_complaint\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

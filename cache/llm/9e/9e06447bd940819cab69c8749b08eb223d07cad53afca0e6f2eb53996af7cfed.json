@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We'd be happy to help. What issues are you having with doing so? Are you unable to login to your account?\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 466,
+  "completion_tokens": 36,
+  "latency_s": 0.916,
+  "created_at": "2026-09-12T13:57:33.129579+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: How do I delete this. (Documents and data)\nBrand: That's a great question! So we can look into this, may we get the iOS shown in Settings > General > About?\n\n[Example 2]\nCustomer: So......battery life on iOS 11 😡😡😡😡😡😡😡😡😡 Any comment ????\nBrand: We'd love to help get that battery life working as expected. Which device do you have & which version of iOS 11 is it running?\n\n[Example 3]\nCustomer: I need help putting my iCloud account on an iPhone can someone help please?\nBrand: Of course, we'd be happy to. What issues are you having with doing so? Are you unable to login to your account?\n\n[Example 4]\nCustomer: says “Photos is locked” and full-res photos can’t be downloaded. Since about at least 3PM EST.\nBrand: We're here for you. Does this just happen on or does it happen on other devices such as in the Photos App?\n\nWrite a reply to this new customer message:\n\"\"\"BIG HELP : est-ce que quelqu'un sait comment récupérer les documents après une déconnexion ICloud ? J'ai tout perdu .. ?\"\"\"\n\nThe customer's issue has been classified as: account_appleid\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

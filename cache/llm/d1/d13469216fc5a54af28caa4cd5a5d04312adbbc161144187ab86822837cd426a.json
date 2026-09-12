@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We’d love to help with this. To start, send us a DM letting us know which device you are using.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 534,
+  "completion_tokens": 30,
+  "latency_s": 0.877,
+  "created_at": "2026-09-12T14:03:30.656166+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: please fix this “I️” situation. I’m tired of having to type “i.” It’s just not right.\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 2]\nCustomer: These weak ass earbuds are always going out! All I’m doing is sitting at my desk. I don’t get it.\nBrand: We know you need your EarPods working so you can listen to music and make phone calls hands-free. Let's get this figured out. To start, does this happen when you connect them to other devices? Are you hearing anything from either side? Please DM us.\n\n[Example 3]\nCustomer: i️ don’t know what’s goin on with this tweaked out shit but please fix it\nBrand: We recently released an iOS update, 11.1.1, that contains a fix for autocorrect issues. Let’s be sure to back up your device prior to updating. How to back up:\n\n[Example 4]\nCustomer: Help! Since upgrading to ios11.0.3 my battery drains fast. Lost 40% just sitting on desk locked. Please fix or I go Android\nBrand: We’d love to help with your battery life. To start, send us a DM letting us know which device you are using.\n\nWrite a reply to this new customer message:\n\"\"\"I know it’s out of warranty. But it’s not supposed to inflate like this just sitting on my desk, right? ...\"\"\"\n\nThe customer's issue has been classified as: hardware_repair\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

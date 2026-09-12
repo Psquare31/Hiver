@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd love to look into this with you. Click here to join us in DM and provide us with the software version you're using.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 552,
+  "completion_tokens": 35,
+  "latency_s": 1.586,
+  "created_at": "2026-09-12T13:59:03.605766+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: okay i haven’t been getting notified that i’ve got a text wtf\nBrand: We are glad to help. Are your notifications turned on for Messages? Let us know in DM.\n\n[Example 2]\nCustomer: I’ve tried this text replacement thing and I’m still seeing the ? FIX THIS.\nBrand: We'd love to look into this with you. Click here to join us in DM and provide us with the software version you're using.\n\n[Example 3]\nCustomer: i guess that’s it then. i’m only seeing it from other people everywhere (i actually have never seen it on anything of mine because i don’t have autocorrect/predictive text/anything like that on ever). it’s kinda annoying i’ve got to just wait for others to update though 😐\nBrand: We're glad to hear your device is functioning properly. Let us know if there is anything we can help you with in the future.\n\n[Example 4]\nCustomer: my phone told me that I needed to reset it by computer I’ve done this and now get this message and won’t do anything\nBrand: Thanks for bringing this to our attention. Is your iPhone still connected to the computer? If so, are you getting any further prompts from iTunes? Also, does that continue after a force restart?\n\nWrite a reply to this new customer message:\n\"\"\"I got an electric shock from your headphones on the 5th and still haven’t got a replacement. I’ve also been told that it’s unlikely that I’ll have my replacement by my holiday on the 6th. Anything to speed this up?\"\"\"\n\nThe customer's issue has been classified as: hardware_repair\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

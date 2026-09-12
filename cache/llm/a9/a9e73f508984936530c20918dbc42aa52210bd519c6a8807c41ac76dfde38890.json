@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"Here’s what you can do to work around the issue until it’s fixed in a future software update:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 430,
+  "completion_tokens": 28,
+  "latency_s": 1.097,
+  "created_at": "2026-09-12T14:01:28.758403+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: How do I get rid of the little question mark I keep seeing tho? I don't have android\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 2]\nCustomer: how do I get rid of this I️?????????????????\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 3]\nCustomer: What is this A question mark and how do I️ get rid of it. It keeps changing “I️” to it #iphoneproblems\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 4]\nCustomer: how so I️ get rid of this symbol I️\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\nWrite a reply to this new customer message:\n\"\"\"Ayyy how tf I️ get rid of this fuckin question mark ?\"\"\"\n\nThe customer's issue has been classified as: feedback_complaint\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

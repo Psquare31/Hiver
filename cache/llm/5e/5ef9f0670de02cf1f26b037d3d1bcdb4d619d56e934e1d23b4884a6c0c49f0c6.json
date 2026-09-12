@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"Help is here. Let's talk via DM and check your options to improve battery performance. Please tap here to meet us there: [Link]\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 475,
+  "completion_tokens": 40,
+  "latency_s": 0.931,
+  "created_at": "2026-09-12T14:00:33.157560+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I’m using an iPhone SE 64GB with the latest iOS update as of last night.\nBrand: Does restarting your device help any? What are the other issues that you've experienced?\n\n[Example 2]\nCustomer: But, The battery life is very worst in iOS 11. So please get me some update for better battery life.\nBrand: Help is here. Let's talk via DM and check your options to improve battery performance. Please tap here to meet us there:\n\n[Example 3]\nCustomer: Excuse me but my cellular data isn’t working & I still have plenty of gigabytes left. Restarting didn’t work...\nBrand: We're happy to help. DM us with the model iPhone and iOS version you have, and we'll go from there.\n\n[Example 4]\nCustomer: thanks for sucking the life out of my battery with ios11. #androidswitchlooksgoodnow\nBrand: Help is here. Let's work together in a DM to get this addressed. Tap here to continue:\n\nWrite a reply to this new customer message:\n\"\"\"Thank you! Of course, some of it helped. But still, with this iOS my phone isn’t have the same battery life as with the latest iOS 10. 😕\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

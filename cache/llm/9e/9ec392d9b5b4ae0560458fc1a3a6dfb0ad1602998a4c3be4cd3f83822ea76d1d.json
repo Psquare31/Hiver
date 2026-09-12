@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We'd like to look into what's going on with your battery. Which device and iOS 11 version are you running?\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 469,
+  "completion_tokens": 38,
+  "latency_s": 0.851,
+  "created_at": "2026-09-12T13:59:24.123272+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Can/do replace a defective battery same day, in the UK, out of warranty, if I visit the Genius Bar?\nBrand: That's a great question. So we can provide the best support, select the following link to join us in a DM.\n\n[Example 2]\nCustomer: reimburse me for my defective battery following the iOS11 update\nBrand: We'd like to look into what's going on with your battery. Which device and iOS 11 version are you running?\n\n[Example 3]\nCustomer: my phone has been stuck updating to ios 11.0.2 for over four hours now and a hard reset does nothing but start it over again\nBrand: That's not expected behavior. Are you updating over Wi-Fi or using a computer with iTunes?\n\n[Example 4]\nCustomer: Well my iphones battery that lasted two days now lasts 5 hours since the update. 🙄\nBrand: We'd like to look into this with you. What is your exact iOS version? Find it at Settings > General > About.\n\nWrite a reply to this new customer message:\n\"\"\"Hours between two stores to replace defective 10.5 IPad; replacement is defective. Now have to start over again. Not good CS\"\"\"\n\nThe customer's issue has been classified as: hardware_repair\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

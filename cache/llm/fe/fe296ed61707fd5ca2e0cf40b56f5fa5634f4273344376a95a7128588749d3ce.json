@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"That's certainly not normal behavior, let's see why it's shutting down. What model iPhone and iOS version do you have?\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 530,
+  "completion_tokens": 34,
+  "latency_s": 0.88,
+  "created_at": "2026-09-12T13:54:21.466309+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I️ had over 2000 photos in my phone & now I️ have 100 wtf... your moms a hoe\nBrand: We'd love to take a look. Please DM us which device and software you’re using.\n\n[Example 2]\nCustomer: y'all killing me. My phone just crashed in the middle of a fye ass song bro wtf! I'm not dealing with this shit. FIX IT! Send me a new phone for all of my troubles and worries. Please and thank you 😘\nBrand: Hey there! This is certainly not the behavior we want you to experience. We want to help! Can you DM us which iPhone and iOS version you're using? Here's a link to help locate your iOS version: We look forward to speaking with you soon.\n\n[Example 3]\nCustomer: My phone randomly shuts itself down at least 3x a day!!! This is so aggravating\nBrand: That's certainly not normal behavior, let's see why it's shutting down. What model iPhone and iOS version do you have?\n\n[Example 4]\nCustomer: Nothing just a black screen &then the Apple logo, it randomly crashes sometimes in the middle of a phone call or while taking pics or typing\nBrand: Got it. Which iOS version is installed under Settings > General > About?\n\nWrite a reply to this new customer message:\n\"\"\"MY PHONE HAS SHUT DOWN 3X IN THE MIDDLE OF TYPING A LONG DEEP ASS PARAGRAPH. WTF UP HOE ????????????\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

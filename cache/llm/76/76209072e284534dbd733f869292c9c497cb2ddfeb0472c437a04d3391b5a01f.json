@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We're glad to help you. DM us using the link below, and detail what issues you're having and on which device.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 518,
+  "completion_tokens": 33,
+  "latency_s": 0.898,
+  "created_at": "2026-09-12T13:57:29.705201+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I was on the phone with for 40 mins & I still ended up getting transferred to someone who LITERALLY could not speak English.\nBrand: We're glad to help you. DM us using the link below, and detail what issues you're having and on which device.\n\n[Example 2]\nCustomer: 2/2 After switchin it on and off 5 times, I could talk to people for a while, but now it doesn't work again. Also the screen freezes a lot:(\nBrand: OK, thanks. Let's try with a headset. Do you experience this issue when you make a call using headphones?\n\n[Example 3]\nCustomer: wish my notification center would work. notifications won't even show up i get a buzz but who knows what app it's for? not me\nBrand: Let's figure out what's going on, together. Which device are you experiencing this on and what's the software version?\n\n[Example 4]\nCustomer: it takes 10 minutes for me to type a message with an “I️” now\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\nWrite a reply to this new customer message:\n\"\"\"I was chatting with a customer service representative for 81 minutes before she could transfer me to a senior rep who then accidentally ended the chat after saying hi. I would call but my phone doesn't work!!! Fix this. Now.\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

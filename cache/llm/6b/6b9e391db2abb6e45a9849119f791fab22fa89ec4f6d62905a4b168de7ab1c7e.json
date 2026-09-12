@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We're here to help. To start, send us a DM with the exact iOS version your iPhone is running.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 519,
+  "completion_tokens": 29,
+  "latency_s": 0.879,
+  "created_at": "2026-09-12T13:56:25.818078+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: ever since the latest software update my phone battery doesn’t last 8 hours on my iPhone 7. Any fix out yet???\nBrand: We know how important it is to get the battery life you expect. Select the following link to join us in a DM to get started.\n\n[Example 2]\nCustomer: Doesn’t work. £700 worth iPhone, one year old now I can’t use because I update it. I’m disappointed Apple. #AppleUpdate\nBrand: Let's work together to get your iPhone updated. Send us a DM telling us which iPhone you have and what's happening when you update.\n\n[Example 3]\nCustomer: My phone & all my apps haven’t worked since the iPhone 8 came out.. FIX MY PHONE !!!!!!\nBrand: We're here to help. We know how important it is to have your apps working. What iOS version are you currently using?\n\n[Example 4]\nCustomer: hi guys, since iOS 11 came out my battery on 2 month old 7 plus is shocking! Any update to fix this?? #iphone7 #apple\nBrand: Battery life is important, and we're here for you. To start, send us a DM with the exact iOS version your iPhone is running.\n\nWrite a reply to this new customer message:\n\"\"\"WTF year old 7 doesn’t work for crap since the update AND the ridiculous 8 came out 😡😡😡😡😡😡😡😡😡😡😡😡😡\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

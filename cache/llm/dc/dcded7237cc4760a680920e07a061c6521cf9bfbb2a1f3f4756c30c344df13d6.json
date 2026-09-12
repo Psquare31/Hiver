@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We want your battery to perform perfectly. Meet us in DM and we'll troubleshoot there.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 492,
+  "completion_tokens": 24,
+  "latency_s": 0.865,
+  "created_at": "2026-09-12T13:50:11.191391+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: -dd’s phone is having major battery issues since IOS 11 update. It drains fast, shutting off at 39%, turns on and dropped 10%.\nBrand: We want your battery to perform perfectly after the update. Meet us in DM and we'll troubleshoot there.\n\n[Example 2]\nCustomer: I️ think there’s something wrong here. what’s going on with my keyboard? lol\nBrand: We're here to help. Which iOS version is your device currently running? You can find it in Settings > General > About. DM us.\n\n[Example 3]\nCustomer: iPhone 7. iOS 11.1. Wifi turns off automatically when I am not using the phone! It’s annoying.\nBrand: We know it's important to stay connected to Wi-Fi at all times. Does the Wi-Fi signal disappear but show as on in Settings?\n\n[Example 4]\nCustomer: Dear , there’s still something wrong about #iOS 11.x. Windows overlap, auto Bluetooth, delayed App response... #disappointed\nBrand: Hi there. We'd love to help out. Please DM details, and your version of iOS listed under Settings > general > About > Version.\n\nWrite a reply to this new customer message:\n\"\"\"My phone turns off at 11% ! Something’s wrong 🙁\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

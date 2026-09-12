@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd love to look into this with you. DM us which version of the operating system your iPhone is running and the country you're in (as support options vary by location), and we'll get started.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 580,
+  "completion_tokens": 50,
+  "latency_s": 1.37,
+  "created_at": "2026-09-12T13:57:21.958379+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: my iPhone 6s seems to be losing battery VERY quickly. (Gone from 30% to 9% in about 20 mins) is it worth taking to a Genius Bar, can they check battery function?\nBrand: We'd love to look into this with you. DM us which version of the operating system your iPhone is running and the country you're in (as support options vary by location), and we'll get started.\n\n[Example 2]\nCustomer: Yes today when I went to Apple for help everything worked once connected to the Apple store WiFi and as soon as I left it started acting stupid again\nBrand: Let's take a deeper look into this to determine the issue. Send us a DM with your iPhone model and iOS version from Settings > General > About.\n\n[Example 3]\nCustomer: how do I make a genius bar appointment? the webpage is 403 forbidden. I called the store number, but I am on hold.\nBrand: What is the reservation regarding? We're happy to help. You can also try using the following link:\n\n[Example 4]\nCustomer: After i updated my iphone 6s to 11.1.2 the battery started draining really fast and there is issue in charging too\nBrand: We get how important battery life is to be able to rely on your device. Let's get started troubleshooting what is going on. How long ago did you update to 11.1.2? Additionally, in the App Store, do you have any updates to install? If so, go ahead and do so.\n\nWrite a reply to this new customer message:\n\"\"\"#iphoneproblems In the 14/9 store on my genius bar appt. iphone 6s started freezing and acting wacky. Too soon to upgrade\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

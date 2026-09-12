@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We want to help you out with any issues you’re having. Send us your current iOS version in DM, and we’ll start working there.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 446,
+  "completion_tokens": 36,
+  "latency_s": 1.038,
+  "created_at": "2026-09-12T13:58:03.058267+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: what the fuck is wrong with this new update?! What is this ➡️ “I️”\nBrand: We want to help you out with any issues you’re having. Send us your current iOS version in DM, and we’ll start working there.\n\n[Example 2]\nCustomer: Hey I’m literally watching my battery go down as a type what the fuck is wrong with this update\nBrand: Battery life is important, and we're here for you. Send us a DM with the device you're experiencing this on. We'll go from there.\n\n[Example 3]\nCustomer: what is wrong with this? I️ is not working!\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 4]\nCustomer: . what the fuck is wrong with my I️ key you bastards\nBrand: We want to help you. Which iOS version is your device currently running? DM us the version.\n\nWrite a reply to this new customer message:\n\"\"\"holy fuck I literally update my phone and now it is INCAPABLE of working .. WHAT IS WRONG WITH U\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

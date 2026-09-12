@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We're here to help. Which device and version of iOS 11 are you using? Check Settings > General > About, and let us know in DM.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 505,
+  "completion_tokens": 39,
+  "latency_s": 1.486,
+  "created_at": "2026-09-12T13:56:03.516518+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: any ideas on what’s going on with Mail in #iOS11 ? The app keeps crashing upon startup for some reason.\nBrand: Which iOS version is your device currently running? We want to make sure that you're running the latest version.\n\n[Example 2]\nCustomer: what’s going on with iOS 11? Terrible. F1 race app great for years. Usually 45-50% of battery. Not today! Zero ½ of race!\nBrand: Which device and version of iOS 11 are you using? Check Settings > General > About, and let us know in DM.\n\n[Example 3]\nCustomer: what’s going on, this update is interrupting phone calls and internet use smh\nBrand: We'd like to help with your device. Tell us more about the issues you're encountering via DM. We'll go from there.\n\n[Example 4]\nCustomer: do you want to tell me what’s going on with my #iphone8plus rear camera? It’s not even 1 week old. #faulty #iphone\nBrand: We're here to help. Which iOS version is your device currently running? This can be found under Settings > General > About.\n\nWrite a reply to this new customer message:\n\"\"\"Look mun what’s going on you’re #iOS11 is terrible !!! it’s doing it on everything and screen is to sensitive for sure\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

@@ -1,0 +1,11 @@
+intent,precision,recall,f1,support
+app_software,0.72,0.655,0.686,55
+device_performance,0.793,0.605,0.687,38
+battery_power,0.815,0.957,0.88,23
+hardware_repair,0.875,0.737,0.8,19
+connectivity,0.75,0.882,0.811,17
+other,0.438,0.438,0.438,16
+account_appleid,0.812,0.867,0.839,15
+feedback_complaint,0.182,0.143,0.16,14
+os_update,0.304,0.7,0.424,10
+acknowledgement,1.0,0.667,0.8,3

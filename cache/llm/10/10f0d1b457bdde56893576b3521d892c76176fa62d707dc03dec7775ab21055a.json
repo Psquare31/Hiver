@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd love to help figure out what's happening with your iPhone. Please DM and tell us what iPhone device you have.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 466,
+  "completion_tokens": 32,
+  "latency_s": 0.833,
+  "created_at": "2026-09-12T13:51:17.974634+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Why does the battery on my iPhone need charging more often after the recent update? #notimpressed\nBrand: Having reliable battery life is important. Let us know which iPhone you’re using and your exact iOS version in DM to proceed.\n\n[Example 2]\nCustomer: hey quick question, why does my brand new #iPhoneX heat up if I use it for more than a minute???\nBrand: We'd love to explore this in more detail with you and help out. Are you using any particular apps where you notice this issue most often? Which iOS version are you operating on currently? DM us those responses, and also let us know if you use a case please.\n\n[Example 3]\nCustomer: Hey why does my phone constantly freeze since the newest update? 🙄\nBrand: We'd love to help figure out what's happening with your iPhone. Please DM and tell us what iPhone device you have.\n\n[Example 4]\nCustomer: why does the podcast app freeze up and not work, constantly?\nBrand: Thanks for reaching out. DM which iPhone and specific iOS version you are using to get started.\n\nWrite a reply to this new customer message:\n\"\"\"Hey why does my iPhone freeze up more often than Leonardo DiCaprio does in the revenant?\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

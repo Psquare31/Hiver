@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd like to find out more about this issue so we can help. Is your device running iOS 11.0.3 currently? Let us know in DM.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 458,
+  "completion_tokens": 41,
+  "latency_s": 0.989,
+  "created_at": "2026-09-12T13:58:21.594087+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: since updating it to the latest version of IOS my phone is not working well...slow touch response..UI lag\nBrand: We'd like to find out more about this issue so we can help. Is your device running iOS 11.0.3 currently? Let us know in DM.\n\n[Example 2]\nCustomer: The back button is kinda feeling sticky and not working well as before.\nBrand: We'd like to assist. What device and software version are you using? Also, what country are you in?\n\n[Example 3]\nCustomer: Yes. I turned off a lot of settings as well but it’s not working.\nBrand: We completely understand. To maximize your battery, please go to then update the results to us via DM\n\n[Example 4]\nCustomer: My Airplay is not working well after I updated IOS 11. Airplay disconnects mid video. #regret\nBrand: Hey, we can offer some guidance. First, try the steps here and if they don't help, let us know:\n\nWrite a reply to this new customer message:\n\"\"\"I’ve updated my phone to the latest version of IOS with your suggestion and it is not working well as before!\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

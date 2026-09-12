@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We can help! Tap the Podcasts app > Listen Now. You'll see Podcasts with new episodes and episodes you haven\\u2019t finished there.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 474,
+  "completion_tokens": 39,
+  "latency_s": 0.871,
+  "created_at": "2026-09-12T13:54:30.256352+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I don’t tweet much.. New podcast app is awful! Looks good but where is my list of unplayed! #bringbackunplayed\nBrand: We'll help! Tap the Podcasts app > Listen Now. You'll see Podcasts with new episodes and episodes you haven’t finished there.\n\n[Example 2]\nCustomer: IPhone 6s. I have the Jabra step 3. They connect to Apple music, even when I have podcasts playing.\nBrand: Have you tested the device using a different Bluetooth accessory, or by testing the accessory with another device? DM us:\n\n[Example 3]\nCustomer: Yup all podcasts. Correct in app, and on lock screen once paused. Only since iOS11, previously fine.\nBrand: Thanks for that information. If you have not tried already, please restart the iPhone.\n\n[Example 4]\nCustomer: still haven't got IOS 11 to download on my 7plus device. Can you help? xXxXx\nBrand: Absolutely, we’d be happy to help! Are you trying to update through the settings on the iPhone or through iTunes on a computer?\n\nWrite a reply to this new customer message:\n\"\"\"And still the iOS Podcasts app fails to download all unplayed episodes even when it is set to do so.\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

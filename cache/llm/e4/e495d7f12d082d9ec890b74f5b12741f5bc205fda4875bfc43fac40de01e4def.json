@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"This isn't what we expect to happen with your iPhone. Send us a DM letting us know which specific iOS version is installed:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 497,
+  "completion_tokens": 32,
+  "latency_s": 0.792,
+  "created_at": "2026-09-12T13:51:22.379414+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: phone freezing and crashing about 5 times a day. Iphone 7 new from December. Ios11 is killing it\nBrand: We'd like to work with you on this. Which specific iOS version is currently installed? Let us know via DM.\n\n[Example 2]\nCustomer: so my 7plus since the update blacks out often throughout the day. Constantly requires forced restarts.Apps stall.🤷🏽‍♂️😒\nBrand: We want to look into this with you. Can you tell us which version of iOS 11 you have? Settings > General > About will tell you.\n\n[Example 3]\nCustomer: IOS 11 freezes and restarts my phone about 4 times a day. What's up with that?\nBrand: We'd like to look into this with you. Which device & version of iOS 11 are you running?\n\n[Example 4]\nCustomer: Hey why after updating my iPhone to this new update that my phone restarts,has no service, and is slower than over 🙄\nBrand: This isn't what we expect to happen with your iPhone. Send us a DM letting us know which specific iOS version is installed:\n\nWrite a reply to this new customer message:\n\"\"\"my dearest new iPhone 8 Plus keeps crashing, blacks out and restarts about 20 times a day. Even after it has gone through the service center. Just refuses to budge!\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

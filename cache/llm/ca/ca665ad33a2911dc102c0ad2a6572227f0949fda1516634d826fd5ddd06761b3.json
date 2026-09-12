@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"Let's look into this together. To get started, let us know which iOS version (Settings > General > About) is installed.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 537,
+  "completion_tokens": 33,
+  "latency_s": 0.796,
+  "created_at": "2026-09-12T13:55:31.329333+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I’m having trouble with my I’s too\nBrand: Let's try the steps listed in this article. Let us know if you need any further help.\n\n[Example 2]\nCustomer: Yes I have same problem. I can not doing anything on my iPhone! I’m so 😡\nBrand: Thanks for trying that under Wi-Fi and Cellular Data. Do you have the same issues in the App Store, that you're having in the iTunes Store? Please send us a DM so we can continue to assist.\n\n[Example 3]\nCustomer: Okay , what kind of glitch is this? I’m all for sleeping in, but I think my alarms are supposed to count down when on snooze\nBrand: Let's look into this together. To get started, let us know which iOS version (Settings > General > About) is installed.\n\n[Example 4]\nCustomer: Stupid apple you update my phone while I’m sleeping and this shits lagging now hella slower I can tell when I type it won’t read what I’m typing as fast.... explain\nBrand: Let's work on it together. To help us understand the situation better, would you mind telling us which iPhone you have, and from: Settings > General > About, which version of iOS has been installed during this update? Also, where is the slowness noticed?\n\nWrite a reply to this new customer message:\n\"\"\"I️ need my iPhone to NOT snooze with the side buttons.. it’s too easy and I’m so use to doing that when I️ get calls while I’m sleeping\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

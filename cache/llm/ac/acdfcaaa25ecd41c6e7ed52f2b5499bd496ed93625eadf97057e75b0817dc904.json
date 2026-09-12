@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"That's certainly not expected. Have you tried a restart since the update? If not, let's restart:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 505,
+  "completion_tokens": 29,
+  "latency_s": 0.888,
+  "created_at": "2026-09-12T13:50:18.026856+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: My speaker phone doesn’t work, the music thing when you swipe up from the bottom doesn’t work, volume/ringer on side doesn’t work.\nBrand: That's certainly not expected. Have you tried a restart since the update? If not, let's restart:\n\n[Example 2]\nCustomer: #iOS11 Issues so far: No more volume/ringer tracker when use side buttons; When playing music, no lock screen access to usual buttons\nBrand: Hi there. Let's get to work on this together. Please click here to meet us in a DM and share which iOS version you're on:\n\n[Example 3]\nCustomer: after the latest update, I can’t adjust the “ringer” volume from side keys. Only allowing “volume” adjustment. 🤔🤔😳😳?!?! HELP\nBrand: Thanks for reaching out. Let us know what device you're using. We want to be sure you can hear incoming calls!\n\n[Example 4]\nCustomer: new iOS update doesn’t let you change volume using the buttons on the side. #fixit #apple #iOS11\nBrand: You should still be able to control the volume with side buttons in iOS 11. What happens when you use those buttons?\n\nWrite a reply to this new customer message:\n\"\"\"my ringer volume doesn’t show when I press the side buttons even though it’s enabled and my alarm isn’t working\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

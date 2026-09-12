@@ -1,4 +1,5 @@
 system,intent_macro_f1,f1_ci,intent_acc,auto_rate,harmful_auto,within_budget,safe_auto_rate
-always_dm,0.026,"[0.02,0.03]",0.148,1.0,0.319,False,0.0
-simple,0.558,"[0.49,0.62]",0.581,0.705,0.15,False,0.0
-trivial,0.026,"[0.02,0.03]",0.148,1.0,0.319,False,0.0
+agent,0.652,"[0.55,0.71]",0.671,0.776,0.073,False,0.0
+always_dm,0.042,"[0.03,0.05]",0.262,1.0,0.221,False,0.0
+simple,0.312,"[0.25,0.37]",0.395,0.788,0.126,False,0.0
+trivial,0.042,"[0.03,0.05]",0.262,1.0,0.221,False,0.0

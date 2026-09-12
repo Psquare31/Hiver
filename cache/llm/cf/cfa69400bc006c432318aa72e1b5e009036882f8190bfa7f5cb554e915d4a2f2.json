@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We're here for you. DM us.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 465,
+  "completion_tokens": 20,
+  "latency_s": 0.777,
+  "created_at": "2026-09-12T13:53:30.079593+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: 11.2 the new one that you guys just got I already restarted t and it got worse\nBrand: Let's have you update to the most recent, 11.0.3. Be sure to create a backup first. Let us know the result.\n\n[Example 2]\nCustomer: looks like you’re not the only one! I got problems with volume and screen freezing too!\nBrand: We're happy to assist. Which iOS version are you currently running? Go to Settings > General > About for the version.\n\n[Example 3]\nCustomer: how do I disconnect Health from Runkeeper? Health looks like it’s not connected but Runkeeper says otherwise? Pics below, TIA\nBrand: Try the steps in this article then try turning off Apple Health in Runkeeper: Questions? DM us.\n\n[Example 4]\nCustomer: #AppleWatchSeries3 #imobile says incorrect pin even when it’s #correct pl provide #support\nBrand: We're here for you. Try these steps for help with adding your card:\n\nWrite a reply to this new customer message:\n\"\"\"I got an email that looks like it’s from you guys, but it also seems suspicious, could you DM and provide support?\"\"\"\n\nThe customer's issue has been classified as: account_appleid\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

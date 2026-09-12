@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We want to be sure you can enjoy your music. Which device are you using? What's happening specifically?\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 421,
+  "completion_tokens": 33,
+  "latency_s": 0.788,
+  "created_at": "2026-09-12T14:05:26.567791+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Apple Music Bluetooth has been screwed up since update\nBrand: We want to be sure you can enjoy your music. Which device are you using? What's happening specifically?\n\n[Example 2]\nCustomer: is there an Apple Music update dropping soon cause my Apple Music has been crashing since yesterday it only stays open for 3 seconds\nBrand: We love our Apple Music too, so let's get to the bottom of this. Which device are you using it with?\n\n[Example 3]\nCustomer: Yes I am . Have been since Apple Music was a thing.\nBrand: Does the playback behavior occur with content that is streaming or that has been downloaded offline onto the device?\n\n[Example 4]\nCustomer: has there been issues with downloading music via the Apple Music app as I can’t download a thing ?\nBrand: Hi there! What happens when you try to download music?\n\nWrite a reply to this new customer message:\n\"\"\"My Apple Music has been messing up since the new update! Cannot think of a worse possible outcome. Not the music\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

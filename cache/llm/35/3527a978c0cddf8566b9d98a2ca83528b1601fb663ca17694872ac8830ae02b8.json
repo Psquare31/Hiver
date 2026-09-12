@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"Let's take a look at that together. Which model iPhone are you using? Send us a DM and we'll help.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 528,
+  "completion_tokens": 32,
+  "latency_s": 0.874,
+  "created_at": "2026-09-12T13:56:31.409270+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: iOS 11 sucks. Evn updtd ltst 11.0.3,touch unresponsive..Eating battery like hell..Phn bcm slow lyk dead..\nBrand: Let's take a look at that together. When did you perform the update? Which model iPhone? Let us know in DM.\n\n[Example 2]\nCustomer: the iOS 11 on iPhone 7 seems to be horrible and the new 11.0.3 drains battery like crazy. Please take this into consideration\nBrand: We'd like to help you with your battery issues since updating. DM us how long your battery lasts on a full charge.\n\n[Example 3]\nCustomer: iOS 11.0.3 has given me nothing more than a unresponsive phone and a 6 house battery life. Not good enough! 😡drains as I type!\nBrand: Please send us a DM and tell us which iPhone you're using, and when you installed the update. We'll meet you there to help.\n\n[Example 4]\nCustomer: In my iPhone 7 ios 11.0.3 still can't download new apps and fail to update apps\nBrand: We know it's important that you're able to download and update apps as expected. Send us a DM using the link below & we'll assist.\n\nWrite a reply to this new customer message:\n\"\"\"iOS 11.0.3 is HORRIBLE!! Apps fail on launch, phone freezes, unresponsive Touch ID, speaker fails, battery drains\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

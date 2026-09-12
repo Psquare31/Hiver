@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"Which model of iPhone are you using, and which version of iOS is installed on it? When did your Wi-Fi problems begin?\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 522,
+  "completion_tokens": 37,
+  "latency_s": 1.017,
+  "created_at": "2026-09-12T14:04:51.628324+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I went into Apple store & they said I have to put up with is till Apple fix it\nBrand: Thanks for responding! Please DM the details of your issue and your device model. We'll pick up this conversation there.\n\n[Example 2]\nCustomer: I know how to do that, it disconnects itself all the time. It’s pot luck whether I get WiFi on it in my own house. I thought it was my ISP.\nBrand: Which model of iPhone are you using, and which version of iOS is installed on it? When did your Wi-Fi problems begin?\n\n[Example 3]\nCustomer: I know it can be toggled in settings, more work. Can you make WiFi Assist work *while* connected to wifi that isnt performing at all? #ios11\nBrand: We'd be happy to look into the Wi-Fi Assist issue. Send us a DM with your iPhone model and we'll start there.\n\n[Example 4]\nCustomer: If you have an Apple I Pad or cell phone don’t down 11.0.1 update.. it is horrible and all is no help at all.\nBrand: Please go ahead and update to our latest iOS 11.0.2, and let us know if the issue persists in DM. We're here for you.\n\nWrite a reply to this new customer message:\n\"\"\"I have also talked to Apple Support regarding this issue, they said it is due to wifi and ISP. If it is like that it should not work at all.\"\"\"\n\nThe customer's issue has been classified as: connectivity\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

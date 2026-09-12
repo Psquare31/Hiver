@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We'll be happy to look into this with you. Let us know what device and when this first began to get started.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 492,
+  "completion_tokens": 36,
+  "latency_s": 1.082,
+  "created_at": "2026-09-12T14:04:26.877730+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: what’s going on with IOS 11. It’s a disaster. Phone seizing. Battery issues. New podcast tab is terrible.\nBrand: We're here to help. Tell us which version of iOS you're running in DM. Find that under Settings > General > About.\n\n[Example 2]\nCustomer: since updated to ios11.0.2, iphone 6 processing has become so slow. So please rectify it make changes to ios\nBrand: Please tell us more about what you're experiencing. We'd love to help. What happens exactly, and does it occur in all apps?\n\n[Example 3]\nCustomer: what is wrong with the ITunes podcast app? Why is it always crashing??!! It is the worst thing EVER 😑😢please fix it 🙏🙏🙏🙏🙏\nBrand: We'll be happy to look into this with you. Let us know what device and when this first began to get started.\n\n[Example 4]\nCustomer: Hey u gotta do something bout the new update! ITS TERRIBLE! So annoyed!! 😠\nBrand: Let's look into this together. Could you tell us which iPhone and iOS 11 update you're currently using?\n\nWrite a reply to this new customer message:\n\"\"\"what have u done to the podcast app. It’s terrible, so difficult to negotiable. Please rectify it soon\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

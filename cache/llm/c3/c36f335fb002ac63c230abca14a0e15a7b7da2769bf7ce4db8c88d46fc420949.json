@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We're happy to assist. Which iOS 11 version are you currently running? Go to Settings > General > About for the version.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 544,
+  "completion_tokens": 34,
+  "latency_s": 0.956,
+  "created_at": "2026-09-12T14:00:29.927655+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I’m on iOS 11.1.1 No it’s happening only on ‘Today’s View’ ....rest is fine. Hope it will be fixed in 11.2 Happy to hear from you guys!\nBrand: Thank you for that information. We have released an update to iOS 11 to iOS 11.1.2. Let's start with updating the iOS and let us know how that goes.\n\n[Example 2]\nCustomer: can i downgrade my iphone 5s to iOS 10.3.3 via Restore iTunes ? 11 makes slowly\nBrand: Thanks for reaching out. Although we don't have the option to downgrade to a previous iOS version, we can definitely look into this with you. Send us a DM and let us know what's happening specifically.\n\n[Example 3]\nCustomer: iOS 11 has destroyed my phone\nBrand: We're happy to assist. Which iOS 11 version are you currently running? Go to Settings > General > About for the version.\n\n[Example 4]\nCustomer: I’ve tried removing them from my device and adding them again via both iTunes on my Mac and via the iTunes app. No joy 😥 2/2\nBrand: We'd like to look into this with you. Send us a DM including the device you're using. We'll go from there.\n\nWrite a reply to this new customer message:\n\"\"\"iOS 11.1.2 has destroyed my phone which no longer turns on unless I restore it via itunes each time, not a happy bunny guys !!!!!!!!!!!!!!\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

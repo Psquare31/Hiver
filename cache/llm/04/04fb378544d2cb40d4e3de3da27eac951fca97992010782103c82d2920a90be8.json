@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"Hey, we can take a closer look. DM us the exact iOS version and we'll go from there.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 531,
+  "completion_tokens": 28,
+  "latency_s": 1.055,
+  "created_at": "2026-09-12T13:57:51.630845+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: how have you guys still not provided a software update to fix \"i\" and \"I\" on the iphone?\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 2]\nCustomer: why is I­t­ everytime I️ type the letter “I️” I­t­ shoes up with an A and a question mark? I️ can’t do lowercase I️ either.\nBrand: Hey, we can take a closer look. DM us the exact iOS version and we'll go from there.\n\n[Example 3]\nCustomer: what is wrong with the letter I️ I️ can’t type the letter I️\nBrand: Which device and version of iOS are you using? Check Settings > General > About, and let us know in DM.\n\n[Example 4]\nCustomer: I️ I️ I️ I️ I️ yeah thanks thanks great update I️ I’d like to say I️ love the update but can’t use the letter eye anymore with I️ ??\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\nWrite a reply to this new customer message:\n\"\"\"I️ haven’t upgraded my software as I️ hear this is the wrong thing to do and I’ll have to get a new phone. I’m happy with my iPhone 6. No software update and I still can’t write the letter I️ thanks you guys suck. Who needs an I️ anyway?\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

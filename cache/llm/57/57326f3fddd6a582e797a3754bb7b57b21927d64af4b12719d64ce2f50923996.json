@@ -1,0 +1,15 @@
+{
+  "text": "{\"intent\":\"other\",\"confidence\":0.4}",
+  "model": "openai/gpt-oss-20b",
+  "provider": "groq",
+  "prompt_tokens": 560,
+  "completion_tokens": 157,
+  "latency_s": 0.833,
+  "created_at": "2026-09-12T14:01:10.383567+00:00",
+  "prompt": "You are triaging inbound customer messages for AppleSupport (Apple's customer support account, covering iPhone, iPad, Mac, Watch, AirPods and Apple services such as iCloud, the App Store and Apple Music) on Twitter.\n\nClassify the message into exactly one intent:\n\n- battery_power: Battery draining unusually fast, not charging, charging slowly, or the device shutting down unexpectedly at non-zero charge.\n- os_update: The update itself is the subject: it will not install, is not offered, stalled, or the customer wants to undo it.\n- device_performance: The device freezes, crashes, restarts, runs slowly, or the screen is unresponsive.\n- connectivity: Wi-Fi, Bluetooth, cellular, AirPlay, hotspot, or pairing and behaviour of accessories such as AirPods, Watch, or CarPlay.\n- app_software: A specific app or software feature misbehaves - Messages, Mail, Music, Photos, Safari, iTunes, Pages, keyboard and autocorrect.\n- account_appleid: Apple ID sign-in, password, two-factor, iCloud storage or sync, App Store or iTunes purchases, subscriptions and charges.\n- hardware_repair: Physical damage, repair cost, warranty or AppleCare coverage, service appointments, replacements and trade-ins.\n- feedback_complaint: Dissatisfaction, frustration or product opinion with no specific diagnosable fault, and no request that could be actioned.\n- acknowledgement: Thanks, praise, confirmation that a fix worked, or a closing message.\n- other: Anything the classes above do not cover: contentless fragments, off-topic chatter, press or developer enquiries, product availability and pricing questions, scam and phishing reports.\n\nRules:\n- Choose the intent describing what the customer WANTS, not their tone.\n- A message can only have one intent. If it raises several, pick the one with the greatest consequence for the customer.\n- Use `other` only when no class fits. Do not use it for messages written in languages other than English - classify those by their actual intent.\n- confidence is your probability that a careful human annotator would agree, from 0.0 to 1.0. Be honest: low confidence is useful signal, not failure.\n\nCustomer message:\n\"\"\"not really but PLEASE FIX IT\"\"\"\n\nReply with JSON only:\n{\"intent\": \"<id>\", \"confidence\": <0.0-1.0>}",
+  "model_key": "gpt_oss_20b",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 100
+  }
+}

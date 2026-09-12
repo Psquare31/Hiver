@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We'll help. Let us know in a DM.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 527,
+  "completion_tokens": 22,
+  "latency_s": 0.798,
+  "created_at": "2026-09-12T14:01:30.576477+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: thank you! I was able to login and update it. But is there a way to resend the confirmation email?\nBrand: The email won't be resent, but updates will go to the updated address. The previous link will let you check the status.\n\n[Example 2]\nCustomer: I haven't used my itunes login for atleast 3+ years and when i tried to use it to login, it was telling me its not recognizing my email. I still have my emails from when i used it. And i know i didn't deactivate it.\nBrand: We'll help. Are you able to sign in with your account at this website? Let us know in a DM.\n\n[Example 3]\nCustomer: hi! I️ have an iPhone and I️ updated it. I️ think there is a glitch in it...\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 4]\nCustomer: Thanks so much but I think it’s not suitable for my case. I’m trying to know if I could use an iCloud email alias as my Apple ID (1 of 2)\nBrand: You can’t use an alias to sign in to and you can’t use an alias to create a separate Apple ID.\n\nWrite a reply to this new customer message:\n\"\"\"I have received a suspicious email, I think it is a scam... It was asking my Itunes/Icloud login info. Is there an email I could send it for verification?\"\"\"\n\nThe customer's issue has been classified as: other\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

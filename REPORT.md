@@ -126,9 +126,56 @@ account_security 3, human_requested 1.
 
 ## 5. Results
 
-<!-- RESULTS:START -->
-*Populated by `make live` / `make reproduce`. See `results/summary_table.csv`.*
-<!-- RESULTS:END -->
+All numbers from `make reproduce`; raw tables in `results/`.
+
+### Task metrics (n = 210, bootstrap 95% CIs)
+
+| system | intent macro-F1 | intent acc | auto rate | harmful auto | safe auto rate |
+|---|---|---|---|---|---|
+| **agent** | **0.652** [0.55, 0.71] | 0.671 | 0.776 | **0.073** | **0.0** |
+| simple | 0.312 [0.25, 0.37] | 0.395 | 0.788 | 0.126 | 0.0 |
+| always_dm | 0.042 [0.03, 0.05] | 0.262 | 1.000 | 0.221 | 0.0 |
+| trivial | 0.042 [0.03, 0.05] | 0.262 | 1.000 | 0.221 | 0.0 |
+
+The agent roughly **doubles macro-F1 over the simple baseline** (0.652 vs 0.312,
+non-overlapping CIs) and **halves the harmful-auto rate** (7.3% vs 12.6%).
+
+**And the headline metric is 0 for every system, including the agent.** Nothing
+meets the 5% harm budget at the default operating point. That is the honest
+result: on this evidence the system is not deployable as an autonomous
+responder, and reporting a flattering number here would require quietly
+loosening the budget.
+
+### The operating point matters more than the model
+
+The confidence floor was set a priori at 0.55. Sweeping it
+(`results/threshold_sweep.csv`) shows what is actually purchasable:
+
+| confidence floor | auto rate | harmful auto | harmful CI upper | within budget |
+|---|---|---|---|---|
+| 0.00 - 0.40 | 0.781 | 0.073 | 0.111 | no |
+| 0.55 (default) | 0.776 | 0.073 | 0.111 | no |
+| 0.90 | 0.667 | 0.069 | 0.106 | no |
+| **0.95** | **0.466** | **0.037** | 0.063 | **point estimate only** |
+| 1.00 | 0.000 | 0.000 | 0.000 | trivially |
+
+So the defensible claim is: **the agent can auto-handle roughly 47% of traffic
+at an estimated 3.7% harmful-auto rate** - but at n=210 the confidence interval
+reaches 6.3%, so the 5% budget **cannot be demonstrated, only estimated**. No
+floor short of "escalate everything" is safe once the CI upper bound is used.
+
+Two things this curve exposes:
+
+**The floor is nearly inert below 0.90.** Harmful-auto sits flat at 7.3% from
+0.0 to 0.90, because the classifier is badly calibrated: 82% of predictions come
+back at confidence >= 0.92. The signal is not absent - accuracy does rise across
+bands (0.48 at <=0.8, 0.79 at >0.94) - but it is compressed into the top of the
+range, so a threshold has almost nothing to cut on.
+
+**93% of the agent's drafts came from the weakest model.** Free-tier quota
+exhaustion pushed 195 of 210 drafts onto `gemini-3.5-flash-lite`, with only 15
+on `gemini-3.7-flash`. The "agent" row is therefore not a single system, and the
+serving model is recorded per row precisely so this cannot be glossed over.
 
 ---
 
@@ -156,14 +203,52 @@ which historical reply drove a draft.
 
 ## 7. Failure analysis
 
-<!-- FAILURES:START -->
-*Populated after the judged run.*
-<!-- FAILURES:END -->
+Top five modes, with real examples from `results/predictions.parquet`.
 
-### Failure mode 0 — escalation rules miss real hazards (found during labelling)
+### 1. Conversational escalation signals are invisible to the agent (11 of 20 harmful autos)
 
-Independent of any model, the hand-written escalation regexes miss phrasings a
-human escalates immediately:
+The single biggest source of *dangerous* errors. Of 20 cases where the agent
+auto-handled something a human needed to take, **7 were `repeat_contact` and 4
+were `churn_risk`** - customers signalling that support has already failed them,
+or that they are leaving. The rules catch CATEGORY escalations (Apple ID,
+hardware, safety) and miss CONVERSATIONAL ones.
+
+| customer | agent reply |
+|---|---|
+| *"worst support ever. Expected more from #apple #EpicFail"* | *"We'd like to help. Send us a DM and let us know which iOS version you're running currently."* |
+| *"I was chatting with a customer service representative for 81 minutes before she could transfer me to a senior rep who then accidentally ended the chat"* | *"We're glad to help you. DM us using the link below, and detail what issues you're having."* |
+| *"you replaced my airpods under warranty (sincerely, thanks) but I am still having daily issues"* | *"We'd love to help you get your iPhone working in the way you expect. DM us what issues you're seeing."* |
+
+**Hypothesis.** The classifier is asked what the customer *wants*, and answers
+from the stated topic. "Worst support ever" has no topic, so it gets routed on
+whatever product noun is nearby and receives a diagnostic question - which is
+the worst possible reply to someone complaining about support itself. The fix is
+not a better classifier: it is a separate conversational-state signal
+(has-been-failed-before, is-threatening-to-leave) feeding the router
+independently of intent.
+
+### 2. Fault vs trigger: `device_performance` -> `os_update` (6 cases)
+
+*"I installed ios 11.1 and since, my phone froze and kept endless reboot"*
+*"Since updating to iOS 11.1.1, I've had phone switch off, app crashing"*
+
+The taxonomy says `os_update` is for when the update **is** the subject, and
+`device_performance` for the fault. These messages name the update as the
+trigger and the freeze as the problem. I labelled the fault; the model labelled
+the trigger. **This is a genuine taxonomy weakness, not purely a model error** -
+a second annotator could reasonably side with the model, which is exactly why
+the boundary is documented in `golden/labels_author.py`.
+
+### 3. `app_software` leaks into `other` and `feedback_complaint` (12 cases)
+
+The largest intent class (55 of 210) bleeds in both directions. Messages about
+the iOS 11 "I" bug phrased as venting (*"yall got my phone thinkin a letter I is
+an emoji, ios 11 is dick"*) get read as complaints rather than as the specific
+known bug they are. The consequence is operational: `feedback_complaint` routes
+to a generic acknowledgement, while `app_software` would route to a documented
+workaround.
+
+### 4. Escalation rules miss real hazards (found during labelling, model-independent)
 
 | message | why it slips through |
 |---|---|
@@ -172,14 +257,23 @@ human escalates immediately:
 | *"it's not supposed to **inflate** like this just sitting on my desk"* | list has `swelling`/`bulging` |
 | *"**WHERE ARE MY PHOTOS**"* | data-loss list expects `photos are gone` |
 
-And one false positive in the other direction: *"**Third time today** my phone
-freezes"* fires `repeat_contact`, which is meant to count *support contacts*,
-not crashes.
+And one false positive the other way: *"**Third time today** my phone freezes"*
+fires `repeat_contact`, which is meant to count support contacts, not crashes.
 
-I left the rules untouched and labelled what a careful human would decide, so
-the gap appears as a measured number rather than disappearing into a regex.
-`tests/test_pipeline.py::test_known_rule_gaps_are_still_gaps` pins it, so the
-gap cannot close silently without this section changing too.
+The rules were left untouched and I labelled what a careful human would decide,
+so the gap appears as a number rather than disappearing into a regex.
+`tests/test_pipeline.py::test_known_rule_gaps_are_still_gaps` pins it so it
+cannot close silently without this section changing too.
+
+### 5. Confidence is compressed, so the safety threshold has nothing to cut on
+
+82% of predictions come back at confidence >= 0.92, and the harmful-auto rate is
+flat from floor 0.0 to 0.90. The signal is real but crushed into the top of the
+range. **Hypothesis:** asking a model for "the probability a careful annotator
+would agree" invites a fluent-sounding number, not a calibrated one - it has no
+feedback signal to calibrate against. A margin-based proxy (asking for a
+ranked top-2 and using the gap) or an ensemble disagreement rate would likely
+discriminate far better, and costs one extra field in the same call.
 
 ---
 
@@ -187,67 +281,101 @@ gap cannot close silently without this section changing too.
 
 **This section is mandatory in the brief, and it is the most useful thing here.**
 
-**1. 14.8% of the golden set is a single 2017 bug.** The iOS 11 autocorrect
-fault that rendered "I" as a boxed question mark accounts for 31 of 210
-examples. It has one canonical answer. A classifier that learns it looks
-competent on a seventh of the benchmark while having learned one string.
+**0. The headline number is 0, and even that is generous.** No system meets the
+5% harm budget. The best defensible operating point (floor 0.95) auto-handles
+47% at an estimated 3.7% harmful-auto - but its CI reaches 6.3%, so **at n=210
+the budget cannot be demonstrated, only estimated**. If I reported "47% safely
+auto-handled" as the headline, the word doing the most work would be "safely",
+and it would not be supported.
 
-**2. The corpus is one product event.** 96% of AppleSupport traffic here falls
-in Oct–Dec 2017, the iOS 11 release window. Intent priors, retrieval evidence,
-and the taxonomy itself are all fitted to a crisis period. A normal support
-month looks different, and nothing here measures that.
+**1. The "agent" is not one system.** Free-tier quota exhaustion pushed 195 of
+210 drafts onto `gemini-3.5-flash-lite` and only 15 onto `gemini-3.7-flash`. The
+row labelled "agent" is mostly the weakest model in the roster. Whether that
+helps or hurts the numbers is unmeasured; it is recorded per row so a reader can
+check rather than trust.
 
-**3. The golden set is deliberately unrepresentative.** Hard cases are
-oversampled on purpose. The raw number understates live performance and the
-weighted number is an estimate built on a keyword-heuristic prior, not a true
-traffic distribution. Both are reported; neither is "the" answer.
+**2. 14.8% of the golden set is a single 2017 bug.** The iOS 11 fault rendering
+"I" as a boxed question mark is 31 of 210 examples and has one canonical answer.
+A classifier that learns that one string looks competent on a seventh of the
+benchmark.
 
-**4. n = 210 means roughly ±7 points on any proportion.** Every headline
-carries a bootstrap CI. Differences smaller than the interval are not results.
+**3. The corpus is one product event.** 96% of AppleSupport traffic here falls
+in Oct-Dec 2017, the iOS 11 release window. Intent priors, retrieval evidence
+and the taxonomy are all fitted to a crisis period. Nothing here measures a
+normal support month.
 
-**5. The judge is an LLM, and its ceiling is a single annotator.** Judge–human
-agreement is bounded by that annotator's own test–retest consistency. One
-annotator means no inter-human agreement is measurable at all, so "how hard is
-this task for humans" is genuinely unknown.
+**4. The golden set is deliberately unrepresentative.** Hard cases are
+oversampled on purpose, so the raw number understates live performance - and the
+weighted number is built on a keyword-heuristic prior, not a measured traffic
+distribution. Both are reported; neither is "the" answer.
 
-**6. The ground truth is not a gold standard.** 47.3% of Apple's real replies
-are handoffs. Where the reference resolves nothing, a metric anchored on it
-partly rewards non-answers — which is exactly why the `always_dm` baseline
-exists, and why its judge score should be read as a measurement of the metric,
-not of that baseline.
+**5. n = 210 means roughly +/-7 points on any proportion.** The agent-vs-simple
+macro-F1 gap (0.652 vs 0.312) survives that comfortably. The safety claim does
+not. Differences smaller than the interval are not results.
 
-**7. Grounding is conditional on an untuned retriever choice.** BM25 and dense
-retrieval overlap on 5% of evidence (§6). "Grounded in brand precedent" means
-"grounded in whatever BM25 surfaced".
+**6. Intent accuracy and routing safety are not the same achievement.** The
+agent doubles macro-F1 over the simple baseline, and that improvement does NOT
+translate into passing the harm budget. Leading with 0.652 would imply a
+competence the routing numbers do not support.
 
-**8. Auto-handle rates are measured on messages that reached a human.** Every
+**7. The ground truth is not a gold standard.** 47.3% of Apple's real replies
+are channel handoffs. Where the reference resolves nothing, a metric anchored on
+it partly rewards non-answers - which is why `always_dm` exists, and why its
+judge score should be read as a measurement of the metric rather than of that
+baseline.
+
+**8. Grounding is conditional on an untuned retriever choice.** BM25 and dense
+retrieval overlap on 5% of retrieved evidence (section 6). "Grounded in brand
+precedent" means "grounded in whatever BM25 surfaced", and that choice was never
+optimised against reply quality.
+
+**9. Auto-handle rates are measured on messages that reached a human.** Every
 thread in this corpus got a reply. Traffic that was ignored, resolved in DMs, or
-never tweeted is invisible. The denominator is not live traffic.
+never tweeted is invisible, so the denominator is not live traffic.
 
-**9. Free-tier constraints shaped the system, not just the schedule.** The
+**10. The judge is an LLM and, on this run, from the same family as the
+drafter.** Groq's free tier allows ~171 judge calls/day against the 840 needed,
+so Gemini had to judge Gemini's drafts. The cross-family delta is reported
+rather than asserted away, but the primary judge's scores carry a
+self-preference risk that a bigger budget would remove.
+
+**11. Free-tier constraints shaped the system, not just the schedule.** The
 classifier prompt is compressed to ~580 tokens to fit Groq's daily budget; the
-ceiling model is absent because Pro is not on the free tier. Some of what is
-measured here is the free tier, not the models.
+ceiling model is absent because Pro is not on the free tier; the drafter is
+whichever model still had quota. Some of what is measured here is the free tier,
+not the models.
 
 ---
 
 ## 9. What I'd do next, with one more week
 
-1. **A second annotator on the same 210 rows.** The single biggest weakness is
-   that judge quality is bounded by one person's consistency with no
-   inter-human agreement to calibrate against. This is a day's work and would
-   upgrade every agreement claim in the report.
-2. **De-duplicate the iOS 11 "I" bug and re-measure.** Report the headline with
-   that cluster capped at its natural rate. If performance falls sharply, the
-   number was mostly one string.
-3. **Tune the retriever against the drafts it produces.** §6 shows the choice
-   matters and was never optimised. Sweep BM25 vs dense vs hybrid *by judge
-   score on the drafts*, not by retrieval overlap.
-4. **A second brand as a transfer test.** The pipeline is brand-parameterised
-   and the Spotify artefacts still exist. Running it unchanged would show
-   whether the design generalises or is fitted to Apple's iOS 11 window.
-5. **Calibrate the confidence floor.** 0.55 was chosen a priori. With the
-   golden set it can be set where harmful-auto actually crosses the budget.
-6. **Cost the escalation asymmetry properly.** Replace the fixed 5% budget with
-   an explicit cost ratio agreed with the support team, and report the
-   auto-handle rate as a curve over that ratio rather than at one point.
+Ordered by how much each would change a conclusion in this report.
+
+1. **Add a conversational-state signal to the router.** The top failure mode -
+   11 of 20 harmful autos - is repeat-contact and churn messages being answered
+   with diagnostic questions. This does not need a better classifier; it needs a
+   second, independent signal (has-been-failed-before, threatening-to-leave)
+   that can force escalation regardless of intent. Highest safety return of
+   anything on this list.
+
+2. **Replace self-reported confidence with something calibrated.** The floor is
+   inert below 0.90 because 82% of predictions come back >= 0.92. Ask for a
+   ranked top-2 and use the margin, or take an ensemble disagreement rate across
+   two cheap models. Costs one extra field; would make the safety threshold
+   actually controllable.
+
+3. **A second annotator on the same 210 rows.** Judge quality is bounded by one
+   person's self-consistency, with no inter-human agreement to calibrate
+   against. A day's work that upgrades every agreement claim here.
+
+4. **De-duplicate the iOS 11 "I" bug and re-measure.** Cap that cluster at its
+   natural rate and report the headline again. If performance falls sharply, the
+   number was substantially one string.
+
+5. **Tune the retriever against judged reply quality.** Section 6 shows the
+   choice matters (5% evidence overlap) and was never optimised. Sweep BM25 vs
+   dense vs hybrid by judge score on the drafts, not by retrieval overlap.
+
+6. **Re-run with a paid key to separate model from budget.** Three of the
+   findings above are entangled with free-tier quota. A single funded run would
+   tell us how much of the result is the system and how much is the tier.

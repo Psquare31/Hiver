@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We're happy to assist. Which iOS version are you currently running? Go to Settings > General > About for the version.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 424,
+  "completion_tokens": 31,
+  "latency_s": 1.06,
+  "created_at": "2026-09-12T14:04:32.657877+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: any plans on fixing this (I️ ) uber annoying bug?\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 2]\nCustomer: any plans to fix your keyboard issues on the new update?\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 3]\nCustomer: Y’all have any plans on fixing thsee boxes when i type??\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 4]\nCustomer: Hey any update on fixing this I️ bug ? We out here looking crazy .\nBrand: We're happy to assist. Which iOS version are you currently running? Go to Settings > General > About for the version.\n\nWrite a reply to this new customer message:\n\"\"\"Hey : any plans on fixing this keyboard issue from my #iphone update? How did that even make it through testing?\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

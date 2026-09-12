@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd like to help. When was the update completed? Let us know via DM.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 504,
+  "completion_tokens": 24,
+  "latency_s": 0.806,
+  "created_at": "2026-09-12T14:02:24.082194+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: This new #iOS update is horrible ...I’m dropping calls and service like I’m using a 1998 T-Mobile network!\nBrand: Try out the steps in the following article: Still having issues after this? Reach out to us via DM.\n\n[Example 2]\nCustomer: Battery doesn’t last half a day at college and I barely use it at all. WiFi should just be disabled via the slide up menu.\nBrand: Which version of iOS 11 are you using? Check Settings > General > About and let us know in DM.\n\n[Example 3]\nCustomer: fix the damn update my battery is dropping from 50% to 20 in a 10 minute span\nBrand: We can work together to look into the battery life. DM us the device you're experiencing this on and we'll go from there.\n\n[Example 4]\nCustomer: iOS 11.0.2 battery life is terrible! Down 20% and I’ve had my phone unplugged for 1 hour. #ios1102 #fixit #disappointed #wtf\nBrand: We'd like to help. When was the update to iOS 11.0.2 completed? Let us know via DM.\n\nWrite a reply to this new customer message:\n\"\"\"my battery should not be dropping 20% every hour if I’m barely using my phone 📱\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

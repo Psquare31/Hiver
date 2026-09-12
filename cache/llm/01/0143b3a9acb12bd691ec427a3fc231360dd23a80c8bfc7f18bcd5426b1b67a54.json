@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd be happy to help out with this issue. Can you tell us more info on what happens when you try to use it?\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 494,
+  "completion_tokens": 33,
+  "latency_s": 1.052,
+  "created_at": "2026-09-12T13:50:19.683747+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: my 4th. G. Apple TV remote connects to my MacBook w. HighSierra even I deactivated infrared connection. Please fix it. Thanks.\nBrand: Take a look in Bluetooth settings and see if you find the Apple TV remote listed. Let us know in DM which MacBook you have.\n\n[Example 2]\nCustomer: Updated my MacBook to macOS High Sierra. My Apple TV (2nd Gen) remote connects to my MacBook despite being disabled. Help?\nBrand: We'd be happy to help out with this issue. If you enable the remote and then disable once more, does this help?\n\n[Example 3]\nCustomer: Since the last update my earpods remote only plays and pauses for Apple Music even when it’s closed. I only really use Spotify\nBrand: We'd be happy to help. We want you to be able to enjoy your AirPods. Can you provide us which device you're using with them?\n\n[Example 4]\nCustomer: hi. Keep getting remote hotspot failure between iPad Pro and iPhone 7. Both on iOS 11.0.3\nBrand: Let's see what's going with the hotspot. Can you tell us more info on what happens when you try to use it?\n\nWrite a reply to this new customer message:\n\"\"\"That is the distance it takes to break your fuckign Apple TV remote thanks for a cheap vulnerable remote\"\"\"\n\nThe customer's issue has been classified as: feedback_complaint\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

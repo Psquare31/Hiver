@@ -90,13 +90,19 @@ def build_items(seed: int = SEED) -> dict:
         gmap = golden.set_index("golden_id")
 
         # Spread across systems so the human sees the full quality range.
+        #
+        # The seed is varied PER SYSTEM. Using one seed drew the same positional
+        # rows from every system's block, so 63 presentations covered only 12
+        # distinct customer messages - the annotator would have read the same
+        # dozen messages four times each, and agreement would have been measured
+        # on a very narrow slice of the problem.
         systems = sorted(preds["system"].unique())
         per_system = max(1, N_REPLY // len(systems))
         chosen = []
-        for s in systems:
+        for i, s in enumerate(systems):
             sub = preds[preds["system"] == s].sample(
                 n=min(per_system, (preds["system"] == s).sum()),
-                random_state=seed,
+                random_state=seed + i * 101,
             )
             chosen.append(sub)
         sel = pd.concat(chosen)

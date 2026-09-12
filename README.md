@@ -46,28 +46,39 @@ make live               # ~100 min under free-tier rate limits
 
 ### Task metrics
 
-<!-- RESULTS:TASK -->
-| system | intent macro-F1 | intent acc | auto rate | harmful auto | within budget | safe auto rate |
-|---|---|---|---|---|---|---|
-| trivial | 0.026 [0.02, 0.03] | 0.148 | 1.000 | 0.319 | ✗ | 0.0 |
-| always_dm | 0.026 [0.02, 0.03] | 0.148 | 1.000 | 0.319 | ✗ | 0.0 |
-| simple | 0.558 [0.49, 0.62] | 0.581 | 0.705 | 0.150 | ✗ | 0.0 |
-| **agent** | _pending API keys_ | | | | | |
-<!-- /RESULTS:TASK -->
+| system | intent macro-F1 | intent acc | auto rate | harmful auto | safe auto rate |
+|---|---|---|---|---|---|
+| **agent** | **0.652** [0.55, 0.71] | 0.671 | 0.776 | **0.073** | **0.0** |
+| simple | 0.312 [0.25, 0.37] | 0.395 | 0.788 | 0.126 | 0.0 |
+| always_dm | 0.042 [0.03, 0.05] | 0.262 | 1.000 | 0.221 | 0.0 |
+| trivial | 0.042 [0.03, 0.05] | 0.262 | 1.000 | 0.221 | 0.0 |
 
 **Headline metric — "% of traffic safely auto-handled":** the share of messages
 auto-handled *while* the harmful-auto rate stays within a 5% budget. A system
-that auto-handles everything scores **0**, not 100. All three baselines
-currently score 0: `simple` auto-handles 70.5% of traffic but wrongly
-auto-handles 15.0% of cases that needed a human, three times the budget.
+that auto-handles everything scores **0**, not 100.
+
+The agent **doubles macro-F1 over the simple baseline** (0.652 vs 0.312,
+non-overlapping CIs) and **halves the harmful-auto rate** (7.3% vs 12.6%) — and
+**still scores 0 on the headline**, because nothing meets the 5% harm budget at
+the default operating point.
+
+Sweeping the confidence floor (`results/threshold_sweep.csv`) gives the
+defensible version: the agent can auto-handle **47% of traffic at an estimated
+3.7% harmful-auto rate** — but at n=210 that estimate's CI reaches 6.3%, so the
+budget **cannot be demonstrated, only estimated**. See
+[REPORT.md](REPORT.md#8-what-is-misleading-about-my-headline-number).
 
 ### Judged reply quality
 
-_Pending API keys._ Populated by `make live`.
+See `results/judge_table.csv`. The `always_dm` baseline is the one to watch: it
+answers nothing, so how close its score sits to the agent's measures how much
+the metric rewards non-answers.
 
 ### Judge–human agreement
 
-_Pending._ Requires `golden/human_labels.csv` (see **Human labelling** below).
+Requires `golden/human_labels.csv` (see **Human labelling** below). Reported
+against the annotator's own test–retest ceiling — no judge can be expected to
+agree with a human more than that human agrees with themselves.
 
 ---
 

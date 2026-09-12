@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"Not seeing notifications and the date and time is frustrating, and we'll figure this out. Which iOS version is installed? DM us:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 480,
+  "completion_tokens": 33,
+  "latency_s": 0.963,
+  "created_at": "2026-09-12T13:57:23.981847+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I can’t see the time on my lock screen and I can’t see my notifications\nBrand: We’d like to help however we can with this issue. DM us with which device you are using and we'll go from there.\n\n[Example 2]\nCustomer: Major problem is this disappears, and I have to shut the phone off. 2nd is I can only see half the message. It’s stuck under the text bar\nBrand: Besides shutting off your device, are there any other troubleshooting steps that you tried on your own? Let us know in DM.\n\n[Example 3]\nCustomer: Also can you fix your email glitches already? Please and thanks\nBrand: Being able to access your email is important. DM us the type of device you are using and details about what is happening.\n\n[Example 4]\nCustomer: anyone else having trouble with their iOS 11 lock screen clock disappearing? Can’t see any notifications but I can hear when I get them. Only fix is powering off and on.\nBrand: The Lock Screen is very convenient for checking the time, and we'll figure this out. Which iOS version is installed? DM us:\n\nWrite a reply to this new customer message:\n\"\"\"Sometimes Date and Time disappears and also can not see notifications. Any help please? It’s frustrating.\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd like to better understand what's happening on your device. Please DM us more details here:\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 489,
+  "completion_tokens": 27,
+  "latency_s": 0.922,
+  "created_at": "2026-09-12T14:04:34.234597+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I have to use a keyboard shortcut just to use the letter I️. When will this be fixed?\nBrand: We'd like to better understand what's happening on your device. Please DM us more details here:\n\n[Example 2]\nCustomer: Everytime I write \"I\" on my keyboard it changes it to \"A ?\" What is this?\nBrand: We're here to help. Let's work on this together. DM us which iOS version you're using. Locate this in Settings > General > About.\n\n[Example 3]\nCustomer: what is going on with the keyboard! Every time I️ type i, I️t changes to an A and question mark in a box. Happening to friends\nBrand: Thanks for reaching out. DM us which device and software version you're seeing this issue on, and we'll start there.\n\n[Example 4]\nCustomer: every time I text “it “ autocorrect changes to I.T . How do I fix?? I tried resetting my keyboard and that won’t work. I.T I.T I.T\nBrand: We’re glad you reached out. Let us know which device is having the issue in DM. We’ll help you from there.\n\nWrite a reply to this new customer message:\n\"\"\"Add a shortcut to your keyboard where lowercase i changes to uppercase I\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd love to help you get your iPhone working in the way you expect. DM us what issues you're seeing, and be sure to include the model of iPhone and the exact version of the operating system it's running, and we'll get started.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 535,
+  "completion_tokens": 60,
+  "latency_s": 1.15,
+  "created_at": "2026-09-12T13:57:03.197976+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I must say this is the WORST update has ever released! My phone has never been this disfunctional.\nBrand: We're here to help. What issue(s) are you experiencing exactly with your device?\n\n[Example 2]\nCustomer: Yes. But I am not finding that app in the history.\nBrand: Got it. The steps to redownload a previously purchased app are slightly different than viewing your purchase history. When you have a moment, please try the steps listed here: If you're still not able to find the app that way, please DM us.\n\n[Example 3]\nCustomer: Honestly this is your worst update, my phone has been terrible since I updated to iOS 11\nBrand: We'd love to help you get your iPhone working in the way you expect. DM us what issues you're seeing, and be sure to include the model of iPhone and the exact version of the operating system it's running, and we'll get started.\n\n[Example 4]\nCustomer: iOS 11 may be the worst phone update in history. Freezing, not loading, battery draining 50% in less than hour. Awful.\nBrand: We want to work with to resolve these issue. To get us started, may we have the exact iOS version that's on the iPhone?\n\nWrite a reply to this new customer message:\n\"\"\"Well you replaced my airpods under warranty (sincerely, thanks) but I am still having daily issues, meaning that it must be iOS 11. This has been the worst update in your history.\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

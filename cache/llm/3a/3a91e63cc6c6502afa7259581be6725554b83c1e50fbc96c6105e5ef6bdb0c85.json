@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We can help. To be sure we’re on the same page, tell us where Wi-Fi and Bluetooth are being switched off.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 478,
+  "completion_tokens": 33,
+  "latency_s": 0.851,
+  "created_at": "2026-09-12T13:56:29.659546+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I want to be able to easily turn off wifi and bluetooth\nBrand: We can help out. Tell us, which device are you using?\n\n[Example 2]\nCustomer: Dear , if I choose to turn wifi/bluetooth off, it should stay off! iOS11 keeps turning them on when I’ve turned them off.\nBrand: We can help. To be sure we’re on the same page, tell us where Wi-Fi and Bluetooth are being switched off.\n\n[Example 3]\nCustomer: ios11 update— don’t know how WiFi & Bluetooth just randomly turn on after I’ve turned them off. It should go back on wen I say\nBrand: Hey there! Are you turning Wi-Fi off from the Control Center? If so, learn more about it here:\n\n[Example 4]\nCustomer: Dear when I turn off d airplane mode I do nt wish to turn on Bluetooth and it gets automatically turned on...fix it!!\nBrand: Let's work on it. What device is affected? Which iOS version is installed? Was Bluetooth on or off before enabling Airplane mode?\n\nWrite a reply to this new customer message:\n\"\"\"I have literally turned off Bluetooth 10 times in less than five minutes. Absolutely nothing on earth should be able to turn my Bluetooth on but me. I hate this\"\"\"\n\nThe customer's issue has been classified as: connectivity\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

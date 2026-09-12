@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"That's not normal, and we can help. What iOS version are you currently using?\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 475,
+  "completion_tokens": 24,
+  "latency_s": 1.041,
+  "created_at": "2026-09-12T13:54:09.581392+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: ever since these new iphones came out my phones been going so slow and fucking up sort it out\nBrand: That's not normal, and we can help. What iOS version are you currently using?\n\n[Example 2]\nCustomer: my phones been got damn slow every since the new one came out wtf\nBrand: We're here to help. Tell us more about your issue. Which iOS version do you have? Is the iPhone slow when you're using specific apps?\n\n[Example 3]\nCustomer: ever since your crap update my phone has been slow as shit\nBrand: We can work together to see what's going on with your iPhone. DM us the exact iOS version. We'll go from there.\n\n[Example 4]\nCustomer: Why does my phone die at 70%? Ever since the new updates/phones came out, my phone has been acting up.\nBrand: We want your iPhone running perfectly after an update. Meet us in DM, tell us which country you're in, as well as some details about which apps or features you're using when this happens, and we'll take a look.\n\nWrite a reply to this new customer message:\n\"\"\"My iPhone has been slow as shit ever since the new phones came out thanks so much !!!!!!!!\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

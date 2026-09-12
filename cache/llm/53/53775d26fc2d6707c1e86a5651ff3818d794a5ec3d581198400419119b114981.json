@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We want to help out. What happens when you try to connect?\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 490,
+  "completion_tokens": 19,
+  "latency_s": 1.244,
+  "created_at": "2026-09-12T14:01:51.835401+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: can you run a diagnostic check on my battery? Seems to be dying a lot quicker lately.\nBrand: We’ll do all we can to help with your device’s battery. Which device and OS are you using? Let us know in DM.\n\n[Example 2]\nCustomer: Is it just me or does ios11 have a lot of bugs? Everyday there seems to be an update and yet everything just freezes. Why does it seem that  products are just going worse by the day? #improvementsneedmade #Apple\nBrand: We'd like to know more about what's going on to see if we can help. DM us with the details, including what device you have.\n\n[Example 3]\nCustomer: 1) How often does the Apple Watch sync with the Activity/Health apps on iPhone? 2) Is there a way to control the frequency?\nBrand: Great questions! Let us know what iOS version is on the iPhone and watchOS version we are working with.\n\n[Example 4]\nCustomer: I pay a lot for this bloody phone and it won’t connect to my home WiFi??\nBrand: We want to help out. What happens when you try to connect?\n\nWrite a reply to this new customer message:\n\"\"\"are there any TNs about how a WiFi needs to be configured for Apple Watch? Mine seems to loose connection with it a lot.\"\"\"\n\nThe customer's issue has been classified as: connectivity\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

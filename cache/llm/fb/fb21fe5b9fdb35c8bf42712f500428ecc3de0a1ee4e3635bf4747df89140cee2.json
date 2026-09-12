@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We want to help. What issues are you experiencing with your device?\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 467,
+  "completion_tokens": 24,
+  "latency_s": 1.009,
+  "created_at": "2026-09-12T14:02:26.793062+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: . what is going on? “I️” keeps getting this text replacement suggestion, despite it not being one.\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 2]\nCustomer: Hi! Is it expected behaviour for my iPhone to die, but plug it in for like 3 to 5 minutes then it turns back on?\nBrand: Hi there! It can take a few minutes for it to regain a charge and turn on after the battery depletes. Send us a DM to assist\n\n[Example 3]\nCustomer: seriously guys, what have you done to my phone? Very weird behaviour since updating to #iOS11\nBrand: We want to help. What issues are you experiencing with your device?\n\n[Example 4]\nCustomer: what is going on with the i phone, my screen keeps going blank, flashing out of apps, mail won’t open...is there another bug fixer?\nBrand: We'd love to help get your phone back to working correctly. To start, which iOS version are you using with your device?\n\nWrite a reply to this new customer message:\n\"\"\"hi guys, is this normal behaviour, it keeps on flashing up, despite a restart...\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

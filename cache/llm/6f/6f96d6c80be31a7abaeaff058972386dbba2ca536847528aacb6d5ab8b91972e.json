@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We'd like to look into this with you. Which iOS version is installed on your iPhone?\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 476,
+  "completion_tokens": 25,
+  "latency_s": 0.886,
+  "created_at": "2026-09-12T13:52:30.181199+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Unfortunately I don't have the photo library turned on for iCloud :(\nBrand: OK, thank you. Which iOS version is installed on your iPhone? Has your iPhone been restarted?\n\n[Example 2]\nCustomer: Why do I keep getting an ! icon in the corner of my photos on my iPhone? I’ve got iCloud Photo Library turned on.\nBrand: Let’s sort this out together. To begin tell us the iOS version your iPhone is on, and we’ll go from there.\n\n[Example 3]\nCustomer: I’m getting this error on every photo that’s been uploaded on iCloud Photo Library Nothing works Setting- Optimize my storage\nBrand: We'd like to look into this with you. Does this occur on both Wi-Fi & cellular data? Which iOS version is installed? Meet us in DM\n\n[Example 4]\nCustomer: Why can’t I access my photos? It’s telling me there’s an error downloading from the photo iCloud library?\nBrand: We're glad to help in any way we can. Please DM us and let us know which device and software version you're using.\n\nWrite a reply to this new customer message:\n\"\"\"why am I asked to upgrade iCloud storage when trying to turn iCloud photo library when my photos are already in iCloud?\"\"\"\n\nThe customer's issue has been classified as: account_appleid\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

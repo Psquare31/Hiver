@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"On which Apple device are you having issues with Safari? Please meet us in DM and we'll be glad to help.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 423,
+  "completion_tokens": 30,
+  "latency_s": 0.832,
+  "created_at": "2026-09-12T13:55:25.770617+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: safari isn’t working. I’ve rest, rebooted, updated. Nothing\nBrand: On which Apple device are you having issues with Safari? Please meet us in DM and we'll be glad to help.\n\n[Example 2]\nCustomer: See nothing here\nBrand: We've got you covered. In iOS 11, you can manage Siri in Settings > Siri & Search.\n\n[Example 3]\nCustomer: Why isn’t my top bar showing & why am I not receiving notifications\nBrand: We can help. Which iOS 11 version is listed in Settings > General > About? Have you tried any troubleshooting yet?\n\n[Example 4]\nCustomer: how do I make a genius bar appointment? the webpage is 403 forbidden. I called the store number, but I am on hold.\nBrand: What is the reservation regarding? We're happy to help. You can also try using the following link:\n\nWrite a reply to this new customer message:\n\"\"\"Here I am in safari and tapping the location bar does nothing\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

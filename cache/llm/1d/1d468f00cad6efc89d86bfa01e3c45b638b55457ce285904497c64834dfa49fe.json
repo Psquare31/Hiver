@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"This is certainly not an experience we want you to have. We'd like to get more info. Let's meet in DM.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 527,
+  "completion_tokens": 38,
+  "latency_s": 0.857,
+  "created_at": "2026-09-12T13:57:25.797140+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: waited weeks for my iPhone X. Arrived with malfunctioning screen. Your solution? Order again and wait several more weeks. Seriously?\nBrand: Thanks for contacting us about your device. This certainly not an experience we want you to have. We'd like to get more info. Let's meet in DM.\n\n[Example 2]\nCustomer: I preordered new album and have had 4 songs for weeks but now released, it won’t download the rest? #help\nBrand: We'd like to help. What happens when you try to download? Are there any error messages?\n\n[Example 3]\nCustomer: Apple Music hasn’t been letting me download songs, add songs to playlists or create new playlist for a few weeks now - how do I resolve this? I pay £9.99 a month so I’d expect a refund this month\nBrand: We’ll be happy to help with Apple Music. To start, send us a DM confirming which software version you’re using.\n\n[Example 4]\nCustomer: I joined and paid for Apple Music a couple of weeks ago, now it’s asking me to join again... 😐\nBrand: We’re investigating and will update our System Status page as more info becomes available:\n\nWrite a reply to this new customer message:\n\"\"\"4 weeks to expect an iPhone to deliver and now another 4 weeks for investigation cuz your UPS “lost it” 😂 #happyholiday #welostyourpackage #again #refund or send a new one ASAP and investigate on your own! #unreliableSERVICEs\"\"\"\n\nThe customer's issue has been classified as: other\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

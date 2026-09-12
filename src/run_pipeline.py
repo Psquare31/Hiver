@@ -183,9 +183,22 @@ def stage_judge(args) -> None:
     # different systems on different messages and make the comparison invalid.
     judged_ids = None
     if args.judge_sample and golden.shape[0] > args.judge_sample:
-        judged_ids = set(
-            golden.sample(n=args.judge_sample, random_state=20260910).index
+        # Rows the human will score come first. If scoping dropped them the
+        # judge-vs-human study would have nothing to compute agreement on,
+        # which is the single most important number in the report.
+        must_have = set()
+        if AGREEMENT_IDS.exists():
+            must_have = set(AGREEMENT_IDS.read_text(encoding="utf-8").split())
+            must_have &= set(golden.index)
+        remaining = [i for i in golden.index if i not in must_have]
+        n_extra = max(0, args.judge_sample - len(must_have))
+        extra = (
+            pd.Series(remaining)
+            .sample(n=min(n_extra, len(remaining)), random_state=20260910)
+            .tolist()
         )
+        judged_ids = must_have | set(extra)
+        print(f"[judge] scope includes all {len(must_have)} human-labelled rows")
         print(
             f"[judge] scoping to {len(judged_ids)} golden rows x "
             f"{preds['system'].nunique()} systems "

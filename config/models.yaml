@@ -139,7 +139,7 @@ roles:
   # Gemini. Rather than assert the bias away, the Groq cross-family judge scores
   # a capped subset and the delta between them is reported as a result - which
   # is the only honest way to handle a constraint you cannot design around.
-  judge_primary: gemini_flash
+  judge_primary: gemini_flash_lite
   judge_cross_family: gpt_oss_120b
   judge_ceiling: gemini_pro
 

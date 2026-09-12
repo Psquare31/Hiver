@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We want your iPhone to work perfectly after the update! DM us with some details and which country you're in.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 428,
+  "completion_tokens": 29,
+  "latency_s": 0.833,
+  "created_at": "2026-09-12T13:51:20.975923+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: iOS 11 bug ? Pls help!\nBrand: Let’s join forces toward a solution. Which app and iOS 11 version are you using when this happens?\n\n[Example 2]\nCustomer: Fuck u IOS 11 has my phone all messed up\nBrand: We can help with our device. Can you detail the issues you're experiencing? DM us.\n\n[Example 3]\nCustomer: iOS 11 is messed up!!! Phone crashes, goes back to passcode…\nBrand: We want your iPhone to work perfectly after the update! DM us with some details and which country you're in.\n\n[Example 4]\nCustomer: Someone at tell me why my phone doesn’t display text messages on my lock screen even though it is turned on, ever since iOS 11\nBrand: We'd be happy to look into this. Which iPhone and iOS 11 version are you using?\n\nWrite a reply to this new customer message:\n\"\"\"The IOS 11.11 messed up the entire display on my phone. Someone pls help :(\"\"\"\n\nThe customer's issue has been classified as: os_update\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

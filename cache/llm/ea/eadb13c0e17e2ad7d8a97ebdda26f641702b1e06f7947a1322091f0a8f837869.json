@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"Thanks for reaching out. Which iOS version are you currently on?\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 494,
+  "completion_tokens": 23,
+  "latency_s": 0.981,
+  "created_at": "2026-09-12T13:58:24.015650+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: my brother needs help with his Apple ID. ASAP hasn’t worked since may. He has a work order # and has received message saying he will receive a call to no avail. Please help!\nBrand: Thanks for reaching out. We recommend having your brother visit so he can reset his security credentials and access his account again.\n\n[Example 2]\nCustomer: Happens with all of them. I’ll pick a photo to send and type out a message and when I hit send the photo will dissapear but the text will send\nBrand: Thanks for confirming that. Is this happening with both SMS messages and iMessage? Also, which iOS version are you currently on?\n\n[Example 3]\nCustomer: When i txt apple users i will receive the message as a iMessage and a txt me.\nBrand: Got it. Is the Send as SMS option enabled under Settings > Messages? Let us know via a DM. We’ll keep moving from there.\n\n[Example 4]\nCustomer: First of all I had his fucking number blocked already how did he still message me?? explain\nBrand: We’d like to look into this with you. Please DM us which device and version of iOS you’re using to begin.\n\nWrite a reply to this new customer message:\n\"\"\"I will send a message to someone, but later he will answer me, his message will be above my message.please help me.\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

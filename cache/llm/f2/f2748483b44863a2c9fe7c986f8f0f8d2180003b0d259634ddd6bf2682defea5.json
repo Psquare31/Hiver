@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We certainly want you to get started with the Apple Watch and enjoying it. Select the following link to join us in a DM.\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 449,
+  "completion_tokens": 31,
+  "latency_s": 0.998,
+  "created_at": "2026-09-12T13:55:29.804309+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Who knew there were 44 days in October?! Known problem ?\nBrand: Have you tried to restart the computer since this showed up? Does the issue persist after a restart?\n\n[Example 2]\nCustomer: I'm currently running iOS 11.1 last update was 3 days ago version 8.4.25\nBrand: Thank you! Does this happen with other music apps as well, or only Spoitfy?\n\n[Example 3]\nCustomer: Bought watch with lte 4 hours ago at . on phone with for last 4 hours and still not activated. FAIL\nBrand: We certainly want you to get started with the Apple Watch and enjoying it. Select the following link to join us in a DM.\n\n[Example 4]\nCustomer: why am I️ still seeing question marks and boxes when I️ updated my phone days ago\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\nWrite a reply to this new customer message:\n\"\"\"ordered air pods replacement case 4 days ago forced to pay £7.44 postage and still haven’t arrived. THIEVES!!!!\"\"\"\n\nThe customer's issue has been classified as: hardware_repair\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

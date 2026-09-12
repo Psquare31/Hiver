@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We'd like to help. DM us which country and iOS version you have on your iPhone and we'll help there.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 522,
+  "completion_tokens": 36,
+  "latency_s": 0.788,
+  "created_at": "2026-09-12T14:00:31.442348+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: My IPhone has a mind of its own. Apps Freezes, delayed messages and shuts down completely. What’s going on??\nBrand: Thank you for reaching out. We'd like to work with you on this. May we ask which iOS version you're currently using?\n\n[Example 2]\nCustomer: I'm so annoyed. My phone has been deleting my photos and messages all day and keeps asking me to sign into my Apple account eff you\nBrand: We'd like to help. DM us which country and iOS version you have on your iPhone and we'll help there.\n\n[Example 3]\nCustomer: I hope you guys are working on an additional iOS 11 update my phone has been 🚮 💩 ever since the update 🙄🤧😤😡😡\nBrand: We definitely want to look into this! What kind of issues are you experiencing since the update? DM us if you'd like:\n\n[Example 4]\nCustomer: You guys remember that time forgot about the letter “I” in their update and everyone just saw a “?” Instead. Yea, good times.\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\nWrite a reply to this new customer message:\n\"\"\"you guys have reached an all time low. I'm completely and utterly disappointed in the service you guys are providing. My phone has glitched numerous times and has even deleted important messages and photos on its own. This nonsense speaks volumes about the company.\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

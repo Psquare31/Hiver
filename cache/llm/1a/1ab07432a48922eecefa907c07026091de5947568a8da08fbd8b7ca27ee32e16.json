@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We'd like to help. When did you notice this happening?\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 503,
+  "completion_tokens": 24,
+  "latency_s": 1.012,
+  "created_at": "2026-09-12T13:55:33.145132+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: They’re not. They get turned on when airplane mode is turned off.\nBrand: If you turn Airplane Mode on from the Settings app does Bluetooth and Wi-Fi also come back on? Are Bluetooth and Wi-Fi turned off through Settings, or through the Control Center as well?\n\n[Example 2]\nCustomer: my iphone continuously gets stuck on the apple logo when coming on, eventually i get it on, how can i fix this?\nBrand: We'd like to help. When did you notice this happening? Any recent changes to the device? When this happens, how are you able to restore functionality? Tell us in a DM:\n\n[Example 3]\nCustomer: my imessage isn’t working my messages are not going through i turned it off and turned it back on and its still not working..\nBrand: We're here for you! To ensure that we're on the same page, let us know which device and software version you're using. Did this issue begin suddenly? If so, will it be possible to test while connected to a different network?\n\n[Example 4]\nCustomer: See again it got turned on automatically.\nBrand: OK, thank you. Does the same thing happen when you turn off Wi-Fi from Settings?\n\nWrite a reply to this new customer message:\n\"\"\"iphone 6. turned it off and when i turned it on it got stuck on the apple logo. phone not jailbroken.\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

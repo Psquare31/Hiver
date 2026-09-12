@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"Let's get that keyboard working smoothly for you. Try out these steps to 'Get Help': Reply by DM for more.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 488,
+  "completion_tokens": 36,
+  "latency_s": 0.966,
+  "created_at": "2026-09-12T13:58:09.535322+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: Only these past couple days. I got the iOS 11 installed.\nBrand: Got it! Do you know if you installed the latest update, 11.0.2? This article may help if you haven't:\n\n[Example 2]\nCustomer: I bought an watch to train for the . Just two days away TO RACE DAY, an update is req’d, and that takes TWO DAYS. #WHY\nBrand: We know how easy the Apple Watch makes it to track your runs. Please DM us if you've been unable to install the watchOS update.\n\n[Example 3]\nCustomer: Hey - think you could push an update to make my iPad Pro work w/ my Smart Keyboard? Tired of it telling me it’s not supported.\nBrand: Let's get that keyboard working smoothly for you. Try out these steps to 'Get Help': Reply by DM for more.\n\n[Example 4]\nCustomer: I got my 7 a couple months ago and this update is killin my battery ya buggin\nBrand: Hey, if you'd like, we can look into the battery life with you. DM us the iOS version and we'll work together from there.\n\nWrite a reply to this new customer message:\n\"\"\"my Apple Smart Keyboard is not responding every time my iPad wakes up. I just got the two a couple of days back.\"\"\"\n\nThe customer's issue has been classified as: connectivity\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

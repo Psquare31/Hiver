@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"We can help. DM us, and let us know what's going on. We'll try to assist you.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 473,
+  "completion_tokens": 35,
+  "latency_s": 0.946,
+  "created_at": "2026-09-12T14:01:32.350324+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: I am unable to update to iOS 11.2 Public Beta 2. I have tried all standard troubleshooting tips. Please advise.\nBrand: We can help you. DM us your current iOS version, and we'll look into this.\n\n[Example 2]\nCustomer: looks like a bunch of people have this problem. Mine worked for 2 yrs. and suddenly didn’t. Got a fix?\nBrand: We'd love to assist you. DM us how long the issue has been going on and we can work from there.\n\n[Example 3]\nCustomer: I need support - I have Apple Care+\nBrand: We can help. DM us, and let us know what's going on. We'll try to assist you.\n\n[Example 4]\nCustomer: I have 7 apps that need updating according to App Store. They have sat for 2 hours with no sign of updating?\nBrand: Hi. We'll be happy to help get those apps updated. First, have you tried a restart? Also, have you tried a different network?\n\nWrite a reply to this new customer message:\n\"\"\"Dear . Need to have a 💙2💙 about standard of care and have for warranty repairs. 2 weeks in repair, pristine June purchase returned like this...\"\"\"\n\nThe customer's issue has been classified as: hardware_repair\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

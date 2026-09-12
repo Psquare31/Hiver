@@ -1,0 +1,15 @@
+{
+  "text": "```json\n{\"reply\": \"Tell us more about what's happening with your iPhone, and which iOS version it's running. We'll see how we can help.\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 437,
+  "completion_tokens": 40,
+  "latency_s": 1.124,
+  "created_at": "2026-09-12T14:03:34.254416+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: FIX. THIS. UPDATE. MY PHONE HAS BEEN ACTING UP EVER SINCE THIS UGLY UNNECESSARY UPDATE. FIX. IT.\nBrand: Thanks for reaching out to us. What's going on with your iPhone? DM us along with the iOS version you have installed.\n\n[Example 2]\nCustomer: Apple Music Bluetooth has been screwed up since update\nBrand: We want to be sure you can enjoy your music. Which device are you using? What's happening specifically?\n\n[Example 3]\nCustomer: My phone has been completely messed up since the latest update😡 sort it out\nBrand: DM us which device and version of iOS 11 you’re using. This information is found under Settings > General > About.\n\n[Example 4]\nCustomer: my phone has been acting up since I updated it. Wassup?\nBrand: Tell us more about what's happening with your iPhone, and which iOS version it's running. We'll see how we can help.\n\nWrite a reply to this new customer message:\n\"\"\"my phone has been BUGGIN since this update. Tighten up\"\"\"\n\nThe customer's issue has been classified as: device_performance\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

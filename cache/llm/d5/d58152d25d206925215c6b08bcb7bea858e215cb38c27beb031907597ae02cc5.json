@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"We want your iPhone to work perfectly after updates. Which device and exact iOS 11 version are you using?\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 501,
+  "completion_tokens": 28,
+  "latency_s": 1.156,
+  "created_at": "2026-09-12T14:02:21.764738+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: can't download apps on iOS 11.0.3 iPhone 7 on wifi or cellular (full bars LTE).\nBrand: What's happening when you try to download apps? We'll help out and see what's causing these to fail.\n\n[Example 2]\nCustomer: since updating to iOS 11, my apps won’t update.\nBrand: Let's make sure you're able to keep your apps up-to-date. DM us with what type of device you're using.\n\n[Example 3]\nCustomer: Since updating to iOS 11 my autocorrect has been out of control. Anyone else? #ios11\nBrand: What's going on with your auto-correct? We want to see how we can help. Which device and exact iOS 11 version are you using?\n\n[Example 4]\nCustomer: Ever since i updated my iPhone 7 Plus to iOS 11 my speaker for phone calls won’t work, help!\nBrand: We want your iPhone to work perfectly after updates. We recently released iOS 11.0.2. Have you had the chance to update to that?\n\nWrite a reply to this new customer message:\n\"\"\"Since updating my iPhone 7 Plus to iOS 11, my wi-fis been terrible to the point of timing out and my LTE won’t load anything either even at full bars. Thank you,\"\"\"\n\nThe customer's issue has been classified as: connectivity\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}

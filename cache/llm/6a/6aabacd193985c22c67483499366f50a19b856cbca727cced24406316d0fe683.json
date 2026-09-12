@@ -1,0 +1,15 @@
+{
+  "text": "{\"reply\": \"Battery life is important, and we’d like to help. As a starting point, which device model and iOS 11 version are you using?\"}",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 491,
+  "completion_tokens": 36,
+  "latency_s": 0.969,
+  "created_at": "2026-09-12T13:51:14.809733+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: after update iOS 11 lot of issues automatically turn on wifi,mobile connection,Bluetooth continues. Please fix the issues\nBrand: We want to hear more about this. Where on your iPhone are you turning off Wi-Fi, Cellular, and Bluetooth?\n\n[Example 2]\nCustomer: #iOS11.0.2 is draining my battery so fast, I was running 11.1 beta and battery life was excellent but has a lot of issues 😰\nBrand: We're here for you. Did you remove the beta profile from your Settings and reinstall via iTunes? Thanks.\n\n[Example 3]\nCustomer: any indication when the extensive issues with iOS 11.0.1 will be fully resolved?\nBrand: What issues are you having? Let's try backing up & updating to iOS 11.0.2 to see if that helps. DM us with questions here:\n\n[Example 4]\nCustomer: iOS 11 has destroyed my battery life. Will there be any fix soon?\nBrand: Battery life is important, and we’d like to help. As a starting point, which device model and iOS 11 version are you using?\n\nWrite a reply to this new customer message:\n\"\"\"there are a lot of issues after the ios 11 update, when will they be solved? Most important the fast battery drop,Very enoying\"\"\"\n\nThe customer's issue has been classified as: battery_power\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite",
+  "params": {
+    "temperature": 0.0,
+    "max_tokens": 300
+  }
+}
