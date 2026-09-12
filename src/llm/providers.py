@@ -109,13 +109,33 @@ class GeminiProvider(Provider):
             cur = nxt
         return exc
 
+    # Transient failures that carry no HTTP status code. A dropped TCP
+    # connection has no `.code`, so a status-code-only classifier files it as
+    # fatal and kills the run - which is exactly what a WinError 10054 did
+    # partway through a 210-row prediction.
+    _TRANSIENT_TYPES = (
+        ConnectionError,        # covers ConnectionResetError/AbortedError
+        TimeoutError,
+        OSError,                # socket-level failures on Windows
+    )
+    _TRANSIENT_MARKERS = (
+        "connection reset", "forcibly closed", "connection aborted",
+        "timed out", "timeout", "ssl", "remote end closed",
+        "temporarily unavailable",
+    )
+
     def _classify(self, exc: BaseException) -> Exception:
         """Map a raw SDK exception to Retryable vs fatal, via the real cause."""
         root = self._unwrap(exc)
         code = getattr(root, "code", None) or getattr(root, "status_code", None)
         text = f"{type(root).__name__}: {root}"
+
         if code in (429, 500, 502, 503, 504) or "ServerError" in type(root).__name__:
             return RetryableError(f"gemini {code}: {text[:200]}")
+        if isinstance(root, self._TRANSIENT_TYPES) or any(
+            m in text.lower() for m in self._TRANSIENT_MARKERS
+        ):
+            return RetryableError(f"gemini transient: {text[:200]}")
         return ProviderError(f"gemini {code}: {text[:300]}")
 
     def complete(

@@ -402,3 +402,25 @@ def test_failover_does_not_mask_a_real_error(monkeypatch):
     )
     with pytest.raises(ProviderError, match="400"):
         c.complete("gemini_flash", "hi", max_tokens=50)
+
+
+def test_every_source_file_parses():
+    """Guards against a recurring self-inflicted failure.
+
+    Patching these files through shell heredocs repeatedly turned an escaped
+    newline inside an f-string into a literal newline, producing a SyntaxError.
+    Because the pipeline is launched in the background and writes to a log, a
+    broken file looked exactly like a failing run: the script never started and
+    the previous log was still on disk, so a stale traceback got read as a
+    fresh failure. Twice.
+    """
+    import ast
+
+    broken = []
+    for d in ("src", "tests"):
+        for f in (ROOT / d).rglob("*.py"):
+            try:
+                ast.parse(f.read_text(encoding="utf-8"))
+            except SyntaxError as e:
+                broken.append(f"{f}:{e.lineno}: {e.msg}")
+    assert not broken, "syntax errors: " + "; ".join(broken)

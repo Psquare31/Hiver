@@ -55,10 +55,40 @@ def run_agent(
     router = Router()
 
     rows = []
+    failures = 0
     for r in tqdm(list(golden.itertuples()), desc=system_name):
-        c = clf.classify(r.customer_text)
-        d = drafter.draft(r.customer_text, c.intent, before=r.customer_at)
-        decision = router.route(r.customer_text, c.intent, c.confidence)
+        # One unrecoverable row must not discard the other 209. The failure is
+        # RECORDED rather than skipped: a dropped row would silently shrink the
+        # denominator and flatter every rate in the results.
+        try:
+            c = clf.classify(r.customer_text)
+            d = drafter.draft(r.customer_text, c.intent, before=r.customer_at)
+            decision = router.route(r.customer_text, c.intent, c.confidence)
+        except Exception as e:  # noqa: BLE001 - deliberately broad
+            failures += 1
+            print(f"[{system_name}] {r.golden_id} failed: "
+                  f"{type(e).__name__}: {str(e)[:140]}", flush=True)
+            rows.append(
+                {
+                    "system": system_name,
+                    "golden_id": r.golden_id,
+                    "intent": "other",
+                    "confidence": 0.0,
+                    # A row the system could not answer is an escalation in
+                    # practice - a human has to pick it up.
+                    "route": "escalate",
+                    "route_reason": f"pipeline failure: {type(e).__name__}",
+                    "route_rule": "pipeline_error",
+                    "reply": "",
+                    "exemplar_ids": "",
+                    "grounded": False,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "classifier_model": "",
+                    "drafter_model": "",
+                }
+            )
+            continue
         rows.append(
             {
                 "system": system_name,
@@ -77,6 +107,9 @@ def run_agent(
                 "drafter_model": d.served_by,
             }
         )
+    if failures:
+        print(f"[{system_name}] {failures}/{len(golden)} rows failed and were "
+              "recorded as escalations")
     return rows
 
 
