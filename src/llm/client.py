@@ -210,9 +210,24 @@ class LLMClient:
                     key, prompt, temperature=temperature, max_tokens=max_tokens
                 )
             except (RuntimeError, ProviderError) as e:
-                # Only quota/availability failures are worth failing over; a
-                # bad prompt would fail identically on every model.
-                if "429" not in str(e) and "RESOURCE_EXHAUSTED" not in str(e):
+                # Fail over on anything that is about THIS MODEL's availability
+                # rather than the request itself:
+                #   429 / RESOURCE_EXHAUSTED - daily quota gone
+                #   503 / UNAVAILABLE        - model overloaded right now
+                #   truncated / still truncated - this model spends too much of
+                #       the budget on thinking for this prompt; another will not
+                # A bad prompt or a bad key fails identically everywhere, so
+                # those propagate instead of burning the whole chain.
+                msg = str(e)
+                failover_worthy = any(
+                    s in msg
+                    for s in (
+                        "429", "RESOURCE_EXHAUSTED",
+                        "503", "UNAVAILABLE", "high demand",
+                        "truncated",
+                    )
+                )
+                if not failover_worthy:
                     raise
                 last_exc = e
                 if i + 1 < len(chain):

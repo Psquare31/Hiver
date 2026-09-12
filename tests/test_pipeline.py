@@ -319,3 +319,86 @@ def test_other_class_stays_under_coverage_threshold():
     is missing a class rather than the classifier being wrong."""
     golden = pd.read_parquet(ROOT / "golden" / "golden_labelled_AppleSupport.parquet")
     assert (golden["intent"] == "other").mean() < 0.15
+
+
+# --------------------------------------------------------------------------
+# Failover - load-bearing now that free-tier quota is unpredictable
+# --------------------------------------------------------------------------
+
+def _client_with_stub(monkeypatch, behaviour):
+    """LLMClient whose providers are replaced by a scripted stub.
+
+    `behaviour` maps model_id -> either an Exception to raise or a text to
+    return, so a test can make one model fail and assert the chain moves on.
+    """
+    import tempfile
+    from llm import client as client_mod
+    from llm.cache import LLMResponse
+
+    class StubProvider:
+        name = "stub"
+
+        @staticmethod
+        def estimate_tokens(text):
+            return max(1, len(text) // 4)
+
+        def complete(self, model, prompt, temperature, max_tokens):
+            outcome = behaviour[model]
+            if isinstance(outcome, Exception):
+                raise outcome
+            return LLMResponse(text=outcome, model=model, provider="stub")
+
+    c = client_mod.LLMClient(offline=False, cache_dir=Path(tempfile.mkdtemp()))
+    stub = StubProvider()
+    monkeypatch.setattr(c, "_provider", lambda name: stub)
+    # No real waiting in tests.
+    monkeypatch.setattr(c, "retry_max", 1)
+    for lim in c._limiters.values():
+        monkeypatch.setattr(lim, "acquire", lambda **kw: None)
+        monkeypatch.setattr(lim, "reconcile", lambda *a, **k: None)
+    return c
+
+
+def test_failover_moves_on_after_quota_exhaustion(monkeypatch):
+    from llm.providers import RetryableError
+
+    c = _client_with_stub(monkeypatch, {
+        "gemini-3.7-flash": RetryableError("gemini 429: RESOURCE_EXHAUSTED"),
+        "gemini-3.6-flash": '{"ok": true}',
+    })
+    monkeypatch.setattr(
+        c, "_limiter_for", lambda spec: list(c._limiters.values())[0]
+    )
+    resp = c.complete("gemini_flash", "hi", max_tokens=50)
+    assert resp.model == "gemini-3.6-flash"
+
+
+def test_failover_also_moves_on_503(monkeypatch):
+    """A 503 is about this model's availability, not the request. An earlier
+    version only failed over on 429 and a transient overload killed a full run."""
+    from llm.providers import RetryableError
+
+    c = _client_with_stub(monkeypatch, {
+        "gemini-3.7-flash": RetryableError("gemini 503: UNAVAILABLE high demand"),
+        "gemini-3.6-flash": '{"ok": true}',
+    })
+    monkeypatch.setattr(
+        c, "_limiter_for", lambda spec: list(c._limiters.values())[0]
+    )
+    assert c.complete("gemini_flash", "hi", max_tokens=50).model == "gemini-3.6-flash"
+
+
+def test_failover_does_not_mask_a_real_error(monkeypatch):
+    """A bad request fails identically on every model, so it must propagate
+    rather than burn the whole chain."""
+    from llm.providers import ProviderError
+
+    c = _client_with_stub(monkeypatch, {
+        "gemini-3.7-flash": ProviderError("gemini 400: INVALID_ARGUMENT"),
+        "gemini-3.6-flash": '{"ok": true}',
+    })
+    monkeypatch.setattr(
+        c, "_limiter_for", lambda spec: list(c._limiters.values())[0]
+    )
+    with pytest.raises(ProviderError, match="400"):
+        c.complete("gemini_flash", "hi", max_tokens=50)

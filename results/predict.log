@@ -1,10 +1,2 @@
 [predict] trivial: 210 rows
 [predict] always_dm: 210 rows
-[predict] simple: 210 rows
-agent:   0%|          | 0/210 [00:00<?, ?it/s]agent:   0%|          | 1/210 [00:00<00:27,  7.59it/s]agent:   1%|          | 2/210 [00:00<00:48,  4.27it/s]agent:   1%|▏         | 3/210 [00:00<00:40,  5.17it/s]Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-agent:   2%|▏         | 4/210 [00:02<03:09,  1.09it/s]Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-agent:   2%|▏         | 5/210 [00:04<04:21,  1.28s/it]Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-agent:   3%|▎         | 6/210 [00:07<05:49,  1.71s/it]Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-agent:   3%|▎         | 7/210 [00:09<06:49,  2.02s/it]Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-agent:   4%|▍         | 8/210 [00:10<05:56,  1.77s/it]Warning: there are non-text parts in the response: ['thought_signature'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-agent:   4%|▍         | 9/210 [00:13<06:48,  2.03s/it]
