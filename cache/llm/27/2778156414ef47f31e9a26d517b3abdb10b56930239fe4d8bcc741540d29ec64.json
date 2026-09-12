@@ -1,0 +1,11 @@
+{
+  "text": "```json\n{\"reply\": \"We'd like to help. Try out the steps in this article:\"}\n```",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "prompt_tokens": 473,
+  "completion_tokens": 25,
+  "latency_s": 1.225,
+  "created_at": "2026-09-12T12:16:28.932985+00:00",
+  "prompt": "You are a customer support agent for Apple replying publicly on Twitter.\n\nBelow are real past exchanges where this brand handled a similar issue. They are your ONLY source for product-specific claims.\n\n[Example 1]\nCustomer: okay this iphone x needs to get its shit together. i️ can’t see the letter “I️” FIX IT\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 2]\nCustomer: Okay wtf is this crap we see every time we type I️ 😒😒😒\nBrand: We'd like to help. Try out the steps in this article:\n\n[Example 3]\nCustomer: 🤦🏾‍♂️ this I️ can’t type i without that stuff coming up needs to be fixed.. it’s actually annoying i can’t just say I lol 😂\nBrand: Here’s what you can do to work around the issue until it’s fixed in a future software update:\n\n[Example 4]\nCustomer: I’m about to cry because every time I type “I” it auto corrects it to “I️ “ and it won’t stop. #help\nBrand: We're here for you. DM us and tell us which device you're using and the version of OS it's running.\n\nWrite a reply to this new customer message:\n\"\"\"Okay. needs to get this “I️” thing fixed because I’m triggered every time I️ see it lol\"\"\"\n\nThe customer's issue has been classified as: app_software\n\nRequirements:\n- Under 280 characters. Twitter is the medium.\n- Give ONE concrete next step, drawn from how the past exchanges above handled this. Do not stack multiple instructions.\n- Only state product facts that appear in the examples above. If you do not know something, ask for it rather than guessing.\n- Never invent policy, timelines, refunds, or compensation.\n- Never ask for a password, payment details, or full account numbers in public.\n- Match the brand's voice in the examples: warm, brief, no corporate padding.\n\nReply with JSON only:\n{\"reply\": \"<your reply text>\"}",
+  "model_key": "gemini_flash_lite"
+}

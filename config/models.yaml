@@ -110,13 +110,18 @@ fallbacks:
 roles:
   classifier: gemini_flash_lite
   drafter: gemini_flash_36
-  # PRIMARY JUDGE IS A DIFFERENT FAMILY FROM THE DRAFTER, ON PURPOSE.
-  # Originally Gemini judged Gemini's drafts, with a Groq cross-check. Gemini
-  # free-tier quota forced the judge onto Groq - and that is the better design
-  # anyway: the headline judge now has no self-preference stake in the drafts
-  # it scores, and Gemini becomes the cross-family check instead.
-  judge_primary: gpt_oss_120b
-  judge_cross_family: gemini_flash_36
+  # JUDGE ASSIGNMENT IS DECIDED BY MEASURED CAPACITY, NOT PREFERENCE.
+  # A full judge run is 210 rows x 4 systems = 840 calls at ~1,111 tokens each
+  # (~933K tokens). Groq's free tier allows 190K tokens/day/model = ~171 calls,
+  # so it physically cannot be the primary judge. Gemini is request-limited
+  # rather than token-limited (1,400/day), so it can.
+  #
+  # That puts Gemini in the uncomfortable position of judging drafts written by
+  # Gemini. Rather than assert the bias away, the Groq cross-family judge scores
+  # a capped subset and the delta between them is reported as a result - which
+  # is the only honest way to handle a constraint you cannot design around.
+  judge_primary: gemini_flash_36
+  judge_cross_family: gpt_oss_120b
   judge_ceiling: gemini_pro
 
 # Every model that takes part in the classification arena.

@@ -51,6 +51,10 @@ class LLMResponse:
     # Costs roughly 4KB per entry; worth it.
     prompt: str = ""
     model_key: str = ""
+    # The sampling params this response was produced under. Stored so
+    # `make verify-cache` re-issues the SAME call rather than a similar one -
+    # a verification that changes temperature or max_tokens proves nothing.
+    params: dict = field(default_factory=dict)
     # Set when the response came from disk rather than the network. Never
     # serialised into the cache file itself - it is a property of the read.
     cached: bool = False

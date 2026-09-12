@@ -37,6 +37,7 @@ BRAND = os.environ.get("BRAND", "AppleSupport")
 GOLDEN = ROOT / "golden" / f"golden_labelled_{BRAND}.parquet"
 RESULTS = ROOT / "results"
 PRED_PATH = RESULTS / "predictions.parquet"
+AGREEMENT_IDS = ROOT / "golden" / "agreement_ids.txt"
 JUDGE_PATH = RESULTS / "judgements.parquet"
 
 
@@ -146,12 +147,31 @@ def stage_judge(args) -> None:
     for judge_name, model_key in judges.items():
         judge = ReplyJudge(client, model_key=model_key)
         subset = preds
-        # Cross-family and ceiling judges are expensive on a token budget, so
-        # they score only the rows the human also scored - which is all the
-        # agreement study needs.
-        if judge_name != "primary" and args.agreement_ids:
-            keep = set(Path(args.agreement_ids).read_text().split())
-            subset = preds[preds["golden_id"].isin(keep)]
+        if judge_name != "primary":
+            # Secondary judges run on a capped, deterministic subset. Groq's
+            # free tier allows ~171 judge calls/day, so scoring all 840 is not
+            # possible - and is not needed: the self-preference delta and the
+            # human-agreement study only require overlap with the primary
+            # judge, not full coverage.
+            ids_file = Path(args.agreement_ids) if args.agreement_ids else AGREEMENT_IDS
+            if ids_file.exists():
+                # Cover exactly the rows the human is scoring, so judge-vs-human
+                # agreement has overlap to compute on.
+                keep = set(ids_file.read_text(encoding="utf-8").split())
+                subset = preds[preds["golden_id"].isin(keep)]
+            elif args.secondary_sample and len(preds) > args.secondary_sample:
+                # Stratified by system so every system gets equal coverage -
+                # a plain random draw leaves too few rows per system to compare.
+                per = max(1, args.secondary_sample // preds["system"].nunique())
+                subset = (
+                    preds.groupby("system", group_keys=False)
+                    .apply(lambda g: g.sample(n=min(per, len(g)), random_state=20260910))
+                    .sort_values(["system", "golden_id"])
+                )
+            print(
+                f"[judge] {judge_name}: scoring {len(subset)} of {len(preds)} "
+                "(capped by free-tier token budget)"
+            )
 
         for r in tqdm(list(subset.itertuples()), desc=f"judge:{judge_name}"):
             g = golden.loc[r.golden_id]
@@ -234,6 +254,8 @@ def main() -> None:
     ap.add_argument("--primary-only", action="store_true")
     ap.add_argument("--with-ceiling", action="store_true")
     ap.add_argument("--ignore-roster", action="store_true")
+    ap.add_argument("--secondary-sample", type=int, default=150,
+                    help="cap on rows scored by non-primary judges")
     ap.add_argument("--agreement-ids", default=None,
                     help="file of golden_ids the secondary judges should score")
     args = ap.parse_args()

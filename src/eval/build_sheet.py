@@ -46,6 +46,7 @@ PRED = ROOT / "results" / "predictions.parquet"
 TAXONOMY = ROOT / "config" / "taxonomy.yaml"
 RUBRIC = ROOT / "config" / "rubric.yaml"
 OUT = ROOT / "golden" / "labelling_sheet.html"
+AGREEMENT_IDS = ROOT / "golden" / "agreement_ids.txt"
 
 N_INTENT = 40
 N_REPLY = 50
@@ -442,7 +443,15 @@ def main() -> None:
         print(f"[sheet]   of which silent duplicates: {dupes}")
         sysc = pd.Series([x["system"] for x in data["part_b"]]).value_counts()
         print(f"[sheet]   systems covered: {sysc.to_dict()}")
+    # Write the golden_ids the human will actually score. The cross-family
+    # judge must cover THESE rows - if it scores a different random subset,
+    # judge-vs-human agreement has no overlap to compute on. An earlier version
+    # used a different seed for each and would have silently produced an empty
+    # comparison.
+    ids = sorted({x["golden_id"] for x in data["part_b"]})
+    AGREEMENT_IDS.write_text(chr(10).join(ids), encoding="utf-8")
     print(f"[sheet] wrote {OUT}")
+    print(f"[sheet] wrote {AGREEMENT_IDS} ({len(ids)} ids for the judge to cover)")
     print(f"[sheet] open it in a browser; Export CSV -> golden/human_labels.csv")
 
 

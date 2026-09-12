@@ -273,6 +273,7 @@ class LLMClient:
             # call later; a cache nobody can audit cannot back a headline number.
             resp.prompt = prompt
             resp.model_key = model_key
+            resp.params = params
             self.cache.put(key, resp)
             return resp
 

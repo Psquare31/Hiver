@@ -27,7 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 
-from llm.cache import CACHE_DIR, LLMResponse  # noqa: E402
+from llm.cache import CACHE_DIR  # noqa: E402
 from llm.client import LLMClient, _extract_json  # noqa: E402
 
 
@@ -68,10 +68,9 @@ def main() -> None:
 
     print(f"[verify] cache holds {len(entries)} entries")
 
-    # The cache stores the response but not the prompt (prompts are large and
-    # the key is their hash). Re-deriving requires the prompt, so verification
-    # replays the pipeline's own prompts instead - see README. Here we check
-    # internal consistency plus a live re-call for entries we can rebuild.
+    # Every entry stores the prompt AND the sampling params it was produced
+    # under, so each sampled call is re-issued exactly as it was originally
+    # made. Replaying with different params would prove nothing.
     rng = random.Random(args.seed)
     sample = rng.sample(entries, min(args.sample, len(entries)))
 
@@ -88,12 +87,21 @@ def main() -> None:
             unverifiable += 1
             continue
 
+        params = data.get("params") or {}
         fresh = client._provider(data["provider"]).complete(
-            data["model"], prompt, 0.0, 512
+            data["model"],
+            prompt,
+            float(params.get("temperature", 0.0)),
+            int(params.get("max_tokens", 512)),
         )
+        cached_decision = decision_of(data["text"])
+        fresh_decision = decision_of(fresh.text)
         if fresh.text.strip() == data["text"].strip():
             identical += 1
-        elif decision_of(fresh.text) == decision_of(data["text"]) is not None:
+        elif cached_decision is not None and fresh_decision == cached_decision:
+            # Same operative decision, different wording. Expected: providers
+            # move checkpoints behind a stable model id, and free reply text is
+            # never byte-stable even at temperature 0.
             equivalent += 1
         else:
             divergent += 1
